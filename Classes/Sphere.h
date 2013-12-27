@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+typedef GroupSphere std::vector<Sphere*>*;
+
 enum SphereType {SPHERE_RED, 
 		 SPHERE_GREEN,
 		 SPHERE_BLUE,

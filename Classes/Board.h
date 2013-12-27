@@ -7,7 +7,7 @@
 #include "Sphere.h"
 #include <vector>
 
-typedef GroupSphere std::vector<Sphere*>*;
+
 
 /**
  *Tablero donde se desarrolla el video juego,
