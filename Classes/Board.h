@@ -22,6 +22,10 @@ class Board : public cocos2d::Node
    */
   void update(float dt);
 
+  /**
+   *Saca esferas del tablero,
+   *eso es cuando el jugador toma la esfera
+   */
   Sphere* dropSphere(PointGrid pos);
 
   /**
@@ -31,6 +35,10 @@ class Board : public cocos2d::Node
   void attachMatch(std::function<void(std::vector<Sphere*>));
 
  private:
+  void _populate_board();
+  void _populate_next_row();
+  void _roll();
+  
   Grid _grid;
   std::vector< std::function<void(std::vector<Sphere*>)> > onAttachMatch;
 };
