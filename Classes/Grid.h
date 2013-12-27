@@ -24,6 +24,17 @@ class Grid
    *y retorna el destino en caso de existir antes de poner
    */
   void* move(PointGrid, PointGrid);
+
+  /**
+   *Pone un elemento en una de la columna indicad.
+   *@return bool s'i pudo ponerlo en cola
+   */
+  bool push(int, void*);
+
+  /**
+   *Toma el ultimo elemento de la columna indicada.
+   */
+  void* pop(int);
  private:
   int _w;
   int _h;

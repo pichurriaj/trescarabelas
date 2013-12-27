@@ -6,6 +6,9 @@
 #include "Grid.h"
 #include "Sphere.h"
 #include <vector>
+
+typedef GroupSphere std::vector<Sphere*>*;
+
 /**
  *Tablero donde se desarrolla el video juego,
  *ademas de proveer una interfaz para interactuar con este,
@@ -25,8 +28,14 @@ class Board : public cocos2d::Node
   /**
    *Saca esferas del tablero,
    *eso es cuando el jugador toma la esfera
+   *Siempre y cuando se pueda.
    */
   Sphere* dropSphere(PointGrid pos);
+
+  /**
+   *Pone esfera en el tablero
+   */
+  void takeSphere(PointGrid pos, Sphere*);
 
   /**
    *Llamada cuando mas de tres esferas han colisionado
@@ -40,6 +49,12 @@ class Board : public cocos2d::Node
   void _roll();
   
   Grid _grid;
+  /**
+   *Se van agrupando las esferas del mismo tipo
+   *que estan en posicion de emparejar <match>
+   *ej: cuando hay dos juntas.
+   */
+  std::vector<GroupSphere> groups;
   std::vector< std::function<void(std::vector<Sphere*>)> > onAttachMatch;
 };
 
