@@ -1,14 +1,9 @@
-#ifndef ARCADESCENE_H
-#define ARCADESCENE_H
+#ifndef GAMETESTSCENE_H
+#define GAMETESTSCENE_H
 
 #include "cocos2d.h"
 
-#include "Indian.h"
-#include "Board.h"
-
-#include "cocos2d.h"
-
-class GameArcade : public cocos2d::Scene
+class GameTestArcade : public cocos2d::Scene
 {
  public:
   static cocos2d::Scene* scene();
@@ -21,5 +16,6 @@ class GameArcade : public cocos2d::Scene
   Indian* player;
   Board* board;
 };
+
 
 #endif
