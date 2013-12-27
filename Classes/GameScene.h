@@ -14,6 +14,9 @@ class Game : public cocos2d::Scene
   static cocos2d::Scene* scene();
   virtual bool init();
   CREATE_FUNC(Game);
+
+ private:
+  
 };
 
 #endif
