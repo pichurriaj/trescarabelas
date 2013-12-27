@@ -5,7 +5,7 @@ project (${APP_NAME})
 
 include(../../build/BuildHelpers.CMakeLists.txt)
 
-option(USE_CHIPMUNK "Use chipmunk for physics library" ON)
+option(USE_CHIPMUNK "Use chipmunk for physics library" OFF)
 option(USE_BOX2D "Use box2d for physics library" OFF)
 option(DEBUG_MODE "Debug or release?" ON)
 
@@ -23,7 +23,7 @@ set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11")
 
 if(USE_CHIPMUNK)
   message("Using chipmunk ...")
-  add_definitions(-DLINUX -DCC_ENABLE_CHIPMUNK_INTEGRATION=1)
+  add_definitions(-DLINUX -DCC_ENABLE_CHIPMUNK_INTEGRATION=0)
 elseif(USE_BOX2D)
   message("Using box2d ...")
   add_definitions(-DLINUX -DCC_ENABLE_BOX2D_INTEGRATION=1)

@@ -24,6 +24,7 @@ PRESENTACION DE LA HISTORIA
 
 MENU
 ===
+  * Reto
   * Continuar
   * Nuevo Juego
   * Creditos
