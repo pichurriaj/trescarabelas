@@ -47,14 +47,14 @@ class Board : public cocos2d::Node
   void _populate_board();
   void _populate_next_row();
   void _roll();
-  
-  Grid _grid;
   /**
-   *Se van agrupando las esferas del mismo tipo
-   *que estan en posicion de emparejar <match>
-   *ej: cuando hay dos juntas.
+   *Retorna grupo de esfera que compaginaron..
+   *@param PointGrid indica el punto de partida de la busquedad
+   *@return GroupSphere* grupo de esferas
    */
-  std::vector<GroupSphere> groups;
+  GroupSphere* _match(PointGrid start);
+
+  Grid _grid;
   std::vector< std::function<void(std::vector<Sphere*>)> > onAttachMatch;
 };
 
