@@ -52,10 +52,10 @@ class Board : public cocos2d::Node
    *@param PointGrid indica el punto de partida de la busquedad
    *@return GroupSphere* grupo de esferas
    */
-  GroupSphere* _match(PointGrid start);
+  GroupSphere _match(PointGrid start);
 
   Grid _grid;
-  std::vector< std::function<void(std::vector<Sphere*>)> > onAttachMatch;
+  std::vector< std::function<void(GroupSphere)> > onAttachMatch;
 };
 
 #endif
