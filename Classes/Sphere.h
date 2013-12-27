@@ -15,7 +15,7 @@ class Sphere : public cocos2d::Node
 {
  public:
   static Sphere* create(SphereType);
-
+  virtual bool init();
   /**
    *Tipo de esfera
    */
