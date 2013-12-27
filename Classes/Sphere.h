@@ -11,7 +11,7 @@ enum SphereType {SPHERE_RED,
 		 SPHERE_CHROMATIC, 
 		 SPHERE_COUNT};
 
-class Sphere : public cocos2d::Sprite
+class Sphere : public cocos2d::Node
 {
  public:
   static Sphere* create(SphereType);
