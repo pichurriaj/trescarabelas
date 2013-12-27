@@ -11,6 +11,10 @@ enum SphereType {SPHERE_RED,
 		 SPHERE_CHROMATIC, 
 		 SPHERE_COUNT};
 
+/**
+ *Representa un cristal del video juego,
+ *este es una imagen
+ */
 class Sphere : public cocos2d::Node
 {
  public:
