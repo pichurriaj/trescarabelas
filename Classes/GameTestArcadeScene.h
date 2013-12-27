@@ -8,7 +8,7 @@ class GameTestArcade : public cocos2d::Scene
  public:
   static cocos2d::Scene* scene();
   virtual bool init();
-  CREATE_FUNC(Game);
+  CREATE_FUNC(GameTestArcade);
 
  private:
   int _score;

@@ -13,7 +13,7 @@ class GameArcade : public cocos2d::Scene
  public:
   static cocos2d::Scene* scene();
   virtual bool init();
-  CREATE_FUNC(Game);
+  CREATE_FUNC(GameArcade);
 
  private:
   int _score;
