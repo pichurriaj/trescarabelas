@@ -1,6 +1,9 @@
 #include "Sphere.h"
 USING_NS_CC;
 
+Sphere::Sphere() : _pos(PointGrid(0,0)){
+}
+
 Sphere* Sphere::create(SphereType type) {
   Sphere* sphere = new Sphere();
   if(sphere) {

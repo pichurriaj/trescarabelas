@@ -20,6 +20,7 @@ enum SphereType {SPHERE_RED,
 class Sphere : public cocos2d::Object
 {
  public:
+  Sphere();
   static Sphere* create(SphereType);
   virtual ~Sphere();
 
