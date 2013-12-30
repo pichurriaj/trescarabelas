@@ -4,6 +4,7 @@
 #include "PointGrid.h"
 #include <vector>
 
+template <class T>
 class Grid
 {
  public:
@@ -11,33 +12,33 @@ class Grid
   /**
    *Saca un elemento de la grilla
    */
-  void* drop(PointGrid);
+  T* drop(PointGrid);
 
   /**
    *Pone un elemento el la grilla
    *en caso de existir algo lo retorna
    */
-  void* take(PointGrid, void*);
+  T* take(PointGrid, T*);
 
   /**
    *Mueve un elemento de la grilla
    *y retorna el destino en caso de existir antes de poner
    */
-  void* move(PointGrid, PointGrid);
+  T* move(PointGrid, PointGrid);
 
   /**
    *Pone un elemento en una de la columna indicad.
    *@return bool s'i pudo ponerlo en cola
    */
-  bool push(int, void*);
+  bool push(int, T*);
 
   /**
    *Toma el ultimo elemento de la columna indicada.
    */
-  void* pop(int);
+  T* pop(int);
  private:
   int _w;
   int _h;
-  std::vector< std::vector<void*> > _grid;
+  std::map<PointGrid, T*> _grid;
 };
 #endif

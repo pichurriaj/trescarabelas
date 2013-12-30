@@ -43,6 +43,9 @@ set(GAME_SRC
   proj.linux/main.cpp
   Classes/AppDelegate.cpp
   Classes/HelloWorldScene.cpp
+  Classes/Grid.cpp
+  Classes/Sphere.cpp
+  Clasess/Board.cpp
 )
 
 set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/../..)
