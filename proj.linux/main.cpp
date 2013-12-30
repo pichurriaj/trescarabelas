@@ -7,10 +7,20 @@
 #include <unistd.h>
 #include <string>
 
+#include <cppunit/ui/text/TestRunner.h>
+#include "../Classes/Tests/Tests.h"
 USING_NS_CC;
 
 int main(int argc, char **argv)
 {
+  if(argc ==  2) {
+    if(!strcmp(argv[1],"-t")){
+      CppUnit::TextUi::TestRunner runner;
+      runner.addTest(Tests::suite());
+      runner.run();
+      return 0;
+    }
+  }
     // create the application instance
     AppDelegate app;
     EGLView eglView;
