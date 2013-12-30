@@ -54,7 +54,7 @@ class Board : public cocos2d::Node
    */
   GroupSphere _match(PointGrid start);
 
-  Grid _grid;
+  Grid<Sphere> _grid;
   std::vector< std::function<void(GroupSphere)> > onAttachMatch;
 };
 

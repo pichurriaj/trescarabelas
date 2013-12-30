@@ -9,6 +9,7 @@ class Grid
 {
  public:
   Grid(int w, int h);
+
   /**
    *Saca un elemento de la grilla
    */

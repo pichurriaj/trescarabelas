@@ -161,6 +161,30 @@ Classes/AppDelegate.cpp.s:
 	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/AppDelegate.cpp.s
 .PHONY : Classes/AppDelegate.cpp.s
 
+Classes/Grid.o: Classes/Grid.cpp.o
+.PHONY : Classes/Grid.o
+
+# target to build an object file
+Classes/Grid.cpp.o:
+	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Grid.cpp.o
+.PHONY : Classes/Grid.cpp.o
+
+Classes/Grid.i: Classes/Grid.cpp.i
+.PHONY : Classes/Grid.i
+
+# target to preprocess a source file
+Classes/Grid.cpp.i:
+	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Grid.cpp.i
+.PHONY : Classes/Grid.cpp.i
+
+Classes/Grid.s: Classes/Grid.cpp.s
+.PHONY : Classes/Grid.s
+
+# target to generate assembly for a file
+Classes/Grid.cpp.s:
+	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Grid.cpp.s
+.PHONY : Classes/Grid.cpp.s
+
 Classes/HelloWorldScene.o: Classes/HelloWorldScene.cpp.o
 .PHONY : Classes/HelloWorldScene.o
 
@@ -184,6 +208,30 @@ Classes/HelloWorldScene.s: Classes/HelloWorldScene.cpp.s
 Classes/HelloWorldScene.cpp.s:
 	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/HelloWorldScene.cpp.s
 .PHONY : Classes/HelloWorldScene.cpp.s
+
+Classes/Sphere.o: Classes/Sphere.cpp.o
+.PHONY : Classes/Sphere.o
+
+# target to build an object file
+Classes/Sphere.cpp.o:
+	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Sphere.cpp.o
+.PHONY : Classes/Sphere.cpp.o
+
+Classes/Sphere.i: Classes/Sphere.cpp.i
+.PHONY : Classes/Sphere.i
+
+# target to preprocess a source file
+Classes/Sphere.cpp.i:
+	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Sphere.cpp.i
+.PHONY : Classes/Sphere.cpp.i
+
+Classes/Sphere.s: Classes/Sphere.cpp.s
+.PHONY : Classes/Sphere.s
+
+# target to generate assembly for a file
+Classes/Sphere.cpp.s:
+	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Sphere.cpp.s
+.PHONY : Classes/Sphere.cpp.s
 
 proj.linux/main.o: proj.linux/main.cpp.o
 .PHONY : proj.linux/main.o
@@ -223,9 +271,15 @@ help:
 	@echo "... Classes/AppDelegate.o"
 	@echo "... Classes/AppDelegate.i"
 	@echo "... Classes/AppDelegate.s"
+	@echo "... Classes/Grid.o"
+	@echo "... Classes/Grid.i"
+	@echo "... Classes/Grid.s"
 	@echo "... Classes/HelloWorldScene.o"
 	@echo "... Classes/HelloWorldScene.i"
 	@echo "... Classes/HelloWorldScene.s"
+	@echo "... Classes/Sphere.o"
+	@echo "... Classes/Sphere.i"
+	@echo "... Classes/Sphere.s"
 	@echo "... proj.linux/main.o"
 	@echo "... proj.linux/main.i"
 	@echo "... proj.linux/main.s"

@@ -45,7 +45,7 @@ set(GAME_SRC
   Classes/HelloWorldScene.cpp
   Classes/Grid.cpp
   Classes/Sphere.cpp
-  Clasess/Board.cpp
+
 )
 
 set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/../..)

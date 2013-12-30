@@ -11,3 +11,18 @@ Sphere* Sphere::create(SphereType type) {
   CC_SAFE_DELETE(sphere);
   return NULL;
 }
+
+Sphere::~Sphere() {
+}
+
+PointGrid Sphere::getPosition() {
+  return _pos;
+}
+
+void Sphere::setPosition(PointGrid pos) {
+  _pos = pos;
+}
+
+Node* Sphere::getView() {
+  return _node;
+}

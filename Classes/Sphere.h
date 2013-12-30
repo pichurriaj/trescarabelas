@@ -2,8 +2,8 @@
 #define SPHERE_H
 
 #include "cocos2d.h"
+#include "PointGrid.h"
 
-typedef GroupSphere std::vector<Sphere*>*;
 
 enum SphereType {SPHERE_RED, 
 		 SPHERE_GREEN,
@@ -21,14 +21,25 @@ class Sphere : public cocos2d::Object
 {
  public:
   static Sphere* create(SphereType);
+  virtual ~Sphere();
+
   /**
    *Tipo de esfera
    */
   CC_SYNTHESIZE(SphereType, _type, Type);
-  /**
-   *Vista en cocos2d
-   */
-  CC_SYNTHESIZE(cocos2d::Node, _node, View);
-};
 
+  void setPosition(PointGrid);
+  PointGrid getPosition();
+
+  /**
+   *nodo cocos2d representa vista
+   */
+  cocos2d::Node* getView();
+
+ private:					
+  cocos2d::Node *_node;
+  PointGrid _pos;
+  
+};
+typedef std::vector<Sphere*>* GroupSphere;
 #endif
