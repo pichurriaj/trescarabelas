@@ -17,15 +17,18 @@ enum SphereType {SPHERE_RED,
  *Representa un cristal del video juego,
  *este es una imagen
  */
-class Sphere : public cocos2d::Node
+class Sphere : public cocos2d::Object
 {
  public:
   static Sphere* create(SphereType);
-  virtual bool init();
   /**
    *Tipo de esfera
    */
   CC_SYNTHESIZE(SphereType, _type, Type);
+  /**
+   *Vista en cocos2d
+   */
+  CC_SYNTHESIZE(cocos2d::Node, _node, View);
 };
 
 #endif

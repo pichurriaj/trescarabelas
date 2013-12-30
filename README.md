@@ -12,6 +12,14 @@ con el dedo, el personaje se mueve automatica a cada lugar dando un salto
 para agarrar el cristal, y luego se lanza el cristal impulsando hacia arriba de la pantalla, el personaje nuevamente da un salto al lugar indicado y lanza
 el cristal, de hay se espera las posibles reacciones.
 
+CRISTALES
+====
+ * rojo
+ * verde
+ * azul
+ * amarillo
+ * violeta
+ * cromatico
 ESCENAS
 ====
 Las escenas del juego
