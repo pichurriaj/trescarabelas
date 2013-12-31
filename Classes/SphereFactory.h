@@ -7,6 +7,7 @@
 
 /**
  *Factory para creacion de esferas/cristales
+ *@deprecated esto sobra con el Sphere::create(type)
  */
 class SphereFactory
 {

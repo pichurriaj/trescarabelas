@@ -27,8 +27,8 @@ class Sphere : public cocos2d::Object
   /**
    *Tipo de esfera
    */
-  CC_SYNTHESIZE(SphereType, _type, Type);
-
+  void setType(SphereType);
+  SphereType getType();
   void setPosition(PointGrid);
   PointGrid getPosition();
 
@@ -40,7 +40,7 @@ class Sphere : public cocos2d::Object
  private:					
   cocos2d::Node *_node;
   PointGrid _pos;
-  
+  SphereType _type;
 };
 typedef std::vector<Sphere*>* GroupSphere;
 #endif
