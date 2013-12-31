@@ -14,11 +14,14 @@
  *ademas de proveer una interfaz para interactuar con este,
  *este lleva el movimiento de las esferas, sus colisiones.
  */
-class Board : public cocos2d::Node
+class Board
 {
  public:
-  virtual bool init();
-  CREATE_FUNC(Board);
+
+  /**
+   *La representacion en cocos2d.
+   */
+  cocos2d::Node getView();
 
   /**
    *Actualiza logica del tablero
