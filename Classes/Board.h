@@ -30,7 +30,7 @@ class Board : public cocos2d::Node
    *eso es cuando el jugador toma la esfera
    *Siempre y cuando se pueda.
    */
-  Sphere* dropSphere(PointGrid pos);
+  GroupSphere dropSphere(PointGrid pos);
 
   /**
    *Pone esfera en el tablero
