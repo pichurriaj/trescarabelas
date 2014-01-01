@@ -44,7 +44,7 @@ class Board
   /**
    *Pone esfera en el tablero
    */
-  void takeSphere(int col, GroupSphere);
+  void takeSphere(int col, GroupSphere&);
 
   /**
    *Llamada cuando mas de tres esferas han colisionado
@@ -63,6 +63,9 @@ class Board
  private:
   void _populate_board();
   void _populate_next_row();
+  /**
+   *Baja las esferas
+   */
   void _roll();
   /**
    *Retorna grupo de esfera que compaginaron..

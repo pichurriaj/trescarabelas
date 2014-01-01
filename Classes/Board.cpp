@@ -2,7 +2,7 @@
 USING_NS_CC;
 
 Board::Board(): _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIGHT/GRID_SIZE) {
-  _node = Sprite::create("tablero/fondo.png");
+  _node = Sprite::create("objetos/tablero_fondo.png");
 }
 
 void Board::update(float dt) {
