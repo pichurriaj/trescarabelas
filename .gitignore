@@ -4,5 +4,6 @@
 proj.android/bin
 bin/
 **.cmake
+.#**
 CMakeFiles/
 CMakeCache.txt

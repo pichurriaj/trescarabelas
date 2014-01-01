@@ -42,5 +42,5 @@ class Sphere : public cocos2d::Object
   PointGrid _pos;
   SphereType _type;
 };
-typedef std::vector<Sphere*>* GroupSphere;
+typedef std::vector<Sphere*> GroupSphere;
 #endif

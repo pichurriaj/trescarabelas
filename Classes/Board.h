@@ -44,7 +44,7 @@ class Board
   /**
    *Pone esfera en el tablero
    */
-  void takeSphere(PointGrid pos, GroupSphere*);
+  void takeSphere(int col, GroupSphere);
 
   /**
    *Llamada cuando mas de tres esferas han colisionado
@@ -57,7 +57,7 @@ class Board
    *Llamada cuando se toca el fin del tablero
    *. usado para logica de juego
    */
-  void attachTouchEnd(std::function<void(void)>);
+  void attachEndBoard(std::function<void(void)>);
 
 
  private:
@@ -72,9 +72,9 @@ class Board
   GroupSphere _match(PointGrid start);
 
   cocos2d::Node* _node;
-  Grid<Sphere> _grid;
+  Grid<Sphere*> _grid;
   std::vector< std::function<void(GroupSphere)> > onAttachMatch;
-  std::vector< std::function<void(void)> > onAttachTouchEnd;
+  std::vector< std::function<void(void)> > onAttachEndBoard;
 };
 
 #endif
