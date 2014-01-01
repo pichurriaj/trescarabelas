@@ -30,7 +30,7 @@ void Sphere::setType(SphereType type) {
   _node->setContentSize(Size(GRID_SIZE, GRID_SIZE));
   switch(type) {
   case SPHERE_RED:
-    _sp = Scrite::create("objetos/esfera_roja.png");
+    _sp = Sprite::create("objetos/esfera_roja.png");
     break;
   case SPHERE_GREEN:
     _sp = Sprite::create("objetos/esfera_verde.png");
@@ -47,7 +47,7 @@ void Sphere::setType(SphereType type) {
   case SPHERE_CHROMATIC:
     _sp = Sprite::create("objetos/esfera_gris.png");
     break;
-  default
+  default:
     /**
      *una bola de error
      */

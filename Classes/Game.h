@@ -9,5 +9,5 @@
  *Desplaza *node* a centro de *to_node*
  */
 #define NODE_CENTER_TO(node, to_node) \
-  node->setPosition(to_node->getPosition().x, to_node->getPosition().y)
+  node->setPosition(to_node->getPosition())
 #endif

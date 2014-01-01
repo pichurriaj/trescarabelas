@@ -45,6 +45,7 @@ set(GAME_SRC
   Classes/HelloWorldScene.cpp
   Classes/Grid.cpp
   Classes/Sphere.cpp
+  Classes/Board.cpp
 
 )
 

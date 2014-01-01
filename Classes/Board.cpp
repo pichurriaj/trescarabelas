@@ -1,4 +1,5 @@
 #include "Board.h"
+#include "Game.h"
 USING_NS_CC;
 
 Board::Board(): _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIGHT/GRID_SIZE) {
@@ -16,7 +17,7 @@ GroupSphere Board::dropSphere(PointGrid pos) {
   spheres.push_back(last_sphere);
   do{
     drop_sphere = _grid.pop(pos.x);
-    if(drop_sphere.getType() == last_sphere.getType()) {
+    if(drop_sphere->getType() == last_sphere->getType()) {
       spheres.push_back(drop_sphere);
     }else{
       _grid.push(pos.x, drop_sphere);
@@ -50,8 +51,9 @@ void Board::_populate_board() {
 void Board::_populate_next_row() {
 }
 
-void Board::roll() {
+void Board::_roll() {
 }
 
-void Board::_match(PointGrid start) {
+GroupSphere Board::_match(PointGrid start) {
+  return NULL;
 }

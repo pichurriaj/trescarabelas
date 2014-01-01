@@ -161,6 +161,30 @@ Classes/AppDelegate.cpp.s:
 	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/AppDelegate.cpp.s
 .PHONY : Classes/AppDelegate.cpp.s
 
+Classes/Board.o: Classes/Board.cpp.o
+.PHONY : Classes/Board.o
+
+# target to build an object file
+Classes/Board.cpp.o:
+	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Board.cpp.o
+.PHONY : Classes/Board.cpp.o
+
+Classes/Board.i: Classes/Board.cpp.i
+.PHONY : Classes/Board.i
+
+# target to preprocess a source file
+Classes/Board.cpp.i:
+	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Board.cpp.i
+.PHONY : Classes/Board.cpp.i
+
+Classes/Board.s: Classes/Board.cpp.s
+.PHONY : Classes/Board.s
+
+# target to generate assembly for a file
+Classes/Board.cpp.s:
+	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Board.cpp.s
+.PHONY : Classes/Board.cpp.s
+
 Classes/Grid.o: Classes/Grid.cpp.o
 .PHONY : Classes/Grid.o
 
@@ -271,6 +295,9 @@ help:
 	@echo "... Classes/AppDelegate.o"
 	@echo "... Classes/AppDelegate.i"
 	@echo "... Classes/AppDelegate.s"
+	@echo "... Classes/Board.o"
+	@echo "... Classes/Board.i"
+	@echo "... Classes/Board.s"
 	@echo "... Classes/Grid.o"
 	@echo "... Classes/Grid.i"
 	@echo "... Classes/Grid.s"
