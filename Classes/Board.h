@@ -7,7 +7,12 @@
 #include "Sphere.h"
 #include <vector>
 
-
+/**
+ *Estados del tablero, para animacion
+ *y actualizacion de logica
+ */
+enum BOARD_STATE {
+};
 
 /**
  *Tablero donde se desarrolla el video juego,
@@ -17,11 +22,12 @@
 class Board
 {
  public:
-
+  Board();
+  
   /**
    *La representacion en cocos2d.
    */
-  cocos2d::Node getView();
+  cocos2d::Node* getView();
 
   /**
    *Actualiza logica del tablero
@@ -38,13 +44,21 @@ class Board
   /**
    *Pone esfera en el tablero
    */
-  void takeSphere(PointGrid pos, Sphere*);
+  void takeSphere(PointGrid pos, GroupSphere*);
 
   /**
    *Llamada cuando mas de tres esferas han colisionado
    *en el patron esperado.
+   *Usado para logica de juego.
    */
-  void attachMatch(std::function<void(std::vector<Sphere*>));
+  void attachMatch(std::function<void(GroupSphere)> );
+
+  /**
+   *Llamada cuando se toca el fin del tablero
+   *. usado para logica de juego
+   */
+  void attachTouchEnd(std::function<void(void)>);
+
 
  private:
   void _populate_board();
@@ -57,8 +71,10 @@ class Board
    */
   GroupSphere _match(PointGrid start);
 
+  cocos2d::Node* _node;
   Grid<Sphere> _grid;
   std::vector< std::function<void(GroupSphere)> > onAttachMatch;
+  std::vector< std::function<void(void)> > onAttachTouchEnd;
 };
 
 #endif
