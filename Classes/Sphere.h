@@ -5,7 +5,7 @@
 #include "PointGrid.h"
 
 
-enum SphereType {SPHERE_RED, 
+enum SphereType {SPHERE_RED = 0, 
 		 SPHERE_GREEN,
 		 SPHERE_BLUE,
 		 SPHERE_YELLOW, 

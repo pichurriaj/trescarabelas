@@ -257,29 +257,29 @@ Classes/Grid.cpp.s:
 	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Grid.cpp.s
 .PHONY : Classes/Grid.cpp.s
 
-Classes/HelloWorldScene.o: Classes/HelloWorldScene.cpp.o
-.PHONY : Classes/HelloWorldScene.o
+Classes/PointGrid.o: Classes/PointGrid.cpp.o
+.PHONY : Classes/PointGrid.o
 
 # target to build an object file
-Classes/HelloWorldScene.cpp.o:
-	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/HelloWorldScene.cpp.o
-.PHONY : Classes/HelloWorldScene.cpp.o
+Classes/PointGrid.cpp.o:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/PointGrid.cpp.o
+.PHONY : Classes/PointGrid.cpp.o
 
-Classes/HelloWorldScene.i: Classes/HelloWorldScene.cpp.i
-.PHONY : Classes/HelloWorldScene.i
+Classes/PointGrid.i: Classes/PointGrid.cpp.i
+.PHONY : Classes/PointGrid.i
 
 # target to preprocess a source file
-Classes/HelloWorldScene.cpp.i:
-	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/HelloWorldScene.cpp.i
-.PHONY : Classes/HelloWorldScene.cpp.i
+Classes/PointGrid.cpp.i:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/PointGrid.cpp.i
+.PHONY : Classes/PointGrid.cpp.i
 
-Classes/HelloWorldScene.s: Classes/HelloWorldScene.cpp.s
-.PHONY : Classes/HelloWorldScene.s
+Classes/PointGrid.s: Classes/PointGrid.cpp.s
+.PHONY : Classes/PointGrid.s
 
 # target to generate assembly for a file
-Classes/HelloWorldScene.cpp.s:
-	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/HelloWorldScene.cpp.s
-.PHONY : Classes/HelloWorldScene.cpp.s
+Classes/PointGrid.cpp.s:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/PointGrid.cpp.s
+.PHONY : Classes/PointGrid.cpp.s
 
 Classes/Sphere.o: Classes/Sphere.cpp.o
 .PHONY : Classes/Sphere.o
@@ -355,9 +355,9 @@ help:
 	@echo "... Classes/Grid.o"
 	@echo "... Classes/Grid.i"
 	@echo "... Classes/Grid.s"
-	@echo "... Classes/HelloWorldScene.o"
-	@echo "... Classes/HelloWorldScene.i"
-	@echo "... Classes/HelloWorldScene.s"
+	@echo "... Classes/PointGrid.o"
+	@echo "... Classes/PointGrid.i"
+	@echo "... Classes/PointGrid.s"
 	@echo "... Classes/Sphere.o"
 	@echo "... Classes/Sphere.i"
 	@echo "... Classes/Sphere.s"

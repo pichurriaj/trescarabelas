@@ -42,7 +42,7 @@ endif()
 set(GAME_SRC
   proj.linux/main.cpp
   Classes/AppDelegate.cpp
-  Classes/HelloWorldScene.cpp
+  Classes/PointGrid.cpp
   Classes/Grid.cpp
   Classes/Sphere.cpp
   Classes/Board.cpp

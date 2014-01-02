@@ -61,6 +61,7 @@ class Board : public cocos2d::Object
    */
   void attachEndBoard(std::function<void(void)>);
   void setPopulater(BoardPopulater* populater) { _populater = populater; }
+  const Grid<Sphere*>& getGrid() { return _grid; }
   //CC_SYNTHESIZE(BoardPopulater*, _populater, Populater);
  private:
   BoardPopulater* _populater;

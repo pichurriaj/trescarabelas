@@ -65,14 +65,14 @@ class Grid
    *Pone un elemento al final de una columna
    *dada.
    */
-  bool push(int col, T data) {
+  PointGrid push(int col, T data) {
     for(int y = 0; y < _h; y++){
       if(_grid[y * _w + col] == _empty) {
 	take(PointGrid(col, y), data);
-	return true;
+	return PointGrid(col, y);
       }
     }
-    return false;
+    return PointGrid(-1, -1);
   }
 
   /**
@@ -93,6 +93,10 @@ class Grid
     _empty = v;
   }
 
+  int getCols() { return _w; }
+  int getRows() { return _h; }
+  void setCols(int w) { _w = w; }
+  void setRows(int h) { _h = h; }
  private:
   int _w;
   int _h;

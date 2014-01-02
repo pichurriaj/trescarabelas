@@ -24,6 +24,8 @@ bool GameTestArcade::init() {
   board_view->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 
   BoardPopulaterTester* board_populater = new BoardPopulaterTester(board);
+  board_populater->populate();
   board->setPopulater(board_populater);
+
   return true;
 }

@@ -3,7 +3,7 @@
 
 USING_NS_CC;
 
-Sphere::Sphere() : _pos(PointGrid(0,0)){
+Sphere::Sphere() : _pos(PointGrid(0,0)), _node(NULL){
 }
 
 Sphere* Sphere::create(SphereType type) {
@@ -25,7 +25,7 @@ void Sphere::setType(SphereType type) {
     _node->release();
     _node = NULL;
   }
-  auto _node = Node::create();
+  _node = Node::create();
   Sprite* _sp = NULL;
   _node->setContentSize(Size(GRID_SIZE, GRID_SIZE));
   switch(type) {
