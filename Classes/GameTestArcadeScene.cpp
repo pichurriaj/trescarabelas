@@ -25,7 +25,8 @@ bool GameTestArcade::init() {
 
   BoardPopulaterTester* board_populater = new BoardPopulaterTester(board);
   board_populater->populate();
-  board->setPopulater(board_populater);
+  board_populater->populate();
+  board_populater->populate_next_row();
 
   return true;
 }

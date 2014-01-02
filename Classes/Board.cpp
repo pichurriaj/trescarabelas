@@ -6,7 +6,6 @@ Board::Board() : _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIGHT/GRID_SIZE)  {
   _node = Sprite::create("objetos/tablero_fondo.png");
   _grid.setCols(_node->getContentSize().width/GRID_SIZE);
   _grid.setRows(_node->getContentSize().height/GRID_SIZE);
-  _populater = NULL;
 }
 
 Board* Board::create() {
