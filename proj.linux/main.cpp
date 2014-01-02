@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     // create the application instance
     AppDelegate app;
     EGLView eglView;
-    eglView.init("trescarables", 320,240);
+    eglView.init("trescarables", 384,640);
     Application::getInstance()->setAnimationInterval(1.0f/60.0f);
     return Application::getInstance()->run();
 }

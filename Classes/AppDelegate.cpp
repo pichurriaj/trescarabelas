@@ -1,6 +1,5 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
-
+#include "GameTestArcadeScene.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -15,10 +14,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
     auto director = Director::getInstance();
     auto eglView = EGLView::getInstance();
+    director->setOpenGLView(eglView);
     Size designSize = Size(768, 1280);
     
     EGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::SHOW_ALL);
-    director->setOpenGLView(eglView);
+
 	
     // turn on display FPS
     director->setDisplayStats(true);
@@ -27,7 +27,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+    auto scene = GameTestArcade::createScene();
 
     // run
     director->runWithScene(scene);

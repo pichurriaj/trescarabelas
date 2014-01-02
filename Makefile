@@ -99,50 +99,50 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named HelloCpp
+# Target rules for targets named trescarabelas
 
 # Build rule for target.
-HelloCpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 HelloCpp
-.PHONY : HelloCpp
+trescarabelas: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 trescarabelas
+.PHONY : trescarabelas
 
 # fast build rule for target.
-HelloCpp/fast:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/build
-.PHONY : HelloCpp/fast
+trescarabelas/fast:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/build
+.PHONY : trescarabelas/fast
 
 #=============================================================================
-# Target rules for targets named HelloCpp_CORE_PRE_BUILD
+# Target rules for targets named trescarabelas_CORE_PRE_BUILD
 
 # Build rule for target.
-HelloCpp_CORE_PRE_BUILD: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 HelloCpp_CORE_PRE_BUILD
-.PHONY : HelloCpp_CORE_PRE_BUILD
+trescarabelas_CORE_PRE_BUILD: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 trescarabelas_CORE_PRE_BUILD
+.PHONY : trescarabelas_CORE_PRE_BUILD
 
 # fast build rule for target.
-HelloCpp_CORE_PRE_BUILD/fast:
-	$(MAKE) -f CMakeFiles/HelloCpp_CORE_PRE_BUILD.dir/build.make CMakeFiles/HelloCpp_CORE_PRE_BUILD.dir/build
-.PHONY : HelloCpp_CORE_PRE_BUILD/fast
+trescarabelas_CORE_PRE_BUILD/fast:
+	$(MAKE) -f CMakeFiles/trescarabelas_CORE_PRE_BUILD.dir/build.make CMakeFiles/trescarabelas_CORE_PRE_BUILD.dir/build
+.PHONY : trescarabelas_CORE_PRE_BUILD/fast
 
 #=============================================================================
-# Target rules for targets named HelloCpp_PRE_BUILD
+# Target rules for targets named trescarabelas_PRE_BUILD
 
 # Build rule for target.
-HelloCpp_PRE_BUILD: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 HelloCpp_PRE_BUILD
-.PHONY : HelloCpp_PRE_BUILD
+trescarabelas_PRE_BUILD: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 trescarabelas_PRE_BUILD
+.PHONY : trescarabelas_PRE_BUILD
 
 # fast build rule for target.
-HelloCpp_PRE_BUILD/fast:
-	$(MAKE) -f CMakeFiles/HelloCpp_PRE_BUILD.dir/build.make CMakeFiles/HelloCpp_PRE_BUILD.dir/build
-.PHONY : HelloCpp_PRE_BUILD/fast
+trescarabelas_PRE_BUILD/fast:
+	$(MAKE) -f CMakeFiles/trescarabelas_PRE_BUILD.dir/build.make CMakeFiles/trescarabelas_PRE_BUILD.dir/build
+.PHONY : trescarabelas_PRE_BUILD/fast
 
 Classes/AppDelegate.o: Classes/AppDelegate.cpp.o
 .PHONY : Classes/AppDelegate.o
 
 # target to build an object file
 Classes/AppDelegate.cpp.o:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/AppDelegate.cpp.o
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/AppDelegate.cpp.o
 .PHONY : Classes/AppDelegate.cpp.o
 
 Classes/AppDelegate.i: Classes/AppDelegate.cpp.i
@@ -150,7 +150,7 @@ Classes/AppDelegate.i: Classes/AppDelegate.cpp.i
 
 # target to preprocess a source file
 Classes/AppDelegate.cpp.i:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/AppDelegate.cpp.i
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/AppDelegate.cpp.i
 .PHONY : Classes/AppDelegate.cpp.i
 
 Classes/AppDelegate.s: Classes/AppDelegate.cpp.s
@@ -158,7 +158,7 @@ Classes/AppDelegate.s: Classes/AppDelegate.cpp.s
 
 # target to generate assembly for a file
 Classes/AppDelegate.cpp.s:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/AppDelegate.cpp.s
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/AppDelegate.cpp.s
 .PHONY : Classes/AppDelegate.cpp.s
 
 Classes/Board.o: Classes/Board.cpp.o
@@ -166,7 +166,7 @@ Classes/Board.o: Classes/Board.cpp.o
 
 # target to build an object file
 Classes/Board.cpp.o:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Board.cpp.o
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Board.cpp.o
 .PHONY : Classes/Board.cpp.o
 
 Classes/Board.i: Classes/Board.cpp.i
@@ -174,7 +174,7 @@ Classes/Board.i: Classes/Board.cpp.i
 
 # target to preprocess a source file
 Classes/Board.cpp.i:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Board.cpp.i
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Board.cpp.i
 .PHONY : Classes/Board.cpp.i
 
 Classes/Board.s: Classes/Board.cpp.s
@@ -182,15 +182,63 @@ Classes/Board.s: Classes/Board.cpp.s
 
 # target to generate assembly for a file
 Classes/Board.cpp.s:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Board.cpp.s
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Board.cpp.s
 .PHONY : Classes/Board.cpp.s
+
+Classes/BoardPopulaterTester.o: Classes/BoardPopulaterTester.cpp.o
+.PHONY : Classes/BoardPopulaterTester.o
+
+# target to build an object file
+Classes/BoardPopulaterTester.cpp.o:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/BoardPopulaterTester.cpp.o
+.PHONY : Classes/BoardPopulaterTester.cpp.o
+
+Classes/BoardPopulaterTester.i: Classes/BoardPopulaterTester.cpp.i
+.PHONY : Classes/BoardPopulaterTester.i
+
+# target to preprocess a source file
+Classes/BoardPopulaterTester.cpp.i:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/BoardPopulaterTester.cpp.i
+.PHONY : Classes/BoardPopulaterTester.cpp.i
+
+Classes/BoardPopulaterTester.s: Classes/BoardPopulaterTester.cpp.s
+.PHONY : Classes/BoardPopulaterTester.s
+
+# target to generate assembly for a file
+Classes/BoardPopulaterTester.cpp.s:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/BoardPopulaterTester.cpp.s
+.PHONY : Classes/BoardPopulaterTester.cpp.s
+
+Classes/GameTestArcadeScene.o: Classes/GameTestArcadeScene.cpp.o
+.PHONY : Classes/GameTestArcadeScene.o
+
+# target to build an object file
+Classes/GameTestArcadeScene.cpp.o:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/GameTestArcadeScene.cpp.o
+.PHONY : Classes/GameTestArcadeScene.cpp.o
+
+Classes/GameTestArcadeScene.i: Classes/GameTestArcadeScene.cpp.i
+.PHONY : Classes/GameTestArcadeScene.i
+
+# target to preprocess a source file
+Classes/GameTestArcadeScene.cpp.i:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/GameTestArcadeScene.cpp.i
+.PHONY : Classes/GameTestArcadeScene.cpp.i
+
+Classes/GameTestArcadeScene.s: Classes/GameTestArcadeScene.cpp.s
+.PHONY : Classes/GameTestArcadeScene.s
+
+# target to generate assembly for a file
+Classes/GameTestArcadeScene.cpp.s:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/GameTestArcadeScene.cpp.s
+.PHONY : Classes/GameTestArcadeScene.cpp.s
 
 Classes/Grid.o: Classes/Grid.cpp.o
 .PHONY : Classes/Grid.o
 
 # target to build an object file
 Classes/Grid.cpp.o:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Grid.cpp.o
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Grid.cpp.o
 .PHONY : Classes/Grid.cpp.o
 
 Classes/Grid.i: Classes/Grid.cpp.i
@@ -198,7 +246,7 @@ Classes/Grid.i: Classes/Grid.cpp.i
 
 # target to preprocess a source file
 Classes/Grid.cpp.i:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Grid.cpp.i
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Grid.cpp.i
 .PHONY : Classes/Grid.cpp.i
 
 Classes/Grid.s: Classes/Grid.cpp.s
@@ -206,7 +254,7 @@ Classes/Grid.s: Classes/Grid.cpp.s
 
 # target to generate assembly for a file
 Classes/Grid.cpp.s:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Grid.cpp.s
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Grid.cpp.s
 .PHONY : Classes/Grid.cpp.s
 
 Classes/HelloWorldScene.o: Classes/HelloWorldScene.cpp.o
@@ -214,7 +262,7 @@ Classes/HelloWorldScene.o: Classes/HelloWorldScene.cpp.o
 
 # target to build an object file
 Classes/HelloWorldScene.cpp.o:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/HelloWorldScene.cpp.o
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/HelloWorldScene.cpp.o
 .PHONY : Classes/HelloWorldScene.cpp.o
 
 Classes/HelloWorldScene.i: Classes/HelloWorldScene.cpp.i
@@ -222,7 +270,7 @@ Classes/HelloWorldScene.i: Classes/HelloWorldScene.cpp.i
 
 # target to preprocess a source file
 Classes/HelloWorldScene.cpp.i:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/HelloWorldScene.cpp.i
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/HelloWorldScene.cpp.i
 .PHONY : Classes/HelloWorldScene.cpp.i
 
 Classes/HelloWorldScene.s: Classes/HelloWorldScene.cpp.s
@@ -230,7 +278,7 @@ Classes/HelloWorldScene.s: Classes/HelloWorldScene.cpp.s
 
 # target to generate assembly for a file
 Classes/HelloWorldScene.cpp.s:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/HelloWorldScene.cpp.s
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/HelloWorldScene.cpp.s
 .PHONY : Classes/HelloWorldScene.cpp.s
 
 Classes/Sphere.o: Classes/Sphere.cpp.o
@@ -238,7 +286,7 @@ Classes/Sphere.o: Classes/Sphere.cpp.o
 
 # target to build an object file
 Classes/Sphere.cpp.o:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Sphere.cpp.o
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Sphere.cpp.o
 .PHONY : Classes/Sphere.cpp.o
 
 Classes/Sphere.i: Classes/Sphere.cpp.i
@@ -246,7 +294,7 @@ Classes/Sphere.i: Classes/Sphere.cpp.i
 
 # target to preprocess a source file
 Classes/Sphere.cpp.i:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Sphere.cpp.i
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Sphere.cpp.i
 .PHONY : Classes/Sphere.cpp.i
 
 Classes/Sphere.s: Classes/Sphere.cpp.s
@@ -254,7 +302,7 @@ Classes/Sphere.s: Classes/Sphere.cpp.s
 
 # target to generate assembly for a file
 Classes/Sphere.cpp.s:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/Classes/Sphere.cpp.s
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Sphere.cpp.s
 .PHONY : Classes/Sphere.cpp.s
 
 proj.linux/main.o: proj.linux/main.cpp.o
@@ -262,7 +310,7 @@ proj.linux/main.o: proj.linux/main.cpp.o
 
 # target to build an object file
 proj.linux/main.cpp.o:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/proj.linux/main.cpp.o
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/proj.linux/main.cpp.o
 .PHONY : proj.linux/main.cpp.o
 
 proj.linux/main.i: proj.linux/main.cpp.i
@@ -270,7 +318,7 @@ proj.linux/main.i: proj.linux/main.cpp.i
 
 # target to preprocess a source file
 proj.linux/main.cpp.i:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/proj.linux/main.cpp.i
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/proj.linux/main.cpp.i
 .PHONY : proj.linux/main.cpp.i
 
 proj.linux/main.s: proj.linux/main.cpp.s
@@ -278,7 +326,7 @@ proj.linux/main.s: proj.linux/main.cpp.s
 
 # target to generate assembly for a file
 proj.linux/main.cpp.s:
-	$(MAKE) -f CMakeFiles/HelloCpp.dir/build.make CMakeFiles/HelloCpp.dir/proj.linux/main.cpp.s
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/proj.linux/main.cpp.s
 .PHONY : proj.linux/main.cpp.s
 
 # Help Target
@@ -287,17 +335,23 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... HelloCpp"
-	@echo "... HelloCpp_CORE_PRE_BUILD"
-	@echo "... HelloCpp_PRE_BUILD"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... trescarabelas"
+	@echo "... trescarabelas_CORE_PRE_BUILD"
+	@echo "... trescarabelas_PRE_BUILD"
 	@echo "... Classes/AppDelegate.o"
 	@echo "... Classes/AppDelegate.i"
 	@echo "... Classes/AppDelegate.s"
 	@echo "... Classes/Board.o"
 	@echo "... Classes/Board.i"
 	@echo "... Classes/Board.s"
+	@echo "... Classes/BoardPopulaterTester.o"
+	@echo "... Classes/BoardPopulaterTester.i"
+	@echo "... Classes/BoardPopulaterTester.s"
+	@echo "... Classes/GameTestArcadeScene.o"
+	@echo "... Classes/GameTestArcadeScene.i"
+	@echo "... Classes/GameTestArcadeScene.s"
 	@echo "... Classes/Grid.o"
 	@echo "... Classes/Grid.i"
 	@echo "... Classes/Grid.s"

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 
-set(APP_NAME HelloCpp)
+set(APP_NAME trescarabelas)
 project (${APP_NAME})
 
 include(../../build/BuildHelpers.CMakeLists.txt)
@@ -46,6 +46,8 @@ set(GAME_SRC
   Classes/Grid.cpp
   Classes/Sphere.cpp
   Classes/Board.cpp
+  Classes/BoardPopulaterTester.cpp
+  Classes/GameTestArcadeScene.cpp
 
 )
 

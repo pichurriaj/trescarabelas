@@ -5,6 +5,7 @@
 #include "PointGrid.h"
 #include "Grid.h"
 #include "Sphere.h"
+#include "BoardPopulater.h"
 #include <vector>
 
 /**
@@ -19,11 +20,12 @@ enum BOARD_STATE {
  *ademas de proveer una interfaz para interactuar con este,
  *este lleva el movimiento de las esferas, sus colisiones.
  */
-class Board
+class Board : public cocos2d::Object
 {
  public:
   Board();
-  
+  static Board* create();
+
   /**
    *La representacion en cocos2d.
    */
@@ -58,11 +60,10 @@ class Board
    *. usado para logica de juego
    */
   void attachEndBoard(std::function<void(void)>);
-
-
+  void setPopulater(BoardPopulater* populater) { _populater = populater; }
+  //CC_SYNTHESIZE(BoardPopulater*, _populater, Populater);
  private:
-  void _populate_board();
-  void _populate_next_row();
+  BoardPopulater* _populater;
   /**
    *Baja las esferas
    */

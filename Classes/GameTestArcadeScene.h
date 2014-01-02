@@ -2,18 +2,19 @@
 #define GAMETESTSCENE_H
 
 #include "cocos2d.h"
+#include "Board.h"
 
-class GameTestArcade : public cocos2d::Scene
+class GameTestArcade : public cocos2d::LayerColor
 {
  public:
-  static cocos2d::Scene* scene();
+  static cocos2d::Scene* createScene();
   virtual bool init();
   CREATE_FUNC(GameTestArcade);
 
  private:
   int _score;
   int _time;
-  Indian* player;
+  //Indian* player;
   Board* board;
 };
 

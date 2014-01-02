@@ -4,6 +4,17 @@ USING_NS_CC;
 
 Board::Board(): _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIGHT/GRID_SIZE) {
   _node = Sprite::create("objetos/tablero_fondo.png");
+  _populater = NULL;
+}
+
+Board* Board::create() {
+  Board* obj = new Board();
+  if(obj) {
+    obj->autorelease();
+    return obj;
+  }
+  CC_SAFE_DELETE(obj);
+  return NULL;
 }
 
 void Board::update(float dt) {
@@ -45,15 +56,11 @@ Node* Board::getView() {
   return _node;
 }
 
-void Board::_populate_board() {
-}
-
-void Board::_populate_next_row() {
-}
 
 void Board::_roll() {
 }
 
 GroupSphere Board::_match(PointGrid start) {
-  return NULL;
+  GroupSphere spheres;
+  return spheres;
 }
