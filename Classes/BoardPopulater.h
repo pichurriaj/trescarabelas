@@ -8,7 +8,8 @@
 class BoardPopulater {
  public:
   virtual void populate() = 0;
-  virtual void populate_next_row() = 0;
+  virtual void populate_next_row() = 0;	       
+  virtual void populate_first_row() = 0;
 };
 
 #endif

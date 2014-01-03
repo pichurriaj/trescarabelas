@@ -8,6 +8,7 @@
 
 class BoardTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(BoardTest);
+  CPPUNIT_TEST(testRoll);
   CPPUNIT_TEST(testMatch);
   CPPUNIT_TEST_SUITE_END();
   
@@ -22,6 +23,9 @@ class BoardTest : public CppUnit::TestFixture {
 
   void tearDown() {
     delete board;
+  }
+
+  void testRoll() {
   }
 
   void testMatch() {

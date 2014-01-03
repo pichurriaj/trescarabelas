@@ -16,6 +16,19 @@ class Grid
  Grid(int w, int h) : _w(w), _h(h), _empty(0) {
   }
 
+  T get(PointGrid pg) {
+    if(pg.y > _h || pg.y < 0) {
+      throw std::range_error("Over the height"); 
+    }
+    if(pg.x > _w || pg.x < 0) {
+      throw std::range_error("Over the width");
+    }
+    if(_grid[pg.y * _w + pg.x]) {
+      return _grid[pg.y * _w + pg.x];
+    }
+    return _empty;
+  }
+
   /**
    *Saca un elemento de la grilla
    *@throw range_error
@@ -62,6 +75,19 @@ class Grid
   }
 
   /**
+   *Pone elemento al principio de la columna
+   */
+  void push_front(int col, T data){
+    for(int row = _h; row >= 0; row--) {
+      try {
+	move(PointGrid(col, row), PointGrid(col, row + 1));
+      }catch(std::exception) {
+      }
+    }
+    take(PointGrid(col, 0), data);
+  }
+
+  /**
    *Pone un elemento al final de una columna
    *dada.
    */
@@ -93,6 +119,13 @@ class Grid
     _empty = v;
   }
 
+  bool Empty(PointGrid pg) {
+    return _grid[pg.y * _w + pg.x] == _empty;
+  }
+
+  bool Empty(T v) {
+    return v == _empty;
+  }
   int getCols() { return _w; }
   int getRows() { return _h; }
   void setCols(int w) { _w = w; }

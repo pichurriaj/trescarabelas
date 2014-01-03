@@ -8,7 +8,9 @@ class BoardPopulaterTester : public BoardPopulater {
   BoardPopulaterTester(Board*);
   virtual void populate();
   virtual void populate_next_row();
+  virtual void populate_first_row();
 
+  Sphere* randomSphere();
  private:
   Board* _board;
 };

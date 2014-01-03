@@ -6,11 +6,14 @@ Board::Board() : _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIGHT/GRID_SIZE)  {
   _node = Sprite::create("objetos/tablero_fondo.png");
   _grid.setCols(_node->getContentSize().width/GRID_SIZE);
   _grid.setRows(_node->getContentSize().height/GRID_SIZE);
+  _populater = NULL;
+  _grid.setEmpty(NULL);
 }
 
 Board* Board::create() {
   Board* obj = new Board();
   if(obj) {
+
     obj->autorelease();
     return obj;
   }
@@ -66,7 +69,38 @@ Node* Board::getView() {
 }
 
 
-void Board::_roll() {
+void Board::roll(GroupSphere spheres) {
+  int col = 0;
+  for(auto &sphere: spheres) {
+    
+    _grid.push_front(col, sphere);
+    auto pos = PointGrid(col, 0);
+    auto sphere_view = sphere->getView();
+    _node->addChild(sphere_view);
+    auto poss = pos.toPoint();
+    poss.x += GRID_SIZE/2;
+    poss.y *= -1; //invierte, para mostrar hacia abajo
+    poss.y += _node->getContentSize().height;
+    sphere_view->setPosition(poss);
+
+    std::cout << "Rolling sphere first" << std::endl;
+    for(int row = _grid.getRows(); row >= 0; row--){
+      auto data = _grid.get(PointGrid(col, row));
+      if(!_grid.Empty(data)){
+	    auto pos = PointGrid(col, row);
+	    auto sphere_view = data->getView();
+	    auto poss = pos.toPoint();
+	    poss.x += GRID_SIZE/2;
+	    poss.y *= -1; //invierte, para mostrar hacia abajo
+	    poss.y += _node->getContentSize().height;
+	    sphere_view->setPosition(poss);
+	    std::cout << "Rolling sphere down" << std::endl;
+      }
+    }
+    col += 1;
+  }
+  
+
 }
 
 GroupSphere Board::_match(PointGrid start) {

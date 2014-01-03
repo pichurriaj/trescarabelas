@@ -13,18 +13,19 @@ USING_NS_CC;
 
 int main(int argc, char **argv)
 {
-  if(argc ==  2) {
-    if(!strcmp(argv[1],"-t")){
-      CppUnit::TextUi::TestRunner runner;
-      runner.addTest(Tests::suite());
-      runner.run();
-      return 0;
-    }
-  }
     // create the application instance
     AppDelegate app;
     EGLView eglView;
     eglView.init("trescarables", 384,640);
     Application::getInstance()->setAnimationInterval(1.0f/60.0f);
+    if(argc ==  2) {
+      if(!strcmp(argv[1],"-t")){
+	CppUnit::TextUi::TestRunner runner;
+	runner.addTest(Tests::suite());
+	runner.run();
+	return 0;
+      }
+    }
+
     return Application::getInstance()->run();
 }

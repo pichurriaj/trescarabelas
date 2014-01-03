@@ -23,10 +23,24 @@ bool GameTestArcade::init() {
   this->addChild(board_view);
   board_view->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 
-  BoardPopulaterTester* board_populater = new BoardPopulaterTester(board);
+  board_populater = new BoardPopulaterTester(board);
   board_populater->populate();
-  board_populater->populate();
-  board_populater->populate_next_row();
+  board->setPopulater(board_populater);
+  //board_populater->populate_first_row();
 
+  auto testItem = MenuItemImage::create(
+					"CloseNormal.png",
+					"CloseSelected.png",
+					CC_CALLBACK_1(GameTestArcade::testRoll, this)
+					);
+  auto menu = Menu::create(testItem, NULL);
+  menu->setPosition(Point(300,300));
+  this->addChild(menu, 1);
   return true;
+}
+
+
+void GameTestArcade::testRoll(Object *pSender) {
+  board_populater->populate_first_row();
+  std::cout << "Rolling Test" << std::endl;
 }

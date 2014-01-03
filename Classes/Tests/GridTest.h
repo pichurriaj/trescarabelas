@@ -16,6 +16,7 @@ class GridTest : public CppUnit::TestFixture {
   CPPUNIT_TEST(testMove);
   CPPUNIT_TEST(testPop);
   CPPUNIT_TEST(testPush);
+  CPPUNIT_TEST(testPushFront);
   CPPUNIT_TEST_SUITE_END();
  private:
   Grid<int> *grid_10x10;
@@ -80,6 +81,14 @@ class GridTest : public CppUnit::TestFixture {
     CPPUNIT_ASSERT(grid_10x10->take(PointGrid(0,0), 2) == 1);
     CPPUNIT_ASSERT(grid_10x10->take(PointGrid(0,0), 3) == 2);
     CPPUNIT_ASSERT_THROW(grid_10x10->take(PointGrid(0,11), 0), std::range_error);
+  }
+
+  void testPushFront() {
+    grid_10x10->take(PointGrid(0,0), 3);
+    grid_10x10->take(PointGrid(0,1), 7);
+    grid_10x10->take(PointGrid(0,2), 55);
+    grid_10x10->push_front(0,99);
+    CPPUNIT_ASSERT(grid_10x10->drop(PointGrid(0,0)) == 99);
   }
 };
 

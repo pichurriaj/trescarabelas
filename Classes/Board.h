@@ -30,7 +30,7 @@ class Board : public cocos2d::Object
    *La representacion en cocos2d.
    */
   cocos2d::Node* getView();
-
+  void setView(cocos2d::Node* nd) { _node = nd; }
   /**
    *Actualiza logica del tablero
    */
@@ -61,13 +61,15 @@ class Board : public cocos2d::Object
    */
   void attachEndBoard(std::function<void(GroupSphere)>);
   const Grid<Sphere*>& getGrid() { return _grid; }
-  //CC_SYNTHESIZE(BoardPopulater*, _populater, Populater);
- private:
+  CC_SYNTHESIZE(BoardPopulater*, _populater, Populater);
 
   /**
    *Baja las esferas
    */
-  void _roll();
+  void roll(GroupSphere);
+ private:
+
+
   /**
    *Retorna grupo de esfera que compaginaron..
    *@param PointGrid indica el punto de partida de la busquedad
