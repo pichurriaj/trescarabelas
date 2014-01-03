@@ -57,7 +57,7 @@ void Board::attachMatch(std::function<void(GroupSphere)> func) {
   onAttachMatch.push_back(func);
 }
 
-void Board::attachEndBoard(std::function<void(void)> func) {
+void Board::attachEndBoard(std::function<void(GroupSphere)> func) {
   onAttachEndBoard.push_back(func);
 }
 

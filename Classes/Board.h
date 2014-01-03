@@ -59,7 +59,7 @@ class Board : public cocos2d::Object
    *Llamada cuando se toca el fin del tablero
    *. usado para logica de juego
    */
-  void attachEndBoard(std::function<void(void)>);
+  void attachEndBoard(std::function<void(GroupSphere)>);
   const Grid<Sphere*>& getGrid() { return _grid; }
   //CC_SYNTHESIZE(BoardPopulater*, _populater, Populater);
  private:
@@ -78,7 +78,7 @@ class Board : public cocos2d::Object
   cocos2d::Node* _node;
   Grid<Sphere*> _grid;
   std::vector< std::function<void(GroupSphere)> > onAttachMatch;
-  std::vector< std::function<void(void)> > onAttachEndBoard;
+  std::vector< std::function<void(GroupSphere)> > onAttachEndBoard;
 };
 
 #endif
