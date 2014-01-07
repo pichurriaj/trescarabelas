@@ -108,8 +108,9 @@ class Grid
    */
   T pop(int col) {
     for(int y = _h; y >= 0; y--) {
-      if(_grid[y * _w + col] != _empty)
-	return drop(PointGrid(col, y));
+      T dt = drop(PointGrid(col,y));
+      if(dt != _empty)
+	return dt;
     }
     return _empty;
   }
@@ -130,8 +131,8 @@ class Grid
   }
   int getCols() { return _w; }
   int getRows() { return _h; }
-  void setCols(int w) { assert(w > 0); _w = w; }
-  void setRows(int h) { assert(h > 0); _h = h; }
+  void setCols(int w) { _w = w; }
+  void setRows(int h) { _h = h; }
  private:
   int _w;
   int _h;
