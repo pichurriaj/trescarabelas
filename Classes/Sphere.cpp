@@ -56,6 +56,7 @@ void Sphere::setType(SphereType type) {
   }
   NODE_CENTER_TO(_sp, _node);
   _node->addChild(_sp);
+
 }
 
 SphereType Sphere::getType() {
@@ -71,5 +72,6 @@ void Sphere::setPosition(PointGrid pos) {
 }
 
 Node* Sphere::getView() {
+  _node->retain();
   return _node;
 }

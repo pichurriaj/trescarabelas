@@ -3,7 +3,7 @@
 
 #include "PointGrid.h"
 #include <vector>
-
+#include <cassert>
 /**
  *Esta grilla, facilita
  *la gestion de las esferas
@@ -23,8 +23,9 @@ class Grid
     if(pg.x > _w || pg.x < 0) {
       throw std::range_error("Over the width");
     }
-    if(_grid[pg.y * _w + pg.x]) {
-      return _grid[pg.y * _w + pg.x];
+    T dt = _grid[pg.y * _w + pg.x];
+    if(dt) {
+      return dt;
     }
     return _empty;
   }
@@ -41,8 +42,9 @@ class Grid
     if(pg.x > _w || pg.x < 0) {
       throw std::range_error("Over the width");
     }
-    if(_grid[pg.y * _w + pg.x]) {
-      T rt = _grid[pg.y * _w + pg.x];
+    T dt = _grid[pg.y * _w + pg.x];
+    if(dt) {
+      T rt = dt;
       _grid[pg.y * _w + pg.x] = _empty;
       return rt;
     }
@@ -128,8 +130,8 @@ class Grid
   }
   int getCols() { return _w; }
   int getRows() { return _h; }
-  void setCols(int w) { _w = w; }
-  void setRows(int h) { _h = h; }
+  void setCols(int w) { assert(w > 0); _w = w; }
+  void setRows(int h) { assert(h > 0); _h = h; }
  private:
   int _w;
   int _h;

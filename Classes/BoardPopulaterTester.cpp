@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 BoardPopulaterTester::BoardPopulaterTester(Board* board) : _board(board) {
+  _board->retain();
 }
 
 void BoardPopulaterTester::populate() {
@@ -38,6 +39,7 @@ void BoardPopulaterTester::populate_first_row() {
   for(int col = 0; col < grid.getCols(); col++) {
     spheres.push_back(randomSphere());
   }
+  std::cout << "Populating board first row with : " << spheres.size() << std::endl;
   _board->roll(spheres);
 }
 
@@ -46,5 +48,7 @@ Sphere* BoardPopulaterTester::randomSphere() {
   while(type == SPHERE_COUNT || type == SPHERE_CHROMATIC){
     type = (SphereType)(rand() % SPHERE_COUNT);
   }
-  return Sphere::create(type);
+  Sphere* sp = Sphere::create(type);
+  sp->retain();
+  return sp;
 }

@@ -41,6 +41,6 @@ bool GameTestArcade::init() {
 
 
 void GameTestArcade::testRoll(Object *pSender) {
-  board_populater->populate_first_row();
+  this->board_populater->populate_first_row();
   std::cout << "Rolling Test" << std::endl;
 }
