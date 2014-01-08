@@ -68,6 +68,10 @@ void Board::attachEndBoard(std::function<void(GroupSphere)> func) {
   onAttachEndBoard.push_back(func);
 }
 
+void Board::attachRoll(std::function<void(GroupSphere)> func) {
+  onAttachRoll.push_back(func);
+}
+
 Node* Board::getView() {
   _node->retain();
   return _node;
@@ -112,7 +116,9 @@ void Board::roll(GroupSphere spheres) {
     col += 1;
   }
   
-
+  for(auto &func: onAttachRoll) {
+    func(spheres);
+  }
 }
 
 GroupSphere Board::_match(PointGrid start) {
