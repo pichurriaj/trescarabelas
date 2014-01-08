@@ -4,6 +4,7 @@
 #include "../PointGrid.h"
 #include "../Grid.h"
 #include "../Board.h"
+#include "../BoardPopulater.h"
 #include <cppunit/extensions/HelperMacros.h>
 
 class BoardTest : public CppUnit::TestFixture {
@@ -14,15 +15,20 @@ class BoardTest : public CppUnit::TestFixture {
   
  private:
   Board* board;
-
+  BoardPopulater* board_populater;
  public:
 
   void setUp() {
     board = new Board();
+
   }
 
   void tearDown() {
     delete board;
+  }
+  
+  void testDrop() {
+    
   }
 
   void testRoll() {

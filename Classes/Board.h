@@ -60,6 +60,12 @@ class Board : public cocos2d::Object
    *. usado para logica de juego
    */
   void attachEndBoard(std::function<void(GroupSphere)>);
+
+  /**
+   *Llamada cuando se hace un roll
+   */
+  void attachRoll(std::function<void(GroupSphere)>);
+
   const Grid<Sphere*>& getGrid() { return _grid; }
   CC_SYNTHESIZE(BoardPopulater*, _populater, Populater);
 
@@ -79,6 +85,7 @@ class Board : public cocos2d::Object
 
   cocos2d::Node* _node;
   Grid<Sphere*> _grid;
+  std::vector< std::function<void(GroupSphere)> > onAttachRoll;
   std::vector< std::function<void(GroupSphere)> > onAttachMatch;
   std::vector< std::function<void(GroupSphere)> > onAttachEndBoard;
 };

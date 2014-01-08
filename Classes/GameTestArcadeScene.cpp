@@ -1,6 +1,6 @@
 #include "GameTestArcadeScene.h"
 #include "Game.h"
-#include "BoardPopulaterTester.h"
+#include "BoardPopulaterRandom.h"
 USING_NS_CC;
 
 Scene* GameTestArcade::createScene() {
@@ -23,7 +23,7 @@ bool GameTestArcade::init() {
   this->addChild(board_view);
   board_view->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 
-  board_populater = new BoardPopulaterTester(board);
+  board_populater = new BoardPopulaterRandom(board);
   board_populater->populate();
   board->setPopulater(board_populater);
   //board_populater->populate_first_row();
