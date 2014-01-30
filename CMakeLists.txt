@@ -49,7 +49,7 @@ set(GAME_SRC
   Classes/BoardPopulaterRandom.cpp
   Classes/BoardPopulaterTester.cpp
   Classes/GameTestArcadeScene.cpp
-
+  Classes/MenuScene.cpp
 )
 
 set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/../..)

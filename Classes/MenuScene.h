@@ -3,12 +3,20 @@
 
 #include "cocos2d.h"
 
-class Menu : public cocos2d::Layer
+class MenuPrincipal : public cocos2d::Layer
 {
  public:
-  static cocos2d::Scene* scene();
+  static cocos2d::Scene* createScene();
   virtual bool init();
-  CREATE_FUNC(Menu);
+  CREATE_FUNC(MenuPrincipal);
+
+ private:
+  /**
+   *Agregar imagen de mar con movimiento
+   *con desfase entre imagenes
+   */
+  void _add_sea(const char*, int);
+  void _add_boat(const char*, int);
 };
 
 #endif
