@@ -47,6 +47,7 @@ set(GAME_SRC
   Classes/Sphere.cpp
   Classes/Board.cpp
   Classes/BoardPopulaterRandom.cpp
+  Classes/BoardPopulaterTester.cpp
   Classes/GameTestArcadeScene.cpp
 
 )

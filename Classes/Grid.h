@@ -44,9 +44,8 @@ class Grid
     }
     T dt = _grid[pg.y * _w + pg.x];
     if(dt) {
-      T rt = dt;
       _grid[pg.y * _w + pg.x] = _empty;
-      return rt;
+      return dt;
     }
     return _empty;
   }
@@ -108,9 +107,11 @@ class Grid
    */
   T pop(int col) {
     for(int y = _h; y >= 0; y--) {
-      T dt = drop(PointGrid(col,y));
-      if(dt != _empty)
+      T dt = _grid[y * _w + col];
+      if(dt) {
+	_grid[y * _w + col] = _empty;
 	return dt;
+      }
     }
     return _empty;
   }

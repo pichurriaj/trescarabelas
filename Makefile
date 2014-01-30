@@ -209,6 +209,30 @@ Classes/BoardPopulaterRandom.cpp.s:
 	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/BoardPopulaterRandom.cpp.s
 .PHONY : Classes/BoardPopulaterRandom.cpp.s
 
+Classes/BoardPopulaterTester.o: Classes/BoardPopulaterTester.cpp.o
+.PHONY : Classes/BoardPopulaterTester.o
+
+# target to build an object file
+Classes/BoardPopulaterTester.cpp.o:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/BoardPopulaterTester.cpp.o
+.PHONY : Classes/BoardPopulaterTester.cpp.o
+
+Classes/BoardPopulaterTester.i: Classes/BoardPopulaterTester.cpp.i
+.PHONY : Classes/BoardPopulaterTester.i
+
+# target to preprocess a source file
+Classes/BoardPopulaterTester.cpp.i:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/BoardPopulaterTester.cpp.i
+.PHONY : Classes/BoardPopulaterTester.cpp.i
+
+Classes/BoardPopulaterTester.s: Classes/BoardPopulaterTester.cpp.s
+.PHONY : Classes/BoardPopulaterTester.s
+
+# target to generate assembly for a file
+Classes/BoardPopulaterTester.cpp.s:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/BoardPopulaterTester.cpp.s
+.PHONY : Classes/BoardPopulaterTester.cpp.s
+
 Classes/GameTestArcadeScene.o: Classes/GameTestArcadeScene.cpp.o
 .PHONY : Classes/GameTestArcadeScene.o
 
@@ -349,6 +373,9 @@ help:
 	@echo "... Classes/BoardPopulaterRandom.o"
 	@echo "... Classes/BoardPopulaterRandom.i"
 	@echo "... Classes/BoardPopulaterRandom.s"
+	@echo "... Classes/BoardPopulaterTester.o"
+	@echo "... Classes/BoardPopulaterTester.i"
+	@echo "... Classes/BoardPopulaterTester.s"
 	@echo "... Classes/GameTestArcadeScene.o"
 	@echo "... Classes/GameTestArcadeScene.i"
 	@echo "... Classes/GameTestArcadeScene.s"
