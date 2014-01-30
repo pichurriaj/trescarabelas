@@ -23,6 +23,7 @@ class MenuPrincipal : public cocos2d::Layer
   void _add_fish(const char*, int, int, float);
   void _add_title(const char*);
   void _add_quit(const char*);
+  void _add_credits();
   void _add_buttons();
 
 };

@@ -47,6 +47,7 @@ bool MenuPrincipal::init() {
 
   //salir
   _add_quit("botones/salir.png");
+  _add_credits();
   _add_buttons();
   return true;
 }
@@ -60,21 +61,38 @@ void MenuPrincipal::_add_buttons(){
   auto play_selected = Sprite::create("botones/play.png");
   play_selected->runAction(Effects::ActionButtonSelected());
   auto play = MenuItemSprite::create(play_normal, play_selected, CC_CALLBACK_0(MenuPrincipal::toPlayMenu, this));
-
+  /*
   auto training_normal = Sprite::create("botones/training.png");
   auto training_selected = Sprite::create("botones/training.png");
   training_selected->runAction(Effects::ActionButtonSelected());
   auto training = MenuItemSprite::create(training_normal, training_selected, CC_CALLBACK_0(MenuPrincipal::toTraining, this));
-
-  auto menu = Menu::create(play, training, NULL);
+  */
+  auto menu = Menu::create(play,  NULL);
   menu->alignItemsVerticallyWithPadding(10);
   this->addChild(menu);
   menu->setPosition(Point(menu->getContentSize().width/2 + 10,
-			  visibleSize.height + origin.y - menu->getContentSize().height/2
+			  visibleSize.height/2 + origin.y
 			  )
 		    );
 }
 
+void MenuPrincipal::_add_credits() {
+  Size visibleSize = Director::getInstance()->getVisibleSize();
+  Point origin = Director::getInstance()->getVisibleOrigin();
+
+  auto item = MenuItemImage::create(
+				    "botones/credito.png",
+				    "botones/credito_presionado.png",
+				    CC_CALLBACK_0(MenuPrincipal::toCredits, this)
+				    );
+  item->setPosition(Point(origin.x + item->getContentSize().width + 15,
+			 visibleSize.height + origin.y - item->getContentSize().height - 15));
+
+  auto menu = Menu::create(item, NULL);
+  menu->setPosition(Point::ZERO);
+  this->addChild(menu, 99);
+
+}
 
 void MenuPrincipal::quit() {
   stopAllActions();
@@ -169,7 +187,7 @@ void MenuPrincipal::_add_sea(const char* path, int offset_x){
 					      NULL),
 				NULL
 				);
-  sea->runAction(RepeatForever::create(Spawn::create(zigzag, swing, NULL)));
+  sea->runAction(RepeatForever::create(Spawn::create(zigzag, NULL)));
   this->addChild(sea);
 }
 
