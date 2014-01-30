@@ -17,6 +17,7 @@ class MenuPrincipal : public cocos2d::Layer
    */
   void _add_sea(const char*, int);
   void _add_boat(const char*, int);
+  void _add_title(const char*);
 };
 
 #endif
