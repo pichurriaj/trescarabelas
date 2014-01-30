@@ -1,5 +1,7 @@
 #include "MenuScene.h"
+#include "Effects.h"
 #include "SimpleAudioEngine.h"
+
 USING_NS_CC;
 
 
@@ -32,12 +34,71 @@ bool MenuPrincipal::init() {
 
   //mar
   _add_sea("menu/mar1.png", -30);
-  _add_sea("menu/mar2.png", 50);
-  _add_sea("menu/mar3.png", -50);
+  _add_sea("menu/mar2.png", 20);
+  _add_sea("menu/mar3.png", -20);
+  _add_fish("menu/pez2.png", 522, 300, 3);
+  _add_fish("menu/pez2.png", 122, 200, 2.5);
+  _add_fish("menu/pez2.png", 622, 100, 2);
+
+  _add_sea("menu/capamar.png",0);
 
   //titulo
   _add_title("menu/titulo.png");
+
+  //salir
+  _add_quit("botones/salir.png");
+  _add_buttons();
   return true;
+}
+
+void MenuPrincipal::_add_buttons(){
+  Size visibleSize = Director::getInstance()->getVisibleSize();
+  Point origin = Director::getInstance()->getVisibleOrigin();
+
+
+  auto play_normal = Sprite::create("botones/play.png");
+  auto play_selected = Sprite::create("botones/play.png");
+  play_selected->runAction(Effects::ActionButtonSelected());
+  auto play = MenuItemSprite::create(play_normal, play_selected, CC_CALLBACK_0(MenuPrincipal::toPlayMenu, this));
+
+  auto training_normal = Sprite::create("botones/training.png");
+  auto training_selected = Sprite::create("botones/training.png");
+  training_selected->runAction(Effects::ActionButtonSelected());
+  auto training = MenuItemSprite::create(training_normal, training_selected, CC_CALLBACK_0(MenuPrincipal::toTraining, this));
+
+  auto menu = Menu::create(play, training, NULL);
+  menu->alignItemsVerticallyWithPadding(10);
+  this->addChild(menu);
+  menu->setPosition(Point(menu->getContentSize().width/2 + 10,
+			  visibleSize.height + origin.y - menu->getContentSize().height/2
+			  )
+		    );
+}
+
+
+void MenuPrincipal::quit() {
+  stopAllActions();
+  unscheduleAllSelectors();
+  removeFromParentAndCleanup(true);
+  Director::getInstance()->end();
+}
+
+void MenuPrincipal::_add_quit(const char* path) {
+  Size visibleSize = Director::getInstance()->getVisibleSize();
+  Point origin = Director::getInstance()->getVisibleOrigin();
+
+  auto item = MenuItemImage::create(
+				    path,
+				    path,
+				    CC_CALLBACK_0(MenuPrincipal::quit, this)
+				    );
+  item->setPosition(Point(visibleSize.width + origin.x - item->getContentSize().width - 15,
+			 visibleSize.height + origin.y - item->getContentSize().height - 15));
+
+  auto menu = Menu::create(item, NULL);
+  menu->setPosition(Point::ZERO);
+  this->addChild(menu, 99);
+
 }
 
 void MenuPrincipal::_add_title(const char* path) {
@@ -79,6 +140,13 @@ void MenuPrincipal::_add_boat(const char* path, int vel){
   this->addChild(boat);
 }
 
+void MenuPrincipal::_add_fish(const char* path, int x, int y, float vel){
+  Sprite* fish = Sprite::create(path);
+  this->addChild(fish);
+  fish->setPosition(Point(x, y));
+  fish->runAction(Effects::ActionFishMovement(y, vel));
+}
+
 void MenuPrincipal::_add_sea(const char* path, int offset_x){
   Sprite* sea = Sprite::create(path);
   int mar_base_y = sea->getContentSize().height/2;
@@ -103,4 +171,14 @@ void MenuPrincipal::_add_sea(const char* path, int offset_x){
 				);
   sea->runAction(RepeatForever::create(Spawn::create(zigzag, swing, NULL)));
   this->addChild(sea);
+}
+
+
+void MenuPrincipal::toPlayMenu(){
+}
+
+void MenuPrincipal::toCredits(){
+}
+
+void MenuPrincipal::toTraining(){
 }
