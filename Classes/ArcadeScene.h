@@ -20,7 +20,7 @@ class Arcade : public cocos2d::Layer
   virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
   virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
 
-  void onMatchSpheres(GroupSphere);
+  void onMatchSpheres(GroupSphere,unsigned int);
  private:
   bool gestureDown;
   bool gestureUp;

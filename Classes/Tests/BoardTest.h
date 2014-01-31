@@ -50,7 +50,7 @@ class BoardTest : public CppUnit::TestFixture {
   }
 
   void testMatch() {
-    board->attachMatch([](GroupSphere spheres){
+    board->attachMatch([](GroupSphere spheres,int start_count_match){
       });
 
     board->attachEndBoard([](GroupSphere spheres){

@@ -55,7 +55,7 @@ class Board : public cocos2d::Object
    *en el patron esperado.
    *Usado para logica de juego.
    */
-  void attachMatch(std::function<void(GroupSphere)> );
+  void attachMatch(std::function<void(GroupSphere, unsigned int)> );
 
   /**
    *Llamada cuando se toca el fin del tablero
@@ -89,7 +89,7 @@ class Board : public cocos2d::Object
   cocos2d::Node* _node;
   Grid<Sphere*> _grid;
   std::vector< std::function<void(GroupSphere)> > onAttachRoll;
-  std::vector< std::function<void(GroupSphere)> > onAttachMatch;
+  std::vector< std::function<void(GroupSphere,unsigned int)> > onAttachMatch;
   std::vector< std::function<void(GroupSphere)> > onAttachEndBoard;
 };
 

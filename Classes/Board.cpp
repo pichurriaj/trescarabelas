@@ -109,7 +109,7 @@ void Board::takeSphere(int col, GroupSphere& spheres) {
   _match(PointGrid(col,_grid.getRows()));
 }
 
-void Board::attachMatch(std::function<void(GroupSphere)> func) {
+void Board::attachMatch(std::function<void(GroupSphere,unsigned int)> func) {
   onAttachMatch.push_back(func);
 }
 
@@ -254,11 +254,13 @@ GroupSphere Board::_match_left(PointGrid start){
 GroupSphere Board::_match(PointGrid start) {
   GroupSphere spheres;
   Sphere* start_sphere = _grid.getPop(start.x);
+  unsigned int start_count_match = 0;
   if(_grid.Empty(start_sphere)) return spheres;
   std::cout << "Match::PoinTStart:" << start.x << " LastRow:" << _grid.getLastRow(start.x) << std::endl;
   std::cout << "Match::StartSphereType:" << start_sphere->getType() << std::endl;
   //start_sphere->retain();
   if(!_grid.Empty(start_sphere)){
+    start_count_match += 1;
     spheres.push_back(start_sphere);
     //vertical
     int last_row = _grid.getLastRow(start.x) - 1;
@@ -270,6 +272,7 @@ GroupSphere Board::_match(PointGrid start) {
       //sphere_to_match->retain();
       if(!_grid.Empty(sphere_to_match) && sphere_to_match->getType() == start_sphere->getType()){
 	spheres.push_back(sphere_to_match);
+	start_count_match += 1;
       }else{
 	break;
       }
@@ -289,7 +292,7 @@ GroupSphere Board::_match(PointGrid start) {
   }
 
   for(auto it = onAttachMatch.begin(); it != onAttachMatch.end(); it++){
-    (*it)(spheres);
+    (*it)(spheres, start_count_match);
   }
   return spheres;
 }
