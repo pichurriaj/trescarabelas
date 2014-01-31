@@ -25,23 +25,37 @@ Board* Board::create() {
 void Board::update(float dt) {
 }
 
+
 GroupSphere Board::dropSphere(PointGrid pos) {
   GroupSphere spheres;
   Sphere* last_sphere = _grid.pop(pos.x);
   Sphere* drop_sphere = NULL;
+  if(_grid.Empty(last_sphere)) return spheres;
 
+  last_sphere->viewRemoveFromParent();
   spheres.push_back(last_sphere);
   do{
+
     drop_sphere = _grid.pop(pos.x);
-    drop_sphere->retain();
-    if(drop_sphere->getType() == last_sphere->getType()) {
-      spheres.push_back(drop_sphere);
+    if(!_grid.Empty(drop_sphere)){
+      drop_sphere->retain();
+      if(drop_sphere->getType() == last_sphere->getType()) {
+	drop_sphere->viewRemoveFromParent();
+	spheres.push_back(drop_sphere);
+      }else{
+	_grid.push(pos.x, drop_sphere);
+	break;
+      }
     }else{
-      _grid.push(pos.x, drop_sphere);
       break;
     }
   }while(1);
+  updateView();
   return spheres;
+}
+
+GroupSphere Board::dropSphere(int col){
+  return dropSphere(PointGrid(col, 0));
 }
 
 void Board::takeSphere(int col, GroupSphere& spheres) {
@@ -56,6 +70,7 @@ void Board::takeSphere(int col, GroupSphere& spheres) {
     poss.y *= -1; //invierte, para mostrar hacia abajo
     poss.y += _node->getContentSize().height;
     sphere_view->setPosition(poss);
+    (*it)->setPosition(pos);
   }
   
 }
@@ -77,13 +92,30 @@ Node* Board::getView() {
   return _node;
 }
 
+void Board::updateView() {
+  for(int col = _grid.getCols(); col > 0; col--){
+    for(int row = _grid.getRows(); row > 0; row--){
+      try{
+	Sphere* data = static_cast<Sphere*>(_grid.get(PointGrid(col, row)));
+
+	if(!_grid.Empty(data)){
+	  data->updateView(GRID_SIZE/2, _node->getContentSize().height);
+	}
+      }catch(std::exception &re) {
+	std::cerr << "Error:" << re.what() << std::endl;
+      }
+    }
+  }
+}
 
 void Board::roll(GroupSphere spheres) {
   int col = 0;
   for(auto &sphere: spheres) {
 
     _grid.push_front(col, sphere);
+
     auto pos = PointGrid(col, 0);
+    sphere->setPosition(pos);
     auto sphere_view = sphere->getView();
     _node->addChild(sphere_view);
     auto poss = pos.toPoint();
@@ -91,8 +123,8 @@ void Board::roll(GroupSphere spheres) {
     poss.y *= -1; //invierte, para mostrar hacia abajo
     poss.y += _node->getContentSize().height;
     sphere_view->setPosition(poss);
-
-    std::cout << "Rolling sphere first" << std::endl;
+    
+    //std::cout << "Rolling sphere first" << std::endl;
     for(int row = _grid.getRows(); row > 0; row--){
       try{
 	Sphere* data = static_cast<Sphere*>(_grid.get(PointGrid(col, row)));
@@ -100,14 +132,14 @@ void Board::roll(GroupSphere spheres) {
 	if(!_grid.Empty(data)){
 	  auto pos = PointGrid(col, row);
 	  auto sphere_view = data->getView();
-
+	  data->setPosition(pos);
 	  auto poss = pos.toPoint();
 	  poss.x += GRID_SIZE/2;
 	  poss.y *= -1; //invierte, para mostrar hacia abajo
 	  poss.y += _node->getContentSize().height;
 	  sphere_view->setPosition(poss);
 	  sphere_view->retain();
-	  std::cout << "Rolling sphere down" << std::endl;
+	  //std::cout << "Rolling sphere down" << std::endl;
 	}
       }catch(std::exception &re) {
 	std::cerr << "Error:" << re.what() << std::endl;

@@ -50,6 +50,8 @@ set(GAME_SRC
   Classes/BoardPopulaterTester.cpp
   Classes/GameTestArcadeScene.cpp
   Classes/MenuScene.cpp
+  Classes/ArcadeScene.cpp
+  Classes/Indian.cpp
 )
 
 set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/../..)

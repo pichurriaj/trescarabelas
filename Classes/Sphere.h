@@ -31,12 +31,12 @@ class Sphere : public cocos2d::Object
   SphereType getType();
   void setPosition(PointGrid);
   PointGrid getPosition();
-
+  void updateView(int, int);
   /**
    *nodo cocos2d representa vista
    */
   cocos2d::Node* getView();
-
+  void viewRemoveFromParent() { _node->removeFromParent(); }
  private:					
   cocos2d::Node *_node;
   PointGrid _pos;

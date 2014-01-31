@@ -35,6 +35,7 @@ class Board : public cocos2d::Object
    *Actualiza logica del tablero
    */
   void update(float dt);
+  void updateView();
 
   /**
    *Saca esferas del tablero,
@@ -42,7 +43,7 @@ class Board : public cocos2d::Object
    *Siempre y cuando se pueda.
    */
   GroupSphere dropSphere(PointGrid pos);
-
+  GroupSphere dropSphere(int col);
   /**
    *Pone esfera en el tablero
    */

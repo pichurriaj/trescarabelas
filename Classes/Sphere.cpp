@@ -25,27 +25,34 @@ void Sphere::setType(SphereType type) {
     _node->release();
     _node = NULL;
   }
+
   _node = Node::create();
   Sprite* _sp = NULL;
   _node->setContentSize(Size(GRID_SIZE, GRID_SIZE));
   switch(type) {
   case SPHERE_RED:
     _sp = Sprite::create("objetos/esfera_roja.png");
+    _type = type;
     break;
   case SPHERE_GREEN:
     _sp = Sprite::create("objetos/esfera_verde.png");
+    _type = type;
     break;
   case SPHERE_BLUE:
     _sp = Sprite::create("objetos/esfera_azul.png");
+    _type = type;
     break;
   case SPHERE_YELLOW:
     _sp = Sprite::create("objetos/esfera_amarilla.png");
+    _type = type;
     break;
   case SPHERE_VIOLET:
     _sp = Sprite::create("objetos/esfera_morada.png");
+    _type = type;
     break;
   case SPHERE_CHROMATIC:
     _sp = Sprite::create("objetos/esfera_gris.png");
+    _type = type;
     break;
   default:
     /**
@@ -74,4 +81,10 @@ void Sphere::setPosition(PointGrid pos) {
 Node* Sphere::getView() {
   _node->retain();
   return _node;
+}
+
+
+void Sphere::updateView(int offset_x, int board_height) {
+  _node->setPosition(Point(_pos.toPoint().x + offset_x,
+			   board_height-_pos.toPoint().y));
 }

@@ -161,6 +161,30 @@ Classes/AppDelegate.cpp.s:
 	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/AppDelegate.cpp.s
 .PHONY : Classes/AppDelegate.cpp.s
 
+Classes/ArcadeScene.o: Classes/ArcadeScene.cpp.o
+.PHONY : Classes/ArcadeScene.o
+
+# target to build an object file
+Classes/ArcadeScene.cpp.o:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/ArcadeScene.cpp.o
+.PHONY : Classes/ArcadeScene.cpp.o
+
+Classes/ArcadeScene.i: Classes/ArcadeScene.cpp.i
+.PHONY : Classes/ArcadeScene.i
+
+# target to preprocess a source file
+Classes/ArcadeScene.cpp.i:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/ArcadeScene.cpp.i
+.PHONY : Classes/ArcadeScene.cpp.i
+
+Classes/ArcadeScene.s: Classes/ArcadeScene.cpp.s
+.PHONY : Classes/ArcadeScene.s
+
+# target to generate assembly for a file
+Classes/ArcadeScene.cpp.s:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/ArcadeScene.cpp.s
+.PHONY : Classes/ArcadeScene.cpp.s
+
 Classes/Board.o: Classes/Board.cpp.o
 .PHONY : Classes/Board.o
 
@@ -281,6 +305,30 @@ Classes/Grid.cpp.s:
 	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Grid.cpp.s
 .PHONY : Classes/Grid.cpp.s
 
+Classes/Indian.o: Classes/Indian.cpp.o
+.PHONY : Classes/Indian.o
+
+# target to build an object file
+Classes/Indian.cpp.o:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Indian.cpp.o
+.PHONY : Classes/Indian.cpp.o
+
+Classes/Indian.i: Classes/Indian.cpp.i
+.PHONY : Classes/Indian.i
+
+# target to preprocess a source file
+Classes/Indian.cpp.i:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Indian.cpp.i
+.PHONY : Classes/Indian.cpp.i
+
+Classes/Indian.s: Classes/Indian.cpp.s
+.PHONY : Classes/Indian.s
+
+# target to generate assembly for a file
+Classes/Indian.cpp.s:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Indian.cpp.s
+.PHONY : Classes/Indian.cpp.s
+
 Classes/MenuScene.o: Classes/MenuScene.cpp.o
 .PHONY : Classes/MenuScene.o
 
@@ -391,6 +439,9 @@ help:
 	@echo "... Classes/AppDelegate.o"
 	@echo "... Classes/AppDelegate.i"
 	@echo "... Classes/AppDelegate.s"
+	@echo "... Classes/ArcadeScene.o"
+	@echo "... Classes/ArcadeScene.i"
+	@echo "... Classes/ArcadeScene.s"
 	@echo "... Classes/Board.o"
 	@echo "... Classes/Board.i"
 	@echo "... Classes/Board.s"
@@ -406,6 +457,9 @@ help:
 	@echo "... Classes/Grid.o"
 	@echo "... Classes/Grid.i"
 	@echo "... Classes/Grid.s"
+	@echo "... Classes/Indian.o"
+	@echo "... Classes/Indian.i"
+	@echo "... Classes/Indian.s"
 	@echo "... Classes/MenuScene.o"
 	@echo "... Classes/MenuScene.i"
 	@echo "... Classes/MenuScene.s"

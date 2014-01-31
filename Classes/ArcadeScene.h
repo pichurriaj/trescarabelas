@@ -5,21 +5,33 @@
 
 #include "Indian.h"
 #include "Board.h"
+#include "BoardPopulater.h"
 
-#include "cocos2d.h"
 
-class GameArcade : public cocos2d::Scene
+class Arcade : public cocos2d::Layer
 {
  public:
-  static cocos2d::Scene* scene();
+  static cocos2d::Scene* createScene();
   virtual bool init();
-  CREATE_FUNC(GameArcade);
+  CREATE_FUNC(Arcade);
+  
+  void updateBoard(float);
+  virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
+  virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
+  virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
 
  private:
+  bool gestureDown;
+  bool gestureUp;
+  cocos2d::Point tap_begin;
+
   int _score;
   int _time;
   Indian* player;
+  cocos2d::Size visibleSize;
+  cocos2d::Point origin;
   Board* board;
+  BoardPopulater* board_populater;
 };
 
 #endif
