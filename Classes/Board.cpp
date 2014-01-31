@@ -106,6 +106,7 @@ void Board::takeSphere(int col, GroupSphere& spheres) {
     (*it)->setPosition(pos);
   }
   
+  _match(PointGrid(col,_grid.getRows()));
 }
 
 void Board::attachMatch(std::function<void(GroupSphere)> func) {
@@ -186,7 +187,109 @@ void Board::roll(GroupSphere spheres) {
   }
 }
 
+
+void Board::updateMatch(){
+}
+
+GroupSphere Board::_match_right(PointGrid start){
+  GroupSphere spheres;
+  Sphere* start_sphere = _grid.getPop(start.x);
+  int last_row = start.y;
+  if(_grid.Empty(start_sphere)) return spheres;
+  if(start.x + 1 >= _grid.getCols()){
+    return spheres;
+  }
+
+  for(int row=last_row; row >= 0; row--){
+    PointGrid pos_right_match(start.x + 1, row);
+    Sphere* sphere_to_match_right = _grid.get(pos_right_match);
+    if(pos_right_match.x >= _grid.getCols()){
+      return spheres;
+    }
+
+    if(_grid.Empty(sphere_to_match_right) || sphere_to_match_right->getType() != start_sphere->getType()){
+      return spheres;
+    }
+    spheres.push_back(sphere_to_match_right);
+    std::cout << "Match::PosMatch:Right " << pos_right_match.x << "," << row  << "Type:" << sphere_to_match_right->getType() << std::endl;
+    GroupSphere spheres_right = this->_match_right(pos_right_match);
+    for(auto it = spheres_right.begin(); it != spheres_right.end(); it++){
+      spheres.push_back((*it));
+    }
+  }
+  return spheres;
+}
+
+
+GroupSphere Board::_match_left(PointGrid start){
+  GroupSphere spheres;
+  Sphere* start_sphere = _grid.getPop(start.x);
+  int last_row = start.y;
+  if(_grid.Empty(start_sphere)) return spheres;
+  if(start.x - 1 < 0){
+    return spheres;
+  }
+
+  for(int row=last_row; row >= 0; row--){
+    PointGrid pos_left_match(start.x - 1, row);
+    Sphere* sphere_to_match_left = _grid.get(pos_left_match);
+    if(pos_left_match.x < 0){
+      return spheres;
+    }
+
+    if(_grid.Empty(sphere_to_match_left) || sphere_to_match_left->getType() != start_sphere->getType()){
+      return spheres;
+    }
+    spheres.push_back(sphere_to_match_left);
+    std::cout << "Match::PosMatch:Left " << pos_left_match.x << "," << row  << "Type:" << sphere_to_match_left->getType() << std::endl;
+    GroupSphere spheres_left = this->_match_left(pos_left_match);
+    for(auto it = spheres_left.begin(); it != spheres_left.end(); it++){
+      spheres.push_back((*it));
+    }
+  }
+  return spheres;
+}
+
+
 GroupSphere Board::_match(PointGrid start) {
   GroupSphere spheres;
+  Sphere* start_sphere = _grid.getPop(start.x);
+  if(_grid.Empty(start_sphere)) return spheres;
+  std::cout << "Match::PoinTStart:" << start.x << " LastRow:" << _grid.getLastRow(start.x) << std::endl;
+  std::cout << "Match::StartSphereType:" << start_sphere->getType() << std::endl;
+  //start_sphere->retain();
+  if(!_grid.Empty(start_sphere)){
+    spheres.push_back(start_sphere);
+    //vertical
+    int last_row = _grid.getLastRow(start.x) - 1;
+    if(last_row < 0) return spheres;
+    for(int row=last_row; row >= 0; row--){
+      PointGrid pos_match(start.x, row);
+
+      Sphere* sphere_to_match = _grid.get(pos_match);
+      //sphere_to_match->retain();
+      if(!_grid.Empty(sphere_to_match) && sphere_to_match->getType() == start_sphere->getType()){
+	spheres.push_back(sphere_to_match);
+      }else{
+	break;
+      }
+      std::cout << "Match::PosMatch: " << start.x << "," << row  << "Type:" << sphere_to_match->getType() << std::endl;
+      //por derecha
+
+      GroupSphere spheres_right = _match_right(PointGrid(start.x, row));
+      for(auto it = spheres_right.begin(); it != spheres_right.end(); it++){
+	spheres.push_back((*it));
+      }
+      //por izquierda
+      GroupSphere spheres_left = _match_left(PointGrid(start.x, row));
+      for(auto it = spheres_left.begin(); it != spheres_left.end(); it++){
+	spheres.push_back((*it));
+      }
+    }
+  }
+
+  for(auto it = onAttachMatch.begin(); it != onAttachMatch.end(); it++){
+    (*it)(spheres);
+  }
   return spheres;
 }

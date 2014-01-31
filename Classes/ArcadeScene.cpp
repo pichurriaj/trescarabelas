@@ -35,7 +35,7 @@ bool Arcade::init(){
   Node* board_view = board->getView();
   this->addChild(board_view);
   board_view->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
+  board->attachMatch(CC_CALLBACK_1(Arcade::onMatchSpheres, this));
   board_populater = new BoardPopulaterRandom(board);
   board_populater->populate();
   board->setPopulater(board_populater);
@@ -54,7 +54,7 @@ bool Arcade::init(){
 }
 
 void Arcade::updateBoard(float dt){
-  board_populater->populate_first_row();
+  //board_populater->populate_first_row();
 }
 
 bool Arcade::onTouchBegan(Touch* touch, Event* event){
@@ -99,3 +99,6 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
   gestureUp = false; gestureDown = false; tap_begin = Point::ZERO;
 }
 
+void Arcade::onMatchSpheres(GroupSphere spheres){
+  std::cout << "On Match Spheres: " << spheres.size() << std::endl;
+}

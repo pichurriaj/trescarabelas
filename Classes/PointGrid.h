@@ -16,7 +16,7 @@ class PointGrid
   }
   
   cocos2d::Point toPoint() { return cocos2d::Point(x * GRID_SIZE, y * GRID_SIZE);  }
-  
+ 
   int x;
   int y;
 

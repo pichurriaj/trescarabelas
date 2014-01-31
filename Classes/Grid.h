@@ -117,6 +117,28 @@ class Grid
   }
 
   /**
+   *Retorna ultimo elemento.
+   */
+  T getPop(int col) {
+    for(int y = _h; y >= 0; y--) {
+      T dt = _grid[y * _w + col];
+      if(!Empty(dt)) {
+	return dt;
+      }
+    }
+    return _empty;
+  }
+  
+  int getLastRow(int col){
+    for(int y = _h; y >= 0; y--) {
+      if(!Empty(PointGrid(col, y))) {
+	return y;
+      }
+    }
+    return -1;
+  }
+
+  /**
    *Permite asignar indicador de vacio
    */
   void setEmpty(T v) {

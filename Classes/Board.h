@@ -36,7 +36,7 @@ class Board : public cocos2d::Object
    */
   void update(float dt);
   void updateView();
-
+  void updateMatch();
   /**
    *Saca esferas del tablero,
    *eso es cuando el jugador toma la esfera
@@ -84,7 +84,8 @@ class Board : public cocos2d::Object
    *@return GroupSphere* grupo de esferas
    */
   GroupSphere _match(PointGrid start);
-
+  GroupSphere _match_right(PointGrid start);
+  GroupSphere _match_left(PointGrid start);
   cocos2d::Node* _node;
   Grid<Sphere*> _grid;
   std::vector< std::function<void(GroupSphere)> > onAttachRoll;
