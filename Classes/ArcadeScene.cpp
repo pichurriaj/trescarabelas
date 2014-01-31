@@ -99,6 +99,12 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
   gestureUp = false; gestureDown = false; tap_begin = Point::ZERO;
 }
 
-void Arcade::onMatchSpheres(GroupSphere spheres, unsigned int start_count_match){
-  std::cout << "On Match Spheres: " << spheres.size() << "StartCountMatch:" << start_count_match << std::endl;
+void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match){
+  if(start_count_match != 3) return;
+  std::cout << "On Match Spheres: " << spheres.size() << " StartCountMatch:" << start_count_match << std::endl;
+  for(auto it = spheres.begin(); it != spheres.end(); it++){
+    std::cout << "MatchToRemove:" << (*it)->getPosition().x << "," << (*it)->getPosition().y << std::endl;
+    board->dropSphere((*it)->getPosition());
+  }
+
 }

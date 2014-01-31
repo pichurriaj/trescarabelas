@@ -16,7 +16,7 @@ void BoardPopulaterRandom::populate() {
     for(int rows = 4; rows > 0; rows--) {
       spheres.push_back(randomSphere());
     }
-    _board->takeSphere(col, spheres);
+    _board->populateCol(col, spheres);
   }
 
 }
@@ -28,7 +28,7 @@ void BoardPopulaterRandom::populate_next_row() {
     for(int rows = 1; rows > 0; rows--) {
       spheres.push_back(randomSphere());
     }
-    _board->takeSphere(col, spheres);
+    _board->populateCol(col, spheres);
   }
 }
 

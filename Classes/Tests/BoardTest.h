@@ -33,7 +33,7 @@ class BoardTest : public CppUnit::TestFixture {
   
   void testPopulater() {
     board_populater->populate(SPHERE_RED, 5);
-    GroupSphere spheres = board->dropSphere(PointGrid(0,0));
+    GroupSphere spheres = board->dropSphere(0);
     CPPUNIT_ASSERT(spheres.size() == 5);
     for(auto &sphere: spheres) {
       CPPUNIT_ASSERT(sphere->getType() == SPHERE_RED);

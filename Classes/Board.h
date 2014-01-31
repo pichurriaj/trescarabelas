@@ -49,13 +49,13 @@ class Board : public cocos2d::Object
    *Pone esfera en el tablero
    */
   void takeSphere(int col, GroupSphere&);
-
+  void populateCol(int col, GroupSphere&);
   /**
    *Llamada cuando mas de tres esferas han colisionado
    *en el patron esperado.
    *Usado para logica de juego.
    */
-  void attachMatch(std::function<void(GroupSphere, unsigned int)> );
+  void attachMatch(std::function<void(GroupSphere&, unsigned int)> );
 
   /**
    *Llamada cuando se toca el fin del tablero
@@ -89,7 +89,7 @@ class Board : public cocos2d::Object
   cocos2d::Node* _node;
   Grid<Sphere*> _grid;
   std::vector< std::function<void(GroupSphere)> > onAttachRoll;
-  std::vector< std::function<void(GroupSphere,unsigned int)> > onAttachMatch;
+  std::vector< std::function<void(GroupSphere&,unsigned int)> > onAttachMatch;
   std::vector< std::function<void(GroupSphere)> > onAttachEndBoard;
 };
 

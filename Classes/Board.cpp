@@ -25,9 +25,18 @@ Board* Board::create() {
 void Board::update(float dt) {
 }
 
-
-GroupSphere Board::dropSphere(PointGrid pos) {
+GroupSphere Board::dropSphere(PointGrid pos){
   GroupSphere spheres;
+  Sphere* last_sphere = _grid.drop(pos);
+  if(_grid.Empty(last_sphere)) return spheres;
+  last_sphere->viewRemoveFromParent();
+  spheres.push_back(last_sphere);
+  return spheres;
+}
+
+GroupSphere Board::dropSphere(int col) {
+  GroupSphere spheres;
+  PointGrid pos(col,0);
   Sphere* last_sphere = _grid.pop(pos.x);
   Sphere* drop_sphere = NULL;
   if(_grid.Empty(last_sphere)) return spheres;
@@ -54,9 +63,6 @@ GroupSphere Board::dropSphere(PointGrid pos) {
   return spheres;
 }
 
-GroupSphere Board::dropSphere(int col){
-  return dropSphere(PointGrid(col, 0));
-}
 
 GroupSphere Board::dropSphere(int col, SphereType sphere_type) {
   GroupSphere spheres;
@@ -92,6 +98,11 @@ GroupSphere Board::dropSphere(int col, SphereType sphere_type) {
 }
 
 void Board::takeSphere(int col, GroupSphere& spheres) {
+  populateCol(col, spheres);
+  _match(PointGrid(col,_grid.getRows()));
+}
+
+void Board::populateCol(int col, GroupSphere& spheres) {
   for(auto it = spheres.begin(); it != spheres.end(); it++) {
     (*it)->retain();
     auto pos = _grid.push(col, (*it));
@@ -105,11 +116,9 @@ void Board::takeSphere(int col, GroupSphere& spheres) {
     sphere_view->setPosition(poss);
     (*it)->setPosition(pos);
   }
-  
-  _match(PointGrid(col,_grid.getRows()));
 }
 
-void Board::attachMatch(std::function<void(GroupSphere,unsigned int)> func) {
+void Board::attachMatch(std::function<void(GroupSphere&,unsigned int)> func) {
   onAttachMatch.push_back(func);
 }
 
