@@ -30,6 +30,7 @@ bool Arcade::init(){
   this->addChild(bg);
 
   player = Indian::create();
+  player->retain();
   board = Board::create();
   Node* board_view = board->getView();
   this->addChild(board_view);
@@ -77,13 +78,22 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
   CCLOG("Col Touched: %d", TOUCH_TO_COL(tap_begin));
 
   if(gestureDown){
-    //auto grab_spheres = board->dropSphere(TOUCH_TO_COL(tap_begin));
-    //for(auto it = grab_spheres.begin(); it != grab_spheres.end(); it++){
-    //  player->takeSphere(&(*it));
-    //}
-    Sphere* sp = Sphere::create(SPHERE_RED);
-    player->takeSphere(&sp);
+    GroupSphere grab_spheres;
+    if(player->typeOnBag() != SPHERE_COUNT){
+      grab_spheres = board->dropSphere(TOUCH_TO_COL(tap_begin), player->typeOnBag());
+    }else{
+      grab_spheres = board->dropSphere(TOUCH_TO_COL(tap_begin));
+    }
+    for(auto it = grab_spheres.begin(); it != grab_spheres.end(); it++){
+      player->takeSphere(&(*it));
+    }
+
+  }else if(gestureUp){
+    GroupSphere on_bag = player->getBag();
+    board->takeSphere(TOUCH_TO_COL(tap_begin), on_bag);
   }
+
+
 
   //fin
   gestureUp = false; gestureDown = false; tap_begin = Point::ZERO;

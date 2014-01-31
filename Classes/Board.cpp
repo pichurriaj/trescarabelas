@@ -65,7 +65,7 @@ GroupSphere Board::dropSphere(int col, SphereType sphere_type) {
   Sphere* last_sphere = _grid.pop(pos.x);
   Sphere* drop_sphere = NULL;
   if(_grid.Empty(last_sphere)) return spheres;
-  if(last_sphere->getType() != sphere_type){
+  if(sphere_type != SPHERE_COUNT && last_sphere->getType() != sphere_type){
     _grid.push_front(col, last_sphere);
     return spheres;
   }

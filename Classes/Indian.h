@@ -9,11 +9,11 @@
  *Representa el jugador
  *aunque este es atraves de comandos
  */
-class Indian : public cocos2d::Node
+class Indian :  public cocos2d::Object
 {
  public:
-  virtual bool init();
-  CREATE_FUNC(Indian);
+  Indian();
+  static Indian* create();
   
   void update(float dt);
   void jumpTo(PointGrid);
@@ -22,7 +22,7 @@ class Indian : public cocos2d::Node
    */
   bool takeSphere(Sphere** sphere);
   GroupSphere getBag();
-
+  SphereType typeOnBag();
   /*Animaciones*/
   void animateStand();
   void animateTake();
@@ -31,9 +31,9 @@ class Indian : public cocos2d::Node
   void animateWin(){}
   void animateWithoutTime(){}
 
- 
+  //CC_SYNTHESIZE(cocos2d::Array*, _hold_bag, HoldBag);
  private:
-  cocos2d::Array* _hold_bag;
+  GroupSphere _hold_bag;
 
   PointGrid _pos;
 };

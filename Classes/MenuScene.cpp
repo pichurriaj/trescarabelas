@@ -58,7 +58,7 @@ void MenuPrincipal::_add_buttons(){
 
 
   auto play_normal = Sprite::create("botones/play.png");
-  auto play_selected = Sprite::create("botones/play.png");
+  auto play_selected = Sprite::create("botones/play_presionado.png");
   play_selected->runAction(Effects::ActionButtonSelected());
   auto play = MenuItemSprite::create(play_normal, play_selected, CC_CALLBACK_0(MenuPrincipal::toPlayMenu, this));
   /*
