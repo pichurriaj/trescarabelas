@@ -76,7 +76,7 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
   CCLOG("Gesture Up: %d", gestureUp ? 1 : 0);
   CCLOG("Col Touched: %d", TOUCH_TO_COL(tap_begin));
 
-  board->dropSphere(TOUCH_TO_COL(tap_begin));
+  board->dropSphere(TOUCH_TO_COL(tap_begin),SPHERE_RED);
   //fin
   gestureUp = false; gestureDown = false; tap_begin = Point::ZERO;
 }

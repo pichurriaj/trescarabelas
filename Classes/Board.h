@@ -44,6 +44,7 @@ class Board : public cocos2d::Object
    */
   GroupSphere dropSphere(PointGrid pos);
   GroupSphere dropSphere(int col);
+  GroupSphere dropSphere(int col, SphereType);
   /**
    *Pone esfera en el tablero
    */

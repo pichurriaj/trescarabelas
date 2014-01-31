@@ -58,6 +58,40 @@ GroupSphere Board::dropSphere(int col){
   return dropSphere(PointGrid(col, 0));
 }
 
+GroupSphere Board::dropSphere(int col, SphereType sphere_type) {
+  GroupSphere spheres;
+  PointGrid pos(col, 0);
+
+
+  Sphere* last_sphere = _grid.pop(pos.x);
+  Sphere* drop_sphere = NULL;
+  if(_grid.Empty(last_sphere)) return spheres;
+  if(last_sphere->getType() != sphere_type){
+    _grid.push_front(col, last_sphere);
+    return spheres;
+  }
+  last_sphere->viewRemoveFromParent();
+  spheres.push_back(last_sphere);
+  do{
+
+    drop_sphere = _grid.pop(pos.x);
+    if(!_grid.Empty(drop_sphere)){
+      drop_sphere->retain();
+      if(drop_sphere->getType() == last_sphere->getType()) {
+	drop_sphere->viewRemoveFromParent();
+	spheres.push_back(drop_sphere);
+      }else{
+	_grid.push(pos.x, drop_sphere);
+	break;
+      }
+    }else{
+      break;
+    }
+  }while(1);
+  updateView();
+  return spheres;
+}
+
 void Board::takeSphere(int col, GroupSphere& spheres) {
   for(auto it = spheres.begin(); it != spheres.end(); it++) {
     (*it)->retain();
