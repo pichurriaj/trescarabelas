@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "PointGrid.h"
 #include "Sphere.h"
-
+#include <vector>
 /**
  *Representa el jugador
  *aunque este es atraves de comandos
@@ -12,7 +12,6 @@
 class Indian : public cocos2d::Node
 {
  public:
-  Indian();
   virtual bool init();
   CREATE_FUNC(Indian);
   
@@ -21,8 +20,8 @@ class Indian : public cocos2d::Node
   /**
    *Solo guarda si son del mismo tipo
    */
-  bool grabSphere(Sphere* sphere);
-  GroupSphere* getBag();
+  bool takeSphere(Sphere** sphere);
+  GroupSphere getBag();
 
   /*Animaciones*/
   void animateStand();
@@ -32,8 +31,10 @@ class Indian : public cocos2d::Node
   void animateWin(){}
   void animateWithoutTime(){}
 
+ 
  private:
-  GroupSphere* _hold_bag;
+  cocos2d::Array* _hold_bag;
+
   PointGrid _pos;
 };
 

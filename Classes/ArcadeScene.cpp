@@ -76,7 +76,15 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
   CCLOG("Gesture Up: %d", gestureUp ? 1 : 0);
   CCLOG("Col Touched: %d", TOUCH_TO_COL(tap_begin));
 
-  board->dropSphere(TOUCH_TO_COL(tap_begin),SPHERE_RED);
+  if(gestureDown){
+    //auto grab_spheres = board->dropSphere(TOUCH_TO_COL(tap_begin));
+    //for(auto it = grab_spheres.begin(); it != grab_spheres.end(); it++){
+    //  player->takeSphere(&(*it));
+    //}
+    Sphere* sp = Sphere::create(SPHERE_RED);
+    player->takeSphere(&sp);
+  }
+
   //fin
   gestureUp = false; gestureDown = false; tap_begin = Point::ZERO;
 }

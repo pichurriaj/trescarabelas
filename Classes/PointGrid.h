@@ -10,6 +10,8 @@
 class PointGrid
 {
  public:
+ PointGrid(): x(0), y(0) {
+  }
  PointGrid(int _x, int _y) : x(_x), y(_y){
   }
   

@@ -62,7 +62,6 @@ GroupSphere Board::dropSphere(int col, SphereType sphere_type) {
   GroupSphere spheres;
   PointGrid pos(col, 0);
 
-
   Sphere* last_sphere = _grid.pop(pos.x);
   Sphere* drop_sphere = NULL;
   if(_grid.Empty(last_sphere)) return spheres;
