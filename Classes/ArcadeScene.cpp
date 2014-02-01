@@ -115,6 +115,7 @@ void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match
   std::cout << "On Match Spheres: " << spheres.size() << " StartCountMatch:" << start_count_match << std::endl;
   for(auto it = spheres.begin(); it != spheres.end(); it++){
     std::cout << "MatchToRemove:" << (*it)->getPosition().x << "," << (*it)->getPosition().y  << " Type:" << (*it)->getType() << std::endl;
+    //@todo aqui efecto de destruccion
     board->dropSphere((*it)->getPosition());
   }
   board->fallSpheres(CC_CALLBACK_2(Arcade::onFallSphere, this));
@@ -132,6 +133,7 @@ void Arcade::onFallSphere(Sphere* sphere, PointGrid sphere_next_pos){
   new_pos.y *= -1;
   new_pos.y += board_view->getContentSize().height;
   sphere->retain();
+  //@todo revizar memoria
   MessageBoardSphere* send = new MessageBoardSphere(board, sphere);
   view->setUserData(send);
   view->runAction(Sequence::create(

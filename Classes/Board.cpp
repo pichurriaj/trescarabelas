@@ -289,7 +289,9 @@ GroupSphere Board::_match(PointGrid start) {
 
       Sphere* sphere_to_match = _grid.get(pos_match);
       //sphere_to_match->retain();
-      if(!_grid.Empty(sphere_to_match) && sphere_to_match->getType() == start_sphere->getType()){
+      if(!_grid.Empty(sphere_to_match) && 
+	 sphere_to_match->getType() == start_sphere->getType()
+	 ){
 	spheres.push_back(sphere_to_match);
 	start_count_match += 1;
       }else{

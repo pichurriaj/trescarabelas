@@ -3,10 +3,16 @@
 
 #include "cocos2d.h"
 #include "PointGrid.h"
+#include "Game.h"
 
 class Effects
 {
  public:
+  static cocos2d::Animate* ActionDestroySphere(){
+    //@todo pendiente plist para animaciones
+    return NULL;
+  }
+
   static cocos2d::ActionInterval* ActionSphereFall(cocos2d::Point pos){
     return cocos2d::EaseInOut::create(cocos2d::MoveTo::create(0.2f, pos),2);
   }
