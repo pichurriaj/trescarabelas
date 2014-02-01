@@ -16,7 +16,14 @@ class PointGrid
   }
   
   cocos2d::Point toPoint() { return cocos2d::Point(x * GRID_SIZE, y * GRID_SIZE);  }
- 
+  bool operator==(const PointGrid &other) const{
+    return x == other.x && y == other.y;
+  }
+
+  bool operator!=(const PointGrid &other) const{
+    return !(x == other.x && y == other.y);
+  }
+
   int x;
   int y;
 

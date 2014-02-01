@@ -130,6 +130,10 @@ void Board::attachRoll(std::function<void(GroupSphere)> func) {
   onAttachRoll.push_back(func);
 }
 
+void Board::attachFall(std::function<void(GroupSphere&,std::vector<PointGrid>, std::vector<PointGrid>)> func) {
+  onAttachFall.push_back(func);
+}
+
 Node* Board::getView() {
   _node->retain();
   return _node;
@@ -197,12 +201,13 @@ void Board::roll(GroupSphere spheres) {
 }
 
 
-void Board::updateMatch(){
+void Board::updateMatch(PointGrid start){
+  _match(start);
 }
 
 GroupSphere Board::_match_right(PointGrid start){
   GroupSphere spheres;
-  Sphere* start_sphere = _grid.getPop(start.x);
+  Sphere* start_sphere = _grid.get(start);
   int last_row = start.y;
   if(_grid.Empty(start_sphere)) return spheres;
   if(start.x + 1 >= _grid.getCols()){
@@ -232,7 +237,7 @@ GroupSphere Board::_match_right(PointGrid start){
 
 GroupSphere Board::_match_left(PointGrid start){
   GroupSphere spheres;
-  Sphere* start_sphere = _grid.getPop(start.x);
+  Sphere* start_sphere = _grid.get(start);
   int last_row = start.y;
   if(_grid.Empty(start_sphere)) return spheres;
   if(start.x - 1 < 0){
@@ -262,6 +267,9 @@ GroupSphere Board::_match_left(PointGrid start){
 
 GroupSphere Board::_match(PointGrid start) {
   GroupSphere spheres;
+  if(start.x < 0) return spheres;
+  if(start.y < 0) return spheres;
+
   Sphere* start_sphere = _grid.getPop(start.x);
   unsigned int start_count_match = 0;
   if(_grid.Empty(start_sphere)) return spheres;
@@ -304,4 +312,48 @@ GroupSphere Board::_match(PointGrid start) {
     (*it)(spheres, start_count_match);
   }
   return spheres;
+}
+
+
+
+void Board::fallSpheres(std::function<void(Sphere*,PointGrid)> logic){
+  GroupSphere spheres_fall;
+  std::vector<PointGrid> spheres_fall_old_pos;
+  std::vector<PointGrid> spheres_fall_new_pos;
+  
+  std::cout << "GridCols:" << _grid.getCols() << " GridRows:" << _grid.getRows() << std::endl;
+  for(int col=_grid.getCols(); col >= 0; col--){
+    for(int row=0; row < _grid.getRows(); row++){
+
+      PointGrid sphere_pos(col, row);
+      Sphere* sphere = _grid.get(sphere_pos);
+      //std::cout << "TryingFallingSphere:" << sphere_pos.x << "," << sphere_pos.y << std::endl;
+      if(_grid.Empty(sphere)) continue;
+      std::cout << "FallingSphere:" << sphere->getPosition().x << "," << sphere->getPosition().y << std::endl;
+      sphere->retain();
+      PointGrid sphere_new_pos = PointGrid::BAD;
+      for(int row_row=row - 1; row_row>=0; row_row--){
+	if(_grid.Empty(PointGrid(col, row_row))){
+	  sphere_new_pos = PointGrid(col, row_row);
+	}else{
+	  break;
+	}
+      }
+      if(sphere_new_pos != PointGrid::BAD){
+	sphere->retain();
+	spheres_fall.push_back(sphere);
+	spheres_fall_new_pos.push_back(sphere_new_pos);
+	spheres_fall_old_pos.push_back(sphere->getPosition());
+	logic(sphere, sphere_new_pos);
+	_grid.move(sphere->getPosition(), sphere_new_pos);
+	sphere->setPosition(sphere_new_pos);
+      }
+
+    }
+  }
+  
+  for(auto ifunc = onAttachFall.begin(); ifunc != onAttachFall.end(); ifunc++){
+    (*ifunc)(spheres_fall, spheres_fall_old_pos, spheres_fall_new_pos);
+  }
+
 }

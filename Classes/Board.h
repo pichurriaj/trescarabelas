@@ -36,7 +36,13 @@ class Board : public cocos2d::Object
    */
   void update(float dt);
   void updateView();
-  void updateMatch();
+  void updateMatch(PointGrid);
+  /**
+   *Logica de esferas callendo.
+   *Se llama funcion indicando la esfera, y la nueva posicion que va ha tener.
+   */
+  void fallSpheres(std::function<void(Sphere*, PointGrid)>);
+
   /**
    *Saca esferas del tablero,
    *eso es cuando el jugador toma la esfera
@@ -68,6 +74,12 @@ class Board : public cocos2d::Object
    */
   void attachRoll(std::function<void(GroupSphere)>);
 
+  /**
+   *Llamada cuando se hace fall de las esferas
+   *GroupSphere, old, new
+   */
+  void attachFall(std::function<void(GroupSphere&, std::vector<PointGrid>, std::vector<PointGrid>)>);
+
   const Grid<Sphere*>& getGrid() { return _grid; }
   CC_SYNTHESIZE(BoardPopulater*, _populater, Populater);
 
@@ -91,6 +103,7 @@ class Board : public cocos2d::Object
   std::vector< std::function<void(GroupSphere)> > onAttachRoll;
   std::vector< std::function<void(GroupSphere&,unsigned int)> > onAttachMatch;
   std::vector< std::function<void(GroupSphere)> > onAttachEndBoard;
+  std::vector< std::function<void(GroupSphere&, std::vector<PointGrid>, std::vector<PointGrid>)> > onAttachFall;
 };
 
 #endif

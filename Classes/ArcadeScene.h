@@ -21,6 +21,8 @@ class Arcade : public cocos2d::Layer
   virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
 
   void onMatchSpheres(GroupSphere&,unsigned int);
+  void onFallSphere(Sphere*, PointGrid);
+  void onFallSpheres(GroupSphere spheres, std::vector<PointGrid> spheres_old_pos, std::vector<PointGrid> spheres_new_pos);
  private:
   bool gestureDown;
   bool gestureUp;
