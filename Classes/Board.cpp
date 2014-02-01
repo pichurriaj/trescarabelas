@@ -1,5 +1,7 @@
 #include "Board.h"
 #include "Game.h"
+#include <algorithm>
+
 USING_NS_CC;
 
 Board::Board() : _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIGHT/GRID_SIZE)  {
@@ -307,6 +309,10 @@ GroupSphere Board::_match(PointGrid start) {
       }
     }
   }
+
+  std::unique(spheres.begin(), spheres.end(),[](Sphere* a, Sphere *b) -> bool{
+      return a == b;
+    });
 
   for(auto it = onAttachMatch.begin(); it != onAttachMatch.end(); it++){
     (*it)(spheres, start_count_match);
