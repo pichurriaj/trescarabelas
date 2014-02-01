@@ -2,6 +2,7 @@
 USING_NS_CC;
 
 Indian::Indian(){
+  
 }
 
 Indian* Indian::create(){

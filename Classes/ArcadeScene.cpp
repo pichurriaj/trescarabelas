@@ -24,6 +24,15 @@ bool Arcade::init(){
   visibleSize = Director::getInstance()->getVisibleSize();
   origin = Director::getInstance()->getVisibleOrigin();
 
+  //initialize images
+  auto cache = SpriteFrameCache::getInstance();
+  auto pjf_espera1 = SpriteFrame::create("personajes/espera1.png",Rect(0,0,85,128));
+  cache->addSpriteFrame(pjf_espera1, "indio_espera_1");
+  auto pjf_espera2 = SpriteFrame::create("personajes/espera2.png",Rect(0,0,87,128));
+  cache->addSpriteFrame(pjf_espera2, "indio_espera_2");
+  auto pjf_espera3 = SpriteFrame::create("personajes/espera3.png",Rect(0,0,87,128));
+  cache->addSpriteFrame(pjf_espera3, "indio_espera_3");
+  
   Sprite* bg = Sprite::create("mapas/mapa_arcade.png");
   bg->setPosition(Point(
 			visibleSize.width/2 + origin.x,
@@ -54,6 +63,7 @@ bool Arcade::init(){
   this->schedule(schedule_selector(Arcade::updateBoard), 5.0f);
 
 
+  
   return true;
 }
 
