@@ -102,11 +102,14 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
 
     if(player->typeOnBag() != SPHERE_COUNT){
       grab_spheres = board->dropSphere(touch_col, player->typeOnBag());
+      CCLOG("Tomo del mismo color %d", player->typeOnBag());
     }else{
+      CCLOG("Toma el primero");
       grab_spheres = board->dropSphere(touch_col);
     }
     for(auto it = grab_spheres.begin(); it != grab_spheres.end(); it++){
       player->takeSphere(&(*it));
+      CCLOG("\tguardando en el bolso");
     }
 
   }else if(gestureUp){

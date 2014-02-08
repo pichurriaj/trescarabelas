@@ -74,21 +74,20 @@ GroupSphere Board::dropSphere(int col, SphereType sphere_type) {
   Sphere* drop_sphere = NULL;
   if(_grid.Empty(last_sphere)) return spheres;
   if(sphere_type != SPHERE_COUNT && last_sphere->getType() != sphere_type){
-    _grid.push_front(col, last_sphere);
+    _grid.push(col, last_sphere);
     return spheres;
   }
   last_sphere->viewRemoveFromParent();
   spheres.push_back(last_sphere);
   do{
-
     drop_sphere = _grid.pop(pos.x);
     if(!_grid.Empty(drop_sphere)){
       drop_sphere->retain();
-      if(drop_sphere->getType() == last_sphere->getType()) {
+      if(drop_sphere->getType() == sphere_type) {
 	drop_sphere->viewRemoveFromParent();
 	spheres.push_back(drop_sphere);
       }else{
-	_grid.push(pos.x, drop_sphere);
+	_grid.push_front(col, drop_sphere);
 	break;
       }
     }else{
