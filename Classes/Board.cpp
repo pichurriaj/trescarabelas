@@ -87,7 +87,7 @@ GroupSphere Board::dropSphere(int col, SphereType sphere_type) {
 	drop_sphere->viewRemoveFromParent();
 	spheres.push_back(drop_sphere);
       }else{
-	_grid.push_front(col, drop_sphere);
+	_grid.push(col, drop_sphere);
 	break;
       }
     }else{
