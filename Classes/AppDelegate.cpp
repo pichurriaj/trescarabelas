@@ -19,10 +19,23 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto eglView = EGLView::getInstance();
     director->setOpenGLView(eglView);
     Size designSize = Size(768, 1280);
-    
-    EGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::SHOW_ALL);
+    Size screenSize = eglView->getFrameSize();
 
-	
+    Size smallSize = Size(320, 480);
+    Size mediumSize = Size(768, 1024);
+    Size largeSize = Size(1536, 2048);
+    
+    
+    EGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
+    if(screenSize.height >= mediumSize.height) {
+      director->setContentScaleFactor(largeSize.height/designSize.height);
+    }else if(screenSize.height >= smallSize.height) {
+      director->setContentScaleFactor(mediumSize.height/designSize.height);
+    }else {
+      director->setContentScaleFactor(smallSize.height/designSize.height);
+    }
+    Director::sharedDirector()->setContentScaleFactor(1.0f);
+
     // turn on display FPS
     director->setDisplayStats(true);
 
