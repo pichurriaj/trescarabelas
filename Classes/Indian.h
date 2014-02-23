@@ -16,7 +16,7 @@ class Indian :  public cocos2d::Object
   static Indian* create();
   
   void update(float dt);
-  void jumpTo(PointGrid);
+  void jumpTo(int);
   /**
    *Solo guarda si son del mismo tipo
    */
@@ -30,12 +30,18 @@ class Indian :  public cocos2d::Object
   void animateLose(){}
   void animateWin(){}
   void animateWithoutTime(){}
-
+  cocos2d::Node* getView();
+  
   //CC_SYNTHESIZE(cocos2d::Array*, _hold_bag, HoldBag);
  private:
+  cocos2d::Animation *_anim_stand;
+  cocos2d::Animation *_anim_take;
+  cocos2d::Animation *_anim_drop;
+  cocos2d::Animation *_anim;
   GroupSphere _hold_bag;
 
   PointGrid _pos;
+  cocos2d::Node *_view;
 };
 
 #endif

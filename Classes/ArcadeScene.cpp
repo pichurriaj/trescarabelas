@@ -41,8 +41,7 @@ bool Arcade::init(){
 		  );
   this->addChild(bg);
 
-  player = Indian::create();
-  player->retain();
+
   board = Board::create();
   Node* board_view = board->getView();
   this->addChild(board_view);
@@ -52,6 +51,13 @@ bool Arcade::init(){
   board_populater = new BoardPopulaterRandom(board);
   board_populater->populate();
   board->setPopulater(board_populater);
+
+
+  player = Indian::create();
+  player->retain();
+  Node* player_view = player->getView();
+  this->addChild(player_view);
+  player->jumpTo(3);
 
   auto dispatcher = Director::getInstance()->getEventDispatcher();
   auto listener = EventListenerTouchOneByOne::create();
@@ -111,10 +117,14 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
       player->takeSphere(&(*it));
       CCLOG("\tguardando en el bolso");
     }
+    player->jumpTo(touch_col);
+    player->animateTake();
 
   }else if(gestureUp){
     GroupSphere on_bag = player->getBag();
     board->takeSphere(TOUCH_TO_COL(tap_begin), on_bag);
+    player->jumpTo(TOUCH_TO_COL(tap_begin));
+    player->animateDrop();
   }
 
 
