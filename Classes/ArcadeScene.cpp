@@ -5,7 +5,7 @@
 #include "SimpleAudioEngine.h"
 
 #define PLAY_EFFECT(X) CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(X);
-
+#define PLAY_MUSIC(X) CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(X, true);
 USING_NS_CC;
 
 #define TOUCH_TO_COL(T) (int)(T.x / GRID_SIZE)
@@ -31,6 +31,18 @@ bool Arcade::init(){
   _snd_collide = String("musica y sonidos/choca_perla.ogg");
 
   //initialize images
+  Animation *_anim_exploit_sphere = Animation::create();
+  for(int i = 1; i <= 4; i++){
+    String *file = String::createWithFormat("efectos/eliminacion%d.png", i);
+    String *name = String::createWithFormat("eliminacion%d.png", i);
+    SpriteFrame *frame = SpriteFrame::create(file->getCString(), Rect(0, 0, 64, 64));
+    SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFrame(frame, name->getCString());
+    _anim_exploit_sphere->addSpriteFrame(frame);
+  }
+  _anim_exploit_sphere->setDelayPerUnit(0.2);
+  _anim_exploit_sphere->setLoops(1);
+  _anim_exploit_sphere->setRestoreOriginalFrame(true);
+  AnimationCache::getInstance()->addAnimation(_anim_exploit_sphere, "exploit_sphere");
   /*auto cache = SpriteFrameCache::getInstance();
   auto pjf_espera1 = SpriteFrame::create("personajes/espera1.png",Rect(0,0,85,128));
   cache->addSpriteFrame(pjf_espera1, "indio_espera_1");
@@ -54,6 +66,7 @@ bool Arcade::init(){
   board_view->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
   board->attachMatch(CC_CALLBACK_2(Arcade::onMatchSpheres, this));
   board->attachFall(CC_CALLBACK_3(Arcade::onFallSpheres, this));
+  board->attachDropSphere(CC_CALLBACK_1(Arcade::onAnimateExploitSphere, this));
   board_populater = new BoardPopulaterRandom(board);
   board_populater->populate();
   board->setPopulater(board_populater);
@@ -65,6 +78,17 @@ bool Arcade::init(){
   this->addChild(player_view);
   player->jumpTo(3);
 
+  _anim_exploit_sphere = Animation::create();
+  _anim_exploit_sphere->addSpriteFrameWithFile("efectos/eliminacion1.png");
+  _anim_exploit_sphere->addSpriteFrameWithFile("efectos/eliminacion2.png");
+  _anim_exploit_sphere->addSpriteFrameWithFile("efectos/eliminacion3.png");
+  _anim_exploit_sphere->addSpriteFrameWithFile("efectos/eliminacion4.png");
+  _anim_exploit_sphere->setDelayPerUnit(0.7);
+  _anim_exploit_sphere->setLoops(1);
+  _anim_exploit_sphere->setRestoreOriginalFrame(true);
+  _anim_exploit_sphere->retain();
+
+
   auto dispatcher = Director::getInstance()->getEventDispatcher();
   auto listener = EventListenerTouchOneByOne::create();
   listener->onTouchBegan = CC_CALLBACK_2(Arcade::onTouchBegan, this);
@@ -74,7 +98,7 @@ bool Arcade::init(){
   dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
   this->schedule(schedule_selector(Arcade::updateBoard), 5.0f);
 
-
+  PLAY_MUSIC("musica y sonidos/juego.ogg");
   
   return true;
 }
@@ -146,8 +170,11 @@ void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match
   for(auto it = spheres.begin(); it != spheres.end(); it++){
     std::cout << "MatchToRemove:" << (*it)->getPosition().x << "," << (*it)->getPosition().y  << " Type:" << (*it)->getType() << std::endl;
     //@todo aqui efecto de destruccion
-    board->dropSphere((*it)->getPosition());
+
+
     PLAY_EFFECT(_snd_collide.getCString());
+
+    board->dropSphere((*it)->getPosition());
   }
   board->fallSpheres(CC_CALLBACK_2(Arcade::onFallSphere, this));
 
@@ -184,4 +211,30 @@ void Arcade::onFallSphere(Sphere* sphere, PointGrid sphere_next_pos){
 
 //Grupo de esferas que cayeron
 void Arcade::onFallSpheres(GroupSphere spheres, std::vector<PointGrid> spheres_old_pos, std::vector<PointGrid> spheres_new_pos){
+}
+
+void Arcade::onAnimateExploitSphere(Sphere *sphere)
+{
+  Node *sphere_view = sphere->getView();
+  sphere_view->retain();
+  Sphere *sphere_tmp = Sphere::create(sphere->getType());
+
+  Node *sphere_view_tmp = sphere_tmp->getView();
+  sphere_view_tmp->retain();
+  sphere_view_tmp->setPosition(sphere_view->getPosition());
+  Node *board_view = board->getView();
+  board_view->retain();
+  board_view->addChild(sphere_view_tmp);
+  //@todo fallo de segmentacion
+  //_anim_exploit_sphere->retain();
+  
+
+
+  sphere_view_tmp->runAction(Sequence::create(
+					      //@todo genera fallo de segmentacion porque??
+					      //Animate::create(AnimationCache::getInstance()->getAnimation("exploit_sphere")),
+					      DelayTime::create(0.1),
+					      RemoveSelf::create(),
+					      NULL));
+
 }

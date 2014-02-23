@@ -23,6 +23,7 @@ class Arcade : public cocos2d::Layer
   void onMatchSpheres(GroupSphere&,unsigned int);
   void onFallSphere(Sphere*, PointGrid);
   void onFallSpheres(GroupSphere spheres, std::vector<PointGrid> spheres_old_pos, std::vector<PointGrid> spheres_new_pos);
+  void onAnimateExploitSphere(Sphere*);
  private:
   bool gestureDown;
   bool gestureUp;

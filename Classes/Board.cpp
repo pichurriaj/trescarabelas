@@ -32,6 +32,11 @@ GroupSphere Board::dropSphere(PointGrid pos){
   Sphere* last_sphere = _grid.drop(pos);
   if(_grid.Empty(last_sphere)) return spheres;
   last_sphere->viewRemoveFromParent();
+  for(auto func = onDropSphere.begin(); func != onDropSphere.end(); func++){
+    last_sphere->retain();
+    (*func)(last_sphere);
+  }
+
   spheres.push_back(last_sphere);
   return spheres;
 }
@@ -133,6 +138,11 @@ void Board::attachRoll(std::function<void(GroupSphere)> func) {
 
 void Board::attachFall(std::function<void(GroupSphere&,std::vector<PointGrid>, std::vector<PointGrid>)> func) {
   onAttachFall.push_back(func);
+}
+
+void Board::attachDropSphere(std::function<void(Sphere*)> func)
+{
+  onDropSphere.push_back(func);
 }
 
 Node* Board::getView() {

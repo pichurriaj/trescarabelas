@@ -80,6 +80,10 @@ class Board : public cocos2d::Object
    */
   void attachFall(std::function<void(GroupSphere&, std::vector<PointGrid>, std::vector<PointGrid>)>);
 
+  /**
+   *Llamada cuando se saca una esfera del tablero
+   */
+  void attachDropSphere(std::function<void(Sphere*)>);
   const Grid<Sphere*>& getGrid() { return _grid; }
   CC_SYNTHESIZE(BoardPopulater*, _populater, Populater);
 
@@ -104,6 +108,7 @@ class Board : public cocos2d::Object
   std::vector< std::function<void(GroupSphere&,unsigned int)> > onAttachMatch;
   std::vector< std::function<void(GroupSphere)> > onAttachEndBoard;
   std::vector< std::function<void(GroupSphere&, std::vector<PointGrid>, std::vector<PointGrid>)> > onAttachFall;
+  std::vector< std::function<void(Sphere*)> > onDropSphere;
 };
 
 #endif
