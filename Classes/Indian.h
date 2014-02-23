@@ -39,7 +39,7 @@ class Indian :  public cocos2d::Object
   cocos2d::Animation *_anim_drop;
   cocos2d::Animation *_anim;
   GroupSphere _hold_bag;
-
+  Sphere *_sphere_on_hands;
   PointGrid _pos;
   cocos2d::Node *_view;
 };

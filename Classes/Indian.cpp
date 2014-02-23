@@ -3,6 +3,7 @@ USING_NS_CC;
 
 Indian::Indian(){
   _anim_stand = _anim_take = _anim_drop = _anim = NULL;
+  _sphere_on_hands = NULL;
 
   _anim_stand = Animation::create();
   _anim_stand->addSpriteFrameWithFile("personajes/espera1.png");
@@ -58,6 +59,17 @@ void Indian::jumpTo(int col){
 
 bool Indian::takeSphere(Sphere** sphere){
   _hold_bag.push_back(*sphere);
+  if(!_sphere_on_hands){
+    _sphere_on_hands = Sphere::create((*sphere)->getType());
+    _sphere_on_hands->retain();
+    Node *sphere_view = _sphere_on_hands->getView();
+    sphere_view->retain();
+    Point pos = Point::ZERO;
+    pos.x = _view->getContentSize().width/2;
+    pos.y = _view->getContentSize().height/2;
+    sphere_view->setPosition(pos);
+    _view->addChild(sphere_view);
+  }
   return true;
 }
 
@@ -68,6 +80,12 @@ GroupSphere Indian::getBag(){
     new_bag.push_back((*it));
   }
   _hold_bag.clear();
+  if(_sphere_on_hands){
+    _sphere_on_hands->viewRemoveFromParent();
+    _sphere_on_hands->autorelease();
+    CC_SAFE_DELETE(_sphere_on_hands);
+    _sphere_on_hands = NULL;
+  }
   return new_bag;
 }
 
