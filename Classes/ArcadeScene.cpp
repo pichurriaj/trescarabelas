@@ -4,6 +4,8 @@
 #include "MessageBoardSphere.h"
 #include "SimpleAudioEngine.h"
 
+#define PLAY_EFFECT(X) CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(X);
+
 USING_NS_CC;
 
 #define TOUCH_TO_COL(T) (int)(T.x / GRID_SIZE)
@@ -26,6 +28,7 @@ bool Arcade::init(){
   origin = Director::getInstance()->getVisibleOrigin();
   _snd_take = String("musica y sonidos/baja.ogg");
   _snd_drop = String("musica y sonidos/sube.ogg");
+  _snd_collide = String("musica y sonidos/choca_perla.ogg");
 
   //initialize images
   /*auto cache = SpriteFrameCache::getInstance();
@@ -122,13 +125,13 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
     }
     player->jumpTo(touch_col);
     player->animateTake();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(_snd_take.getCString());
+    PLAY_EFFECT(_snd_take.getCString());
   }else if(gestureUp){
     GroupSphere on_bag = player->getBag();
     board->takeSphere(TOUCH_TO_COL(tap_begin), on_bag);
     player->jumpTo(TOUCH_TO_COL(tap_begin));
     player->animateDrop();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(_snd_drop.getCString());
+    PLAY_EFFECT(_snd_drop.getCString());
   }
 
 
@@ -144,8 +147,10 @@ void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match
     std::cout << "MatchToRemove:" << (*it)->getPosition().x << "," << (*it)->getPosition().y  << " Type:" << (*it)->getType() << std::endl;
     //@todo aqui efecto de destruccion
     board->dropSphere((*it)->getPosition());
+    PLAY_EFFECT(_snd_collide.getCString());
   }
   board->fallSpheres(CC_CALLBACK_2(Arcade::onFallSphere, this));
+
 }
 
 //Efecto al caer

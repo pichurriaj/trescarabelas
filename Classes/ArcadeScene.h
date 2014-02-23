@@ -37,6 +37,7 @@ class Arcade : public cocos2d::Layer
   BoardPopulater* board_populater;
   cocos2d::String _snd_take;
   cocos2d::String _snd_drop;
+  cocos2d::String _snd_collide;
 };
 
 #endif
