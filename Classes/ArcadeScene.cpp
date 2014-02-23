@@ -2,6 +2,7 @@
 #include "BoardPopulaterRandom.h"
 #include "Effects.h"
 #include "MessageBoardSphere.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -23,16 +24,18 @@ bool Arcade::init(){
   tap_begin = Point::ZERO;
   visibleSize = Director::getInstance()->getVisibleSize();
   origin = Director::getInstance()->getVisibleOrigin();
+  _snd_take = String("musica y sonidos/baja.ogg");
+  _snd_drop = String("musica y sonidos/sube.ogg");
 
   //initialize images
-  auto cache = SpriteFrameCache::getInstance();
+  /*auto cache = SpriteFrameCache::getInstance();
   auto pjf_espera1 = SpriteFrame::create("personajes/espera1.png",Rect(0,0,85,128));
   cache->addSpriteFrame(pjf_espera1, "indio_espera_1");
   auto pjf_espera2 = SpriteFrame::create("personajes/espera2.png",Rect(0,0,87,128));
   cache->addSpriteFrame(pjf_espera2, "indio_espera_2");
   auto pjf_espera3 = SpriteFrame::create("personajes/espera3.png",Rect(0,0,87,128));
   cache->addSpriteFrame(pjf_espera3, "indio_espera_3");
-  
+  */
   Sprite* bg = Sprite::create("mapas/mapa_arcade.png");
   bg->setPosition(Point(
 			visibleSize.width/2 + origin.x,
@@ -119,12 +122,13 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
     }
     player->jumpTo(touch_col);
     player->animateTake();
-
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(_snd_take.getCString());
   }else if(gestureUp){
     GroupSphere on_bag = player->getBag();
     board->takeSphere(TOUCH_TO_COL(tap_begin), on_bag);
     player->jumpTo(TOUCH_TO_COL(tap_begin));
     player->animateDrop();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(_snd_drop.getCString());
   }
 
 

@@ -35,6 +35,8 @@ class Arcade : public cocos2d::Layer
   cocos2d::Point origin;
   Board* board;
   BoardPopulater* board_populater;
+  cocos2d::String _snd_take;
+  cocos2d::String _snd_drop;
 };
 
 #endif
