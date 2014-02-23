@@ -18,10 +18,10 @@ class Grid
 
   T get(PointGrid pg) {
     if(pg.y > _h || pg.y < 0) {
-      throw std::range_error("Over the height"); 
+      return _empty;
     }
     if(pg.x > _w || pg.x < 0) {
-      throw std::range_error("Over the width");
+      return _empty;
     }
     T dt = _grid[pg.y * _w + pg.x];
     if(dt) {
@@ -37,10 +37,10 @@ class Grid
   T drop(PointGrid pg) {
     
     if(pg.y > _h || pg.y < 0) {
-      throw std::range_error("Over the height"); 
+      return _empty;
     }
     if(pg.x > _w || pg.x < 0) {
-      throw std::range_error("Over the width");
+      return _empty;
     }
     T dt = _grid[pg.y * _w + pg.x];
     if(dt) {
@@ -58,10 +58,10 @@ class Grid
   T take(PointGrid pg, T data) {
 
     if(pg.y > _h || pg.y < 0) {
-      throw std::range_error("Over the height"); 
+      return _empty;
     }
     if(pg.x > _w || pg.x < 0) {
-      throw std::range_error("Over the width");
+      return _empty;
     }
     T _rt = drop(pg);
     _grid[pg.y * _w + pg.x] = data;
@@ -80,10 +80,7 @@ class Grid
    */
   void push_front(int col, T data){
     for(int row = _h; row >= 0; row--) {
-      try {
-	move(PointGrid(col, row), PointGrid(col, row + 1));
-      }catch(std::exception) {
-      }
+      move(PointGrid(col, row), PointGrid(col, row + 1));
     }
     take(PointGrid(col, 0), data);
   }
