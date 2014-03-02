@@ -25,7 +25,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     Size mediumSize = Size(768, 1024);
     Size largeSize = Size(1536, 2048);
     
-    
+
     EGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
     if(screenSize.height >= mediumSize.height) {
       director->setContentScaleFactor(largeSize.height/designSize.height);
@@ -33,9 +33,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
       director->setContentScaleFactor(mediumSize.height/designSize.height);
     }else {
       director->setContentScaleFactor(smallSize.height/designSize.height);
-    }
+      }
     Director::sharedDirector()->setContentScaleFactor(1.0f);
-
+    
     // turn on display FPS
     director->setDisplayStats(true);
 
@@ -43,7 +43,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = Arcade::createScene();
+    auto scene = MenuPrincipal::createScene();
 
     // run
     director->runWithScene(scene);

@@ -5,7 +5,7 @@ project (${APP_NAME})
 
 include(../../build/BuildHelpers.CMakeLists.txt)
 
-option(USE_CHIPMUNK "Use chipmunk for physics library" OFF)
+option(USE_CHIPMUNK "Use chipmunk for physics library" ON)
 option(USE_BOX2D "Use box2d for physics library" OFF)
 option(DEBUG_MODE "Debug or release?" ON)
 
@@ -110,11 +110,6 @@ target_link_libraries(${APP_NAME}
   ldap
   lber
   idn
-  rtmp
-  spine
-  cocostudio
-  jsoncpp
-  cocosbuilder
   extensions
   box2d
   audio
