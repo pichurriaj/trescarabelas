@@ -10,7 +10,7 @@
 USING_NS_CC;
 
 #define TOUCH_TO_COL(T) (int)(T.x / GRID_SIZE)
-#define DELAY_BEFORE_FALL 0.2 
+#define DELAY_BEFORE_FALL 0.07f
 #define DELAY_ROLL_BOARD 5.0f
 
 Scene* Arcade::createScene(){
@@ -33,7 +33,7 @@ bool Arcade::init(){
   //dificultad
   _delay_before_fall = DELAY_BEFORE_FALL;
   _delay_roll_board = DELAY_ROLL_BOARD;
-
+  setDelayRollBoard(1.0);
   _snd_take = String("musica y sonidos/baja.ogg");
   _snd_drop = String("musica y sonidos/sube.ogg");
   _snd_collide = String("musica y sonidos/choca_perla.ogg");
@@ -75,6 +75,7 @@ bool Arcade::init(){
   board->attachMatch(CC_CALLBACK_2(Arcade::onMatchSpheres, this));
   board->attachFall(CC_CALLBACK_3(Arcade::onFallSpheres, this));
   board->attachDropSphere(CC_CALLBACK_1(Arcade::onAnimateExploitSphere, this));
+  board->attachEndBoard(CC_CALLBACK_1(Arcade::onReachEndBoard,this));
   board_populater = new BoardPopulaterRandom(board);
   board_populater->populate();
   board->setPopulater(board_populater);
@@ -275,4 +276,12 @@ void Arcade::onAnimateExploitSphere(Sphere *sphere)
 					      RemoveSelf::create(),
 					      NULL));
 
+}
+
+void Arcade::onReachEndBoard(GroupSphere spheres){
+  std::cout << __FUNCTION__ << std::endl;
+  stopAllActions();
+  unscheduleAllSelectors();
+  removeFromParentAndCleanup(true);
+  Director::getInstance()->end();
 }

@@ -166,6 +166,8 @@ void Board::updateView() {
 
 void Board::roll(GroupSphere spheres) {
   int col = 0;
+  GroupSphere spheres_end_board;
+  spheres_end_board.clear();
   for(auto &sphere: spheres) {
 
     _grid.push_front(col, sphere);
@@ -195,6 +197,10 @@ void Board::roll(GroupSphere spheres) {
 	sphere_view->setPosition(poss);
 	sphere_view->retain();
 	//std::cout << "Rolling sphere down" << std::endl;
+	if(data->getPosition().y == _grid.getRows()){
+	  data->retain();
+	  spheres_end_board.push_back(data);
+	}
       }
     }
     col += 1;
@@ -202,6 +208,14 @@ void Board::roll(GroupSphere spheres) {
   
   for(auto &func: onAttachRoll) {
     func(spheres);
+  }
+
+
+  
+  if(spheres_end_board.size()>0){
+    for(auto &func: onAttachEndBoard) {
+      func(spheres_end_board);
+    }
   }
 }
 
