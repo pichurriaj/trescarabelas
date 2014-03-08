@@ -31,7 +31,7 @@ class Indian :  public cocos2d::Object
   void animateWin(){}
   void animateWithoutTime(){}
   cocos2d::Node* getView();
-  
+  PointGrid getPosition() const { return _pos; }
   //CC_SYNTHESIZE(cocos2d::Array*, _hold_bag, HoldBag);
  private:
   cocos2d::Animation *_anim_stand;

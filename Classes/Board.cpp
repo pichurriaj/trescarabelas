@@ -31,12 +31,13 @@ GroupSphere Board::dropSphere(PointGrid pos){
   GroupSphere spheres;
   Sphere* last_sphere = _grid.drop(pos);
   if(_grid.Empty(last_sphere)) return spheres;
-  last_sphere->viewRemoveFromParent();
+  last_sphere->getView()->setVisible(false);
   for(auto func = onDropSphere.begin(); func != onDropSphere.end(); func++){
     last_sphere->retain();
     (*func)(last_sphere);
   }
-
+last_sphere->getView()->setVisible(true);
+  last_sphere->viewRemoveFromParent();
   spheres.push_back(last_sphere);
   return spheres;
 }

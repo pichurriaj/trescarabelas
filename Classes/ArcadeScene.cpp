@@ -47,9 +47,9 @@ bool Arcade::init(){
     SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFrame(frame, name->getCString());
     _anim_exploit_sphere->addSpriteFrame(frame);
   }
-  _anim_exploit_sphere->setDelayPerUnit(0.2);
-  _anim_exploit_sphere->setLoops(1);
-  _anim_exploit_sphere->setRestoreOriginalFrame(true);
+  _anim_exploit_sphere->setDelayPerUnit(0.03);
+  //_anim_exploit_sphere->setLoops(1);
+  _anim_exploit_sphere->setRestoreOriginalFrame(false);
   AnimationCache::getInstance()->addAnimation(_anim_exploit_sphere, "exploit_sphere");
   /*auto cache = SpriteFrameCache::getInstance();
   auto pjf_espera1 = SpriteFrame::create("personajes/espera1.png",Rect(0,0,85,128));
@@ -86,15 +86,7 @@ bool Arcade::init(){
   this->addChild(player_view);
   player->jumpTo(3);
 
-  _anim_exploit_sphere = Animation::create();
-  _anim_exploit_sphere->addSpriteFrameWithFile("efectos/eliminacion1.png");
-  _anim_exploit_sphere->addSpriteFrameWithFile("efectos/eliminacion2.png");
-  _anim_exploit_sphere->addSpriteFrameWithFile("efectos/eliminacion3.png");
-  _anim_exploit_sphere->addSpriteFrameWithFile("efectos/eliminacion4.png");
-  _anim_exploit_sphere->setDelayPerUnit(0.7);
-  _anim_exploit_sphere->setLoops(1);
-  _anim_exploit_sphere->setRestoreOriginalFrame(true);
-  _anim_exploit_sphere->retain();
+
 
 
   auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -179,7 +171,7 @@ void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match
     std::cout << "MatchToRemove:" << (*it)->getPosition().x << "," << (*it)->getPosition().y  << " Type:" << (*it)->getType() << std::endl;
     //@todo aqui efecto de destruccion
 
-
+   
     playSoundCollide();
     board->dropSphere((*it)->getPosition());
   }
@@ -190,6 +182,8 @@ void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match
  view->setUserData(send);
  view->runAction(Sequence::create(
 				  DelayTime::create(getDelayBeforeFall()),
+				  //@todo efecto de fondo
+
 				  CallFuncN::create(
 						     [](Node* node){
 						       MessageBoard* recv = static_cast<MessageBoard*>(node->getUserData());
@@ -243,6 +237,13 @@ void Arcade::onFallSphere(Sphere* sphere, PointGrid sphere_next_pos){
 				   NULL
 				   )
 		  );
+  
+  //sphere_view_tmp->runAction(Sequence::create(
+					      //@todo genera fallo de segmentacion porque??
+					      //Animate::create(AnimationCache::getInstance()->getAnimation("exploit_sphere")),
+  //				      DelayTime::create(0.1),
+  //				      RemoveSelf::create(),
+  //				      NULL));
 }
 
 //Grupo de esferas que cayeron
@@ -251,25 +252,26 @@ void Arcade::onFallSpheres(GroupSphere spheres, std::vector<PointGrid> spheres_o
 
 void Arcade::onAnimateExploitSphere(Sphere *sphere)
 {
+  std::cout << __FUNCTION__ << std::endl;
   Node *sphere_view = sphere->getView();
   sphere_view->retain();
+
   Sphere *sphere_tmp = Sphere::create(sphere->getType());
 
   Node *sphere_view_tmp = sphere_tmp->getView();
   sphere_view_tmp->retain();
-  sphere_view_tmp->setPosition(sphere_view->getPosition());
+
   Node *board_view = board->getView();
   board_view->retain();
   board_view->addChild(sphere_view_tmp);
-  //@todo fallo de segmentacion
-  //_anim_exploit_sphere->retain();
-  
-
-
+  sphere_view_tmp->setPosition(sphere_view->getPosition());
   sphere_view_tmp->runAction(Sequence::create(
-					      //@todo genera fallo de segmentacion porque??
+
+					      //@todo no se visualiza la animacion???
+					      //si pongo este en la vista del fondo si reproduce animacion
 					      //Animate::create(AnimationCache::getInstance()->getAnimation("exploit_sphere")),
-					      DelayTime::create(0.1),
+					      //DelayTime::create(0.1),
+					      Effects::ActionSphereFall(Point(0,0)),
 					      RemoveSelf::create(),
 					      NULL));
 
