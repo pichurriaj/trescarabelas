@@ -2,6 +2,7 @@
 #include "BoardPopulaterRandom.h"
 #include "Effects.h"
 #include "MessageBoardSphere.h"
+#include "MessageBoard.h"
 #include "SimpleAudioEngine.h"
 
 #define PLAY_EFFECT(X) CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(X);
@@ -9,6 +10,7 @@
 USING_NS_CC;
 
 #define TOUCH_TO_COL(T) (int)(T.x / GRID_SIZE)
+#define DELAY_BEFORE_FALL 0.3 
 
 Scene* Arcade::createScene(){
   auto scene = Scene::create();
@@ -149,13 +151,13 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
     }
     player->jumpTo(touch_col);
     player->animateTake();
-    PLAY_EFFECT(_snd_take.getCString());
+    playSoundTake();
   }else if(gestureUp){
     GroupSphere on_bag = player->getBag();
     board->takeSphere(TOUCH_TO_COL(tap_begin), on_bag);
     player->jumpTo(TOUCH_TO_COL(tap_begin));
     player->animateDrop();
-    PLAY_EFFECT(_snd_drop.getCString());
+    playSoundDrop();
   }
 
 
@@ -172,12 +174,40 @@ void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match
     //@todo aqui efecto de destruccion
 
 
-    PLAY_EFFECT(_snd_collide.getCString());
-
+    playSoundCollide();
     board->dropSphere((*it)->getPosition());
   }
-  board->fallSpheres(CC_CALLBACK_2(Arcade::onFallSphere, this));
 
+  MessageBoard* send = new MessageBoard(board, this);
+ Node* view = board->getView();
+ view->retain();
+ view->setUserData(send);
+ view->runAction(Sequence::create(
+				  DelayTime::create(DELAY_BEFORE_FALL),
+				  CallFuncN::create(
+						     [](Node* node){
+						       MessageBoard* recv = static_cast<MessageBoard*>(node->getUserData());
+						       recv->getBoard()->fallSpheres(CC_CALLBACK_2(Arcade::onFallSphere, recv->getArcade()));
+						       delete recv;
+						     }
+						    ),
+				   NULL
+				  )
+		 );
+
+
+}
+
+void Arcade::playSoundTake() {
+  PLAY_EFFECT(_snd_take.getCString());
+}
+
+void Arcade::playSoundDrop() {
+  PLAY_EFFECT(_snd_drop.getCString());
+}
+
+void Arcade::playSoundCollide() {
+  PLAY_EFFECT(_snd_collide.getCString());
 }
 
 //Efecto al caer

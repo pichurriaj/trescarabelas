@@ -24,6 +24,10 @@ class Arcade : public cocos2d::Layer
   void onFallSphere(Sphere*, PointGrid);
   void onFallSpheres(GroupSphere spheres, std::vector<PointGrid> spheres_old_pos, std::vector<PointGrid> spheres_new_pos);
   void onAnimateExploitSphere(Sphere*);
+
+  void playSoundTake();
+  void playSoundDrop();
+  void playSoundCollide();
  private:
   bool gestureDown;
   bool gestureUp;
