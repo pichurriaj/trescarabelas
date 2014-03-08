@@ -26,6 +26,7 @@ class MenuPrincipal : public cocos2d::Layer
   void _add_credits();
   void _add_buttons();
 
+  cocos2d::Menu* _menu;
 };
 
 #endif

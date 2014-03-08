@@ -11,7 +11,7 @@ USING_NS_CC;
 
 #define TOUCH_TO_COL(T) (int)(T.x / GRID_SIZE)
 #define DELAY_BEFORE_FALL 0.07f
-#define DELAY_ROLL_BOARD 5.0f
+#define DELAY_ROLL_BOARD 4.0f
 
 Scene* Arcade::createScene(){
   auto scene = Scene::create();
@@ -33,7 +33,7 @@ bool Arcade::init(){
   //dificultad
   _delay_before_fall = DELAY_BEFORE_FALL;
   _delay_roll_board = DELAY_ROLL_BOARD;
-  setDelayRollBoard(1.0);
+
   _snd_take = String("musica y sonidos/baja.ogg");
   _snd_drop = String("musica y sonidos/sube.ogg");
   _snd_collide = String("musica y sonidos/choca_perla.ogg");

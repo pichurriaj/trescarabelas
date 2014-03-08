@@ -1,6 +1,7 @@
 #include "MenuScene.h"
 #include "Effects.h"
 #include "SimpleAudioEngine.h"
+#include "ArcadeScene.h"
 
 USING_NS_CC;
 
@@ -67,10 +68,10 @@ void MenuPrincipal::_add_buttons(){
   training_selected->runAction(Effects::ActionButtonSelected());
   auto training = MenuItemSprite::create(training_normal, training_selected, CC_CALLBACK_0(MenuPrincipal::toTraining, this));
   */
-  auto menu = Menu::create(play,  NULL);
-  menu->alignItemsVerticallyWithPadding(10);
-  this->addChild(menu);
-  menu->setPosition(Point(menu->getContentSize().width/2 + 10,
+  _menu = Menu::create(play,  NULL);
+  _menu->alignItemsVerticallyWithPadding(10);
+  this->addChild(_menu);
+  _menu->setPosition(Point(_menu->getContentSize().width/2 + 10,
 			  visibleSize.height/2 + origin.y
 			  )
 		    );
@@ -193,9 +194,29 @@ void MenuPrincipal::_add_sea(const char* path, int offset_x){
 
 
 void MenuPrincipal::toPlayMenu(){
+  stopAllActions();
+  unscheduleAllSelectors();
+  removeFromParentAndCleanup(true);
+  Scene* newScene = TransitionFade::create(0.7, Arcade::createScene()); 
+  Director::sharedDirector()->replaceScene(newScene);
 }
 
 void MenuPrincipal::toCredits(){
+  Size visibleSize = Director::getInstance()->getVisibleSize();
+  Point origin = Director::getInstance()->getVisibleOrigin();
+
+  Layer* credits = Layer::create();
+  if(Layer::init()) {
+    _menu->runAction(Hide::create());
+    Sprite* bg = Sprite::create("creditos/creditos.png");
+    bg->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    bg->runAction(Sequence::create(FadeIn::create(1.0f), DelayTime::create(3.0f), FadeOut::create(1.0f), RemoveSelf::create(),NULL));
+    credits->addChild(bg, 99);
+    _menu->runAction(Sequence::create(DelayTime::create(5.0f), Show::create(), FadeIn::create(1.0f), NULL));
+    credits->runAction(Sequence::create(DelayTime::create(5.0f), RemoveSelf::create(), NULL));
+    this->addChild(credits, 99);
+  }
+
 }
 
 void MenuPrincipal::toTraining(){
