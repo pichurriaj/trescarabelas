@@ -330,20 +330,25 @@ void Board::fallSpheres(std::function<void(Sphere*,PointGrid)> logic){
   GroupSphere spheres_fall;
   std::vector<PointGrid> spheres_fall_old_pos;
   std::vector<PointGrid> spheres_fall_new_pos;
-  
+
+  //esto correge error de mal cambio de columna 0 a 11
+  //imprevistamente
+  spheres_fall.clear();
+
   std::cout << "GridCols:" << _grid.getCols() << " GridRows:" << _grid.getRows() << std::endl;
-  for(int col=_grid.getCols(); col >= 0; col--){
+  for(int col=_grid.getCols()-1; col >= 0; col--){
     for(int row=0; row < _grid.getRows(); row++){
 
       PointGrid sphere_pos(col, row);
       Sphere* sphere = _grid.get(sphere_pos);
       //std::cout << "TryingFallingSphere:" << sphere_pos.x << "," << sphere_pos.y << std::endl;
       if(_grid.Empty(sphere)) continue;
-      std::cout << "FallingSphere:" << sphere->getPosition().x << "," << sphere->getPosition().y << std::endl;
+      std::cout << "FallingSphere:" << sphere->getPosition().x << "," << sphere->getPosition().y << " Col: " << col << std::endl;
       sphere->retain();
       PointGrid sphere_new_pos = PointGrid::BAD;
-      for(int row_row=row - 1; row_row>=0; row_row--){
+      for(int row_row=row-1; row_row>=0; row_row--){
 	if(_grid.Empty(PointGrid(col, row_row))){
+	  std::cout << "FallingSphere::newpos:" << sphere_pos.x << "," << row_row << std::endl;
 	  sphere_new_pos = PointGrid(col, row_row);
 	}else{
 	  break;
@@ -354,7 +359,11 @@ void Board::fallSpheres(std::function<void(Sphere*,PointGrid)> logic){
 	spheres_fall.push_back(sphere);
 	spheres_fall_new_pos.push_back(sphere_new_pos);
 	spheres_fall_old_pos.push_back(sphere->getPosition());
-	logic(sphere, sphere_new_pos);
+
+	std::cout << "FallingSphere::newpos sended:" << sphere_new_pos.x << "," << sphere_new_pos.y << std::endl;
+	
+	if(logic)
+	  logic(sphere, sphere_new_pos);
 	_grid.move(sphere->getPosition(), sphere_new_pos);
 	sphere->setPosition(sphere_new_pos);
       }

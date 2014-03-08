@@ -28,6 +28,10 @@ class Arcade : public cocos2d::Layer
   void playSoundTake();
   void playSoundDrop();
   void playSoundCollide();
+
+  //propiedades usadas especialmente para la dificultad
+  CC_SYNTHESIZE(float, _delay_before_fall, DelayBeforeFall);
+  CC_SYNTHESIZE(float, _delay_roll_board, DelayRollBoard);
  private:
   bool gestureDown;
   bool gestureUp;

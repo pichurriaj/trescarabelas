@@ -142,15 +142,15 @@ class Grid
     _empty = v;
   }
 
-  bool Empty(PointGrid pg) {
+  bool Empty(PointGrid pg)  {
     return _grid[pg.y * _w + pg.x] == _empty;
   }
 
-  bool Empty(T v) {
+  bool Empty(T v) const {
     return v == _empty;
   }
-  int getCols() { return _w; }
-  int getRows() { return _h; }
+  int getCols() const { return _w; }
+  int getRows() const { return _h; }
   void setCols(int w) { _w = w; }
   void setRows(int h) { _h = h; }
  private:

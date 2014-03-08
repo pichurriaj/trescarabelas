@@ -10,7 +10,8 @@
 USING_NS_CC;
 
 #define TOUCH_TO_COL(T) (int)(T.x / GRID_SIZE)
-#define DELAY_BEFORE_FALL 0.3 
+#define DELAY_BEFORE_FALL 0.2 
+#define DELAY_ROLL_BOARD 5.0f
 
 Scene* Arcade::createScene(){
   auto scene = Scene::create();
@@ -28,10 +29,15 @@ bool Arcade::init(){
   tap_begin = Point::ZERO;
   visibleSize = Director::getInstance()->getVisibleSize();
   origin = Director::getInstance()->getVisibleOrigin();
+
+  //dificultad
+  _delay_before_fall = DELAY_BEFORE_FALL;
+  _delay_roll_board = DELAY_ROLL_BOARD;
+
   _snd_take = String("musica y sonidos/baja.ogg");
   _snd_drop = String("musica y sonidos/sube.ogg");
   _snd_collide = String("musica y sonidos/choca_perla.ogg");
-
+  
   //initialize images
   Animation *_anim_exploit_sphere = Animation::create();
   for(int i = 1; i <= 4; i++){
@@ -98,7 +104,7 @@ bool Arcade::init(){
   listener->onTouchEnded = CC_CALLBACK_2(Arcade::onTouchEnded, this);
   
   dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-  this->schedule(schedule_selector(Arcade::updateBoard), 5.0f);
+  this->schedule(schedule_selector(Arcade::updateBoard), getDelayRollBoard());
 
   PLAY_MUSIC("musica y sonidos/juego.ogg");
   
@@ -106,7 +112,7 @@ bool Arcade::init(){
 }
 
 void Arcade::updateBoard(float dt){
-  //board_populater->populate_first_row();
+  board_populater->populate_first_row();
 }
 
 bool Arcade::onTouchBegan(Touch* touch, Event* event){
@@ -183,7 +189,7 @@ void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match
  view->retain();
  view->setUserData(send);
  view->runAction(Sequence::create(
-				  DelayTime::create(DELAY_BEFORE_FALL),
+				  DelayTime::create(getDelayBeforeFall()),
 				  CallFuncN::create(
 						     [](Node* node){
 						       MessageBoard* recv = static_cast<MessageBoard*>(node->getUserData());
