@@ -30,6 +30,7 @@ void Board::update(float dt) {
 GroupSphere Board::dropSphere(PointGrid pos){
   GroupSphere spheres;
   Sphere* last_sphere = _grid.drop(pos);
+  spheres.clear();
   if(_grid.Empty(last_sphere)) return spheres;
   last_sphere->getView()->setVisible(false);
   for(auto func = onDropSphere.begin(); func != onDropSphere.end(); func++){
@@ -47,6 +48,7 @@ GroupSphere Board::dropSphere(int col) {
   PointGrid pos(col,0);
   Sphere* last_sphere = _grid.pop(pos.x);
   Sphere* drop_sphere = NULL;
+  spheres.clear();
   if(_grid.Empty(last_sphere)) return spheres;
 
   last_sphere->viewRemoveFromParent();
@@ -78,6 +80,7 @@ GroupSphere Board::dropSphere(int col, SphereType sphere_type) {
 
   Sphere* last_sphere = _grid.pop(pos.x);
   Sphere* drop_sphere = NULL;
+  spheres.clear();
   if(_grid.Empty(last_sphere)) return spheres;
   if(sphere_type != SPHERE_COUNT && last_sphere->getType() != sphere_type){
     _grid.push(col, last_sphere);
@@ -234,11 +237,9 @@ GroupSphere Board::_match_right(PointGrid start){
   }
 
   for(int row=last_row; row >= 0; row--){
+    if(start.x + 1 >= _grid.getCols()) return spheres;
     PointGrid pos_right_match(start.x + 1, row);
     Sphere* sphere_to_match_right = _grid.get(pos_right_match);
-    if(pos_right_match.x >= _grid.getCols()){
-      return spheres;
-    }
 
     if(_grid.Empty(sphere_to_match_right) || sphere_to_match_right->getType() != start_sphere->getType()){
       return spheres;
@@ -258,6 +259,7 @@ GroupSphere Board::_match_left(PointGrid start){
   GroupSphere spheres;
   Sphere* start_sphere = _grid.get(start);
   int last_row = start.y;
+  spheres.clear();
   if(_grid.Empty(start_sphere)) return spheres;
   if(start.x - 1 < 0){
     return spheres;
@@ -286,6 +288,7 @@ GroupSphere Board::_match_left(PointGrid start){
 
 GroupSphere Board::_match(PointGrid start) {
   GroupSphere spheres;
+  spheres.clear();
   if(start.x < 0) return spheres;
   if(start.y < 0) return spheres;
 
@@ -389,5 +392,6 @@ void Board::fallSpheres(std::function<void(Sphere*,PointGrid)> logic){
   for(auto ifunc = onAttachFall.begin(); ifunc != onAttachFall.end(); ifunc++){
     (*ifunc)(spheres_fall, spheres_fall_old_pos, spheres_fall_new_pos);
   }
+
 
 }

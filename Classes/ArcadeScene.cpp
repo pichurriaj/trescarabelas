@@ -249,6 +249,9 @@ void Arcade::onFallSphere(Sphere* sphere, PointGrid sphere_next_pos){
 
 //Grupo de esferas que cayeron
 void Arcade::onFallSpheres(GroupSphere spheres, std::vector<PointGrid> spheres_old_pos, std::vector<PointGrid> spheres_new_pos){
+  for(auto isfall = spheres_new_pos.begin(); isfall != spheres_new_pos.end(); isfall++){
+    board->updateMatch((*isfall));
+  }
 }
 
 void Arcade::onAnimateExploitSphere(Sphere *sphere)
