@@ -91,6 +91,9 @@ class Board : public cocos2d::Object
    *Baja las esferas
    */
   void roll(GroupSphere);
+  cocos2d::Point offset(){
+    return cocos2d::Point(_node->getPosition().x - _node->getContentSize().width/2, 0);
+  }
  private:
 
 

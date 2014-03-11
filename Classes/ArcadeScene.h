@@ -36,7 +36,6 @@ class Arcade : public cocos2d::Layer
   bool gestureDown;
   bool gestureUp;
   cocos2d::Point tap_begin;
-
   int _score;
   int _time;
   Indian* player;
@@ -44,6 +43,7 @@ class Arcade : public cocos2d::Layer
   cocos2d::Point origin;
   Board* board;
   BoardPopulater* board_populater;
+  cocos2d::Sprite* background;
   cocos2d::String _snd_take;
   cocos2d::String _snd_drop;
   cocos2d::String _snd_collide;

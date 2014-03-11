@@ -59,13 +59,13 @@ bool Arcade::init(){
   auto pjf_espera3 = SpriteFrame::create("personajes/espera3.png",Rect(0,0,87,128));
   cache->addSpriteFrame(pjf_espera3, "indio_espera_3");
   */
-  Sprite* bg = Sprite::create("mapas/mapa_arcade.png");
-  bg->setPosition(Point(
+  background = Sprite::create("mapas/mapa_arcade.png");
+  background->setPosition(Point(
 			visibleSize.width/2 + origin.x,
 			visibleSize.height/2 + origin.y
 			)
 		  );
-  this->addChild(bg);
+  this->addChild(background);
 
 
   board = Board::create();
@@ -109,7 +109,8 @@ void Arcade::updateBoard(float dt){
 }
 
 bool Arcade::onTouchBegan(Touch* touch, Event* event){
-  tap_begin = touch->getLocation();
+  tap_begin = touch->getLocationInView();
+  tap_begin.x -= board->offset().x;
   gestureUp = false; gestureDown = false;
   return true;
 }
@@ -118,14 +119,17 @@ void Arcade::onTouchMoved(Touch* touch, Event* event){
 }
 
 void Arcade::onTouchEnded(Touch* touch, Event* event){
-  Point tap_end = touch->getLocation();
+  Point tap_end = touch->getLocationInView();  
+  tap_end.x -= board->offset().x;
+
+  CCLOG("Tap END %f,%f", tap_end.x, tap_end.y);
   int touch_col = TOUCH_TO_COL(tap_begin);
   auto board_grid = board->getGrid();
   if(touch_col < 0 || touch_col >= board_grid.getCols())  return;
 
-  if(tap_end.y < tap_begin.y)
-    gestureDown = true;
   if(tap_end.y > tap_begin.y)
+    gestureDown = true;
+  if(tap_end.y < tap_begin.y)
     gestureUp = true;
 
   CCLOG("Gesture Down: %d", gestureDown ? 1 : 0);
@@ -150,11 +154,13 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
     }
     player->jumpTo(touch_col);
     player->animateTake();
+    player->getView()->setPosition(player->getView()->getPosition() + board->offset());
     playSoundTake();
   }else if(gestureUp){
     GroupSphere on_bag = player->getBag();
     board->takeSphere(TOUCH_TO_COL(tap_begin), on_bag);
     player->jumpTo(TOUCH_TO_COL(tap_begin));
+    player->getView()->setPosition(player->getView()->getPosition() + board->offset());
     player->animateDrop();
     playSoundDrop();
   }
