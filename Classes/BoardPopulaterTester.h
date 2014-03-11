@@ -10,12 +10,13 @@ class BoardPopulaterTester : public BoardPopulater {
  public:
   BoardPopulaterTester(Board*);
   virtual void populate();
+
   virtual void populate_next_row();
   virtual void populate_first_row();
   void populate(SphereType, int);
   void populate_next_row(SphereType);
   void populate_first_row(SphereType);
-
+  void populateCol(SphereType, int, int);
  private:
   Board* _board;
 };

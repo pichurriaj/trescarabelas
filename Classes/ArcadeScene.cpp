@@ -166,7 +166,7 @@ void Arcade::onTouchEnded(Touch* touch, Event* event){
 }
 
 void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match){
-  if(start_count_match < 3) return;
+  if(start_count_match < 3 + 1 /*offset*/) return;
   std::cout << "On Match Spheres: " << spheres.size() << " StartCountMatch:" << start_count_match << std::endl;
   for(auto it = spheres.begin(); it != spheres.end(); it++){
     std::cout << "MatchToRemove:" << (*it)->getPosition().x << "," << (*it)->getPosition().y  << " Type:" << (*it)->getType() << std::endl;
@@ -223,7 +223,8 @@ void Arcade::onFallSphere(Sphere* sphere, PointGrid sphere_next_pos){
   new_pos.y *= -1;
   new_pos.y += board_view->getContentSize().height;
   sphere->retain();
-  //@todo revizar memoria
+  PointGrid* send_new_pos = new PointGrid(sphere_next_pos.x, sphere_next_pos.y);
+  sphere->setUserData(send_new_pos);
   MessageBoardSphere* send = new MessageBoardSphere(board, sphere);
   view->setUserData(send);
   view->runAction(Sequence::create(
@@ -231,6 +232,8 @@ void Arcade::onFallSphere(Sphere* sphere, PointGrid sphere_next_pos){
 				   CallFuncN::create(
 						     [](Node* node){
 						       MessageBoardSphere* recv = static_cast<MessageBoardSphere*>(node->getUserData());
+						       PointGrid *new_pos = static_cast<PointGrid*>(recv->getSphere()->getUserData());
+						       recv->getSphere()->setPosition(*new_pos);
 						       recv->getBoard()->updateMatch(recv->getSphere()->getPosition());
 						       delete recv;
 						     }

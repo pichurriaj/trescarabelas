@@ -37,6 +37,7 @@ class Sphere : public cocos2d::Object
    */
   cocos2d::Node* getView();
   void viewRemoveFromParent() { _node->removeFromParent(); }
+  CC_SYNTHESIZE(void*, _data, UserData);
  private:					
   cocos2d::Node *_node;
   PointGrid _pos;

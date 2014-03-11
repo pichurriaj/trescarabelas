@@ -84,7 +84,7 @@ class Board : public cocos2d::Object
    *Llamada cuando se saca una esfera del tablero
    */
   void attachDropSphere(std::function<void(Sphere*)>);
-  const Grid<Sphere*>& getGrid() { return _grid; }
+  Grid<Sphere*>& getGrid() { return _grid; }
   CC_SYNTHESIZE(BoardPopulater*, _populater, Populater);
 
   /**
