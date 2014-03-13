@@ -12,6 +12,7 @@ USING_NS_CC;
 #define TOUCH_TO_COL(T) (int)(T.x / GRID_SIZE)
 #define DELAY_BEFORE_FALL 0.07f
 #define DELAY_ROLL_BOARD 4.0f
+#define DELAY_STOP_COMBO 2.0f
 
 Scene* Arcade::createScene(){
   auto scene = Scene::create();
@@ -31,9 +32,9 @@ bool Arcade::init(){
   origin = Director::getInstance()->getVisibleOrigin();
 
   //dificultad
-  _delay_before_fall = DELAY_BEFORE_FALL;
-  _delay_roll_board = DELAY_ROLL_BOARD;
-
+  setDelayRollBoard(DELAY_ROLL_BOARD);
+  setDelayBeforeFall(DELAY_BEFORE_FALL);
+  setDelayStopCombo(DELAY_STOP_COMBO);
   _snd_take = String("musica y sonidos/baja.ogg");
   _snd_drop = String("musica y sonidos/sube.ogg");
   _snd_collide = String("musica y sonidos/choca_perla.ogg");
@@ -97,15 +98,44 @@ bool Arcade::init(){
   listener->onTouchEnded = CC_CALLBACK_2(Arcade::onTouchEnded, this);
   
   dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-  this->schedule(schedule_selector(Arcade::updateBoard), getDelayRollBoard());
+  this->schedule(schedule_selector(Arcade::updateBoard), 1.0f);
 
   PLAY_MUSIC("musica y sonidos/juego.ogg");
-  
+  _time_elapsed_update = 0;
+  _time_roll_board.initWithTarget(this, schedule_selector(Arcade::updateRollBoard));
+  _time_roll_board.setInterval(getDelayRollBoard());
+  _time_combo.initWithTarget(this, schedule_selector(Arcade::updateCombo));
+  _time_combo.setInterval(1.0f);
+  _in_combo = false; _time_elapsed_combo = 0;
   return true;
 }
 
 void Arcade::updateBoard(float dt){
+  _time_roll_board.update(dt);
+  _time_combo.update(dt);
+}
+
+void Arcade::updateRollBoard(float dt){
   board_populater->populate_first_row();
+}
+
+
+void Arcade::updateCombo(float dt){
+  if(!_in_combo) return;
+  if(_time_elapsed_combo >= getDelayStopCombo()){
+    _time_elapsed_combo = 0;
+    _in_combo = false;
+    _combo_count = 0;
+    return;
+  }
+  /*inicia/continua combo*/
+  if(_time_elapsed_combo == 0){
+    //@todo logica de cuando se realiza el combo
+    //_combo_count cantidad de combos hasta ahora
+    std::cout << __FUNCTION__ << "combos:" << _combo_count << std::endl;
+  }
+
+  _time_elapsed_combo += dt;
 }
 
 bool Arcade::onTouchBegan(Touch* touch, Event* event){
@@ -182,7 +212,12 @@ void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match
     playSoundCollide();
     board->dropSphere((*it)->getPosition());
   }
+  /*activa el modo combo*/
+  _in_combo  = true;
+  _combo_count += 1;
+  _time_elapsed_combo = 0;
 
+  std::cout << "Match Time Elapsed:" << Director::getInstance()->getDeltaTime() << std::endl;
   MessageBoard* send = new MessageBoard(board, this);
  Node* view = board->getView();
  view->retain();
