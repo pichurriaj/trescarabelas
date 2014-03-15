@@ -13,6 +13,7 @@ USING_NS_CC;
 #define DELAY_BEFORE_FALL 0.07f
 #define DELAY_ROLL_BOARD 4.0f
 #define DELAY_STOP_COMBO 2.0f
+#define DEFAULT_TIME_START 60
 
 Scene* Arcade::createScene(){
   auto scene = Scene::create();
@@ -88,8 +89,12 @@ bool Arcade::init(){
   this->addChild(player_view);
   player->jumpTo(3);
 
-
-
+  _time = DEFAULT_TIME_START;
+  _clock_label = LabelTTF::create(String::createWithFormat("%02i", _time)->getCString(), "Serif", 60);
+  this->addChild(_clock_label, 999);
+  _clock_label->setPosition(Point(visibleSize.width/2 + origin.x,
+				  visibleSize.height + origin.y - _clock_label->getContentSize().height/2));
+  _time_over = true;
 
   auto dispatcher = Director::getInstance()->getEventDispatcher();
   auto listener = EventListenerTouchOneByOne::create();
@@ -101,7 +106,6 @@ bool Arcade::init(){
   this->schedule(schedule_selector(Arcade::updateBoard), 1.0f);
 
   PLAY_MUSIC("musica y sonidos/juego.ogg");
-  _time_elapsed_update = 0;
   _time_roll_board.initWithTarget(this, schedule_selector(Arcade::updateRollBoard));
   _time_roll_board.setInterval(getDelayRollBoard());
   _time_combo.initWithTarget(this, schedule_selector(Arcade::updateCombo));
@@ -113,6 +117,18 @@ bool Arcade::init(){
 void Arcade::updateBoard(float dt){
   _time_roll_board.update(dt);
   _time_combo.update(dt);
+  updateClock(dt);
+}
+
+
+void Arcade::updateClock(float dt){
+  _time --;
+  auto value = String::createWithFormat("%02i", _time);
+  _clock_label->setString(value->getCString());
+  if(_time < 0)
+    _time_over = true;
+  //@todo poner animiacion de fondo cuando se esta acabando
+  //el tiempo
 }
 
 void Arcade::updateRollBoard(float dt){

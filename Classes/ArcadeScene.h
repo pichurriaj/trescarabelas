@@ -18,6 +18,8 @@ class Arcade : public cocos2d::Layer
   void updateBoard(float);
   void updateRollBoard(float);
   void updateCombo(float);
+  void updateClock(float);
+
   virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
   virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
   virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
@@ -40,6 +42,9 @@ class Arcade : public cocos2d::Layer
 
   //en +segundos+ cuando se detiene el combo si no se han hecho mas
   CC_SYNTHESIZE(float, _delay_stop_combo, DelayStopCombo);
+
+  //tiempo de duracion del juego
+  CC_SYNTHESIZE(int, _time, Time);
  private:
   cocos2d::Timer _time_roll_board;
   /*@todo Pasar a Objeto??*/
@@ -47,11 +52,13 @@ class Arcade : public cocos2d::Layer
   float _time_elapsed_combo;
   bool _in_combo;
 
+  cocos2d::LabelTTF* _clock_label;
+  bool _time_over; //bandera: se activa cuando se acaba el tiempo
+
   bool gestureDown;
   bool gestureUp;
   cocos2d::Point tap_begin;
   int _score;
-  int _time;
   int _combo_count;
   Indian* player;
   cocos2d::Size visibleSize;
