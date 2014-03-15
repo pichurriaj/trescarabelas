@@ -14,6 +14,8 @@ USING_NS_CC;
 #define DELAY_ROLL_BOARD 4.0f
 #define DELAY_STOP_COMBO 2.0f
 #define DEFAULT_TIME_START 60
+#define DEFAULT_SCORE_MATCH 35
+#define DEFAULT_SCORE_COMBO 70
 
 Scene* Arcade::createScene(){
   auto scene = Scene::create();
@@ -89,13 +91,21 @@ bool Arcade::init(){
   this->addChild(player_view);
   player->jumpTo(3);
 
+  _score_label = LabelTTF::create("0000","Serif", 60);
+  this->addChild(_score_label, 999);
+  _score_label->setPosition(Point(origin.x + _score_label->getContentSize().width,
+				  origin.y + visibleSize.height - _score_label->getContentSize().height/2));
+  
+  //variables de juego
   _time = DEFAULT_TIME_START;
   _clock_label = LabelTTF::create(String::createWithFormat("%02i", _time)->getCString(), "Serif", 60);
   this->addChild(_clock_label, 999);
   _clock_label->setPosition(Point(visibleSize.width/2 + origin.x,
 				  visibleSize.height + origin.y - _clock_label->getContentSize().height/2));
   _time_over = true;
-
+  _score = 0;
+  setScoreCombo(DEFAULT_SCORE_COMBO);
+  setScoreMatch(DEFAULT_SCORE_MATCH);
   auto dispatcher = Director::getInstance()->getEventDispatcher();
   auto listener = EventListenerTouchOneByOne::create();
   listener->onTouchBegan = CC_CALLBACK_2(Arcade::onTouchBegan, this);
@@ -139,6 +149,8 @@ void Arcade::updateRollBoard(float dt){
 void Arcade::updateCombo(float dt){
   if(!_in_combo) return;
   if(_time_elapsed_combo >= getDelayStopCombo()){
+    addScore(_in_combo * getScoreCombo());
+
     _time_elapsed_combo = 0;
     _in_combo = false;
     _combo_count = 0;
@@ -243,7 +255,9 @@ void Arcade::onMatchSpheres(GroupSphere &spheres, unsigned int start_count_match
   _in_combo  = true;
   _combo_count += 1;
   _time_elapsed_combo = 0;
+  addScore(getScoreMatch());
 
+  
   std::cout << "Match Time Elapsed:" << Director::getInstance()->getDeltaTime() << std::endl;
   MessageBoard* send = new MessageBoard(board, this);
  Node* view = board->getView();
@@ -358,4 +372,9 @@ void Arcade::onReachEndBoard(GroupSphere spheres){
   unscheduleAllSelectors();
   removeFromParentAndCleanup(true);
   Director::getInstance()->end();
+}
+
+void Arcade::addScore(int p){
+  _score += p;
+  _score_label->setString(String::createWithFormat("%04i", _score)->getCString());
 }
