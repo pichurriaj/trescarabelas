@@ -236,9 +236,12 @@ GroupSphere Board::_match_right(PointGrid start){
   if(start.x + 1 >= _grid.getCols()){
     return spheres;
   }
+  if(last_row < 0) return spheres;
 
   for(int row=last_row; row >= 0; row--){
     if(start.x + 1 >= _grid.getCols()) return spheres;
+    if(start.x < 0) return spheres;
+    
     PointGrid pos_right_match(start.x + 1, row);
     Sphere* sphere_to_match_right = _grid.get(pos_right_match);
 
@@ -265,9 +268,10 @@ GroupSphere Board::_match_left(PointGrid start){
   if(start.x - 1 < 0){
     return spheres;
   }
-
+  if(last_row < 0) return spheres;
   for(int row=last_row; row >= 0; row--){
     if(start.x < 0) return spheres;
+
     PointGrid pos_left_match(start.x - 1, row);
     Sphere* sphere_to_match_left = _grid.get(pos_left_match);
 
