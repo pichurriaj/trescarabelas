@@ -23,6 +23,7 @@ class Arcade : public cocos2d::Layer
   virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
   virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
   virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
+  virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*);
 
   void onMatchSpheres(GroupSphere&,unsigned int);
   void onFallSphere(Sphere*, PointGrid);

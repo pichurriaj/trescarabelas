@@ -113,7 +113,7 @@ bool Arcade::init(){
   listener->onTouchBegan = CC_CALLBACK_2(Arcade::onTouchBegan, this);
   listener->onTouchMoved = CC_CALLBACK_2(Arcade::onTouchMoved, this);
   listener->onTouchEnded = CC_CALLBACK_2(Arcade::onTouchEnded, this);
-  
+
   dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
   this->schedule(schedule_selector(Arcade::updateBoard), 1.0f);
 
@@ -138,7 +138,7 @@ void Arcade::updateClock(float dt){
   auto value = String::createWithFormat("%02i", _time);
   _clock_label->setString(value->getCString());
   _clock_label->setFontFillColor(Color3B(255,255,0));
-  _clock_label->enableStroke(Color3B(255,0,0), 20);
+
   if(_time < 0){
     _time_over = true;
   }else if(_time < getTimeStart() * 0.20){
@@ -418,4 +418,14 @@ void Arcade::addTime(int time){
     _clock_label->setFontFillColor(Color3B::RED);
 
   _clock_label->setString(String::createWithFormat("%02i", _time)->getCString());
+}
+
+void Arcade::onKeyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event *event){
+  if(keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE){
+    std::cout << __FUNCTION__ << std::endl;
+    stopAllActions();
+    unscheduleAllSelectors();
+    removeFromParentAndCleanup(true);
+    Director::getInstance()->end();
+  }
 }
