@@ -149,6 +149,17 @@ void Arcade::updateCombo(float dt){
     //@todo logica de cuando se realiza el combo
     //_combo_count cantidad de combos hasta ahora
     std::cout << __FUNCTION__ << "combos:" << _combo_count << std::endl;
+    LabelTTF* combo_label = LabelTTF::create(String::createWithFormat("%d Combo", _combo_count)->getCString(),
+					     "Serif", 80);
+    combo_label->runAction(Sequence::create(
+					    FadeOut::create(getDelayStopCombo()),
+					    RemoveSelf::create(),
+					    NULL
+					    )
+			   );
+    this->addChild(combo_label, 999);
+    combo_label->setPosition(Point(visibleSize.width/2,
+				   visibleSize.height/2));
   }
 
   _time_elapsed_combo += dt;
