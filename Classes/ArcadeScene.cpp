@@ -91,14 +91,16 @@ bool Arcade::init(){
   this->addChild(player_view);
   player->jumpTo(3);
 
-  _score_label = LabelTTF::create("0000","Serif", 60);
+  _score_label = LabelTTF::create("0000","ThonburiBold", 60);
+
   this->addChild(_score_label, 999);
   _score_label->setPosition(Point(origin.x + _score_label->getContentSize().width,
 				  origin.y + visibleSize.height - _score_label->getContentSize().height/2));
-  
+
   //variables de juego
-  _time = DEFAULT_TIME_START;
-  _clock_label = LabelTTF::create(String::createWithFormat("%02i", _time)->getCString(), "Serif", 60);
+  setTimeStart(DEFAULT_TIME_START);
+  _time = getTimeStart();
+  _clock_label = LabelTTF::create(String::createWithFormat("%02i", _time)->getCString(), "ThonburiBold", 60);
   this->addChild(_clock_label, 999);
   _clock_label->setPosition(Point(visibleSize.width/2 + origin.x,
 				  visibleSize.height + origin.y - _clock_label->getContentSize().height/2));
@@ -135,10 +137,30 @@ void Arcade::updateClock(float dt){
   _time --;
   auto value = String::createWithFormat("%02i", _time);
   _clock_label->setString(value->getCString());
-  if(_time < 0)
+  _clock_label->setFontFillColor(Color3B(255,255,0));
+  _clock_label->enableStroke(Color3B(255,0,0), 20);
+  if(_time < 0){
     _time_over = true;
-  //@todo poner animiacion de fondo cuando se esta acabando
-  //el tiempo
+  }else if(_time < getTimeStart() * 0.20){
+    _clock_label->setColor(Color3B::RED);
+    _clock_label->runAction(
+			    Sequence::create(
+					     FadeOut::create(0.4f),
+					     FadeIn::create(0.4f),
+					     NULL
+					     )
+			    );
+  } else if(_time < getTimeStart() * 0.5) {
+    _clock_label->setColor(Color3B::YELLOW);
+    _clock_label->runAction(
+			    Sequence::create(
+					     FadeOut::create(0.7f),
+					     FadeIn::create(0.3f),
+					     NULL
+					     )
+			    );
+  }
+
 }
 
 void Arcade::updateRollBoard(float dt){
@@ -172,6 +194,12 @@ void Arcade::updateCombo(float dt){
     this->addChild(combo_label, 999);
     combo_label->setPosition(Point(visibleSize.width/2,
 				   visibleSize.height/2));
+
+    //da tiempo cuando se hace buena cantidad de combos
+    //@todo asignar desde metodos para cambiar segun dificultad
+    if(_combo_count > 4){
+      addTime(5);
+    }
   }
 
   _time_elapsed_combo += dt;
@@ -377,4 +405,17 @@ void Arcade::onReachEndBoard(GroupSphere spheres){
 void Arcade::addScore(int p){
   _score += p;
   _score_label->setString(String::createWithFormat("%04i", _score)->getCString());
+}
+
+
+void Arcade::addTime(int time){
+  _time += time;
+  if(_time >= getTimeStart())
+    _clock_label->setFontFillColor(Color3B(255,255,255));
+  else if(_time >= getTimeStart() * 0.5)
+    _clock_label->setFontFillColor(Color3B::YELLOW);
+  else if(_time >= getTimeStart() * 0.20)
+    _clock_label->setFontFillColor(Color3B::RED);
+
+  _clock_label->setString(String::createWithFormat("%02i", _time)->getCString());
 }

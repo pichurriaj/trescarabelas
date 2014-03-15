@@ -34,7 +34,7 @@ class Arcade : public cocos2d::Layer
   void playSoundCollide();
 
   void addScore(int);
-  
+  void addTime(int);
   //propiedades usadas especialmente para la dificultad
   //en +segundos+ lo que se demora una esfera en caer
   CC_SYNTHESIZE(float, _delay_before_fall, DelayBeforeFall);
@@ -47,7 +47,7 @@ class Arcade : public cocos2d::Layer
 
   //tiempo de duracion del juego
   CC_SYNTHESIZE(int, _time, Time);
-
+  CC_SYNTHESIZE(int, _time_start, TimeStart);
   CC_SYNTHESIZE(int, _score_inc_combo, ScoreCombo);
   CC_SYNTHESIZE(int, _score_match, ScoreMatch);
 
