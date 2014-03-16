@@ -51,6 +51,8 @@ set(GAME_SRC
   Classes/GameTestArcadeScene.cpp
   Classes/MenuScene.cpp
   Classes/ArcadeScene.cpp
+  Classes/ArcadeMenuScene.cpp
+  Classes/ArcadeMenu/EasyMenu.cpp
   Classes/Indian.cpp
 )
 
