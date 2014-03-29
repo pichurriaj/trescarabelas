@@ -13,11 +13,14 @@ class EasyMenu :  public cocos2d::Object, public ArcadeMenuLevel
 
   virtual cocos2d::Node* getView();
   virtual void touch(cocos2d::Point);
-
+  void choiceLevel(cocos2d::Object*);
  private:
+
+  cocos2d::MenuItemImage* createMenuItem(const char* normalimg, const char* selectedimg, int lvl, bool locked);
   cocos2d::Node* view;
   cocos2d::Sprite *background;
   Grid<cocos2d::Sprite*> _grid;
+  cocos2d::Menu* menu;
 };
 
 #endif
