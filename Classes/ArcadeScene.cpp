@@ -12,7 +12,7 @@
 USING_NS_CC;
 
 #define TOUCH_TO_COL(T) (int)(T.x / GRID_SIZE)
-#define DELAY_BEFORE_FALL 0.07f
+#define DELAY_BEFORE_FALL 0.06f
 #define DELAY_ROLL_BOARD 6.0f
 #define DELAY_STOP_COMBO 2.0f
 #define DEFAULT_TIME_START 60
@@ -555,6 +555,50 @@ void Arcade::showWinner(){
   menu->setPosition(Point(visibleSize.width/2,
 			  visibleSize.height/2 + a_menu->getContentSize().height/2));
   this->addChild(menu);
+
+  //copas
+  if(_score >= getScoreLowWin())
+    LevelManager::getInstance()->setGoalLowScore(LevelManager::getInstance()->getCurrentLevel());
+  if(_score >= getScoreWin())
+    LevelManager::getInstance()->setGoalScore(LevelManager::getInstance()->getCurrentLevel());
+  if(_score >= getScoreHighWin())
+    LevelManager::getInstance()->setGoalHighScore(LevelManager::getInstance()->getCurrentLevel());
+
+  auto logro_fondo = Sprite::create("efectos/puntaje_fondo.png");
+  logro_fondo->setPosition(Point(visibleSize.width/2 - logro_fondo->getContentSize().width,
+				 visibleSize.height/4));
+  this->addChild(logro_fondo, 888);
+
+  
+  if(LevelManager::getInstance()->goalLowScore(LevelManager::getInstance()->getCurrentLevel())){
+    auto logro_low = Sprite::create("efectos/puntaje.png");
+    logro_low->setPosition(Point(visibleSize.width/2 - logro_low->getContentSize().width,
+				 visibleSize.height/4));
+    this->addChild(logro_low, 999);
+  }
+
+  logro_fondo = Sprite::create("efectos/puntaje_fondo.png");
+  logro_fondo->setPosition(Point(visibleSize.width/2,
+				 visibleSize.height/4));
+  this->addChild(logro_fondo,888);
+  if(LevelManager::getInstance()->goalScore(LevelManager::getInstance()->getCurrentLevel())){
+    auto logro = Sprite::create("efectos/puntaje.png");
+    logro->setPosition(Point(visibleSize.width/2,
+			     visibleSize.height/4));
+    this->addChild(logro,999);
+  }
+
+  logro_fondo = Sprite::create("efectos/puntaje_fondo.png");
+  logro_fondo->setPosition(Point(visibleSize.width/2 + logro_fondo->getContentSize().width,
+				 visibleSize.height/4));
+  this->addChild(logro_fondo,888);
+  if(LevelManager::getInstance()->goalHighScore(LevelManager::getInstance()->getCurrentLevel())){
+    auto logro_high = Sprite::create("efectos/puntaje.png");
+    logro_high->setPosition(Point(visibleSize.width/2 + logro_high->getContentSize().width,
+			     visibleSize.height/4));
+    this->addChild(logro_high,999);
+  }
+  
 }
 
 void Arcade::showLosser(){

@@ -94,3 +94,37 @@ int LevelManager::getMaxLevel(){
   strcat(key, "_max_lvl");
   return UserDefault::getInstance()->getIntegerForKey(key);
 }
+
+
+bool LevelManager::goalHighScore(int lvl){
+ if(!stage) return false;
+ return UserDefault::getInstance()->getBoolForKey(String::createWithFormat("%s_%d_goal_high_score", stage, lvl)->getCString(), false);
+}
+
+bool LevelManager::goalLowScore(int lvl){
+ if(!stage) return false;
+ return UserDefault::getInstance()->getBoolForKey(String::createWithFormat("%s_%d_goal_low_score", stage, lvl)->getCString(), false);
+}
+
+bool LevelManager::goalScore(int lvl){
+ if(!stage) return false;
+ return UserDefault::getInstance()->getBoolForKey(String::createWithFormat("%s_%d_goal_score", stage, lvl)->getCString(), false);
+}
+
+void LevelManager::setGoalHighScore(int lvl){
+  if(!stage) return;
+  UserDefault::getInstance()->setBoolForKey(String::createWithFormat("%s_%d_goal_high_score", stage, lvl)->getCString(), true);
+  UserDefault::getInstance()->flush();
+}
+
+void LevelManager::setGoalLowScore(int lvl){
+ if(!stage) return;
+  UserDefault::getInstance()->setBoolForKey(String::createWithFormat("%s_%d_goal_low_score", stage, lvl)->getCString(), true);
+  UserDefault::getInstance()->flush();
+}
+
+void LevelManager::setGoalScore(int lvl){
+ if(!stage) return;
+  UserDefault::getInstance()->setBoolForKey(String::createWithFormat("%s_%d_goal_score", stage, lvl)->getCString(), true);
+  UserDefault::getInstance()->flush();
+}

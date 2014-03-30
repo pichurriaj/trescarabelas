@@ -19,6 +19,14 @@ class LevelManager{
    bool getLevelLock(int lvl);
    void setLevelLock(int lvl, bool);
    void unlockNextLevel(int lvl);
+
+   void setGoalHighScore(int lvl);
+   void setGoalLowScore(int lvl);
+   void setGoalScore(int lvl);
+   bool goalHighScore(int lvl);
+   bool goalScore(int lvl); //middle
+   bool goalLowScore(int lvl);
+   
 };
 
 #endif
