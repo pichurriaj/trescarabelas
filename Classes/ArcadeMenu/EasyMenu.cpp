@@ -17,7 +17,7 @@ EasyMenu::EasyMenu(ArcadeMenu* scene): _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIG
   background = Sprite::create("menu arcade/menu_arcade.png");
   view = Node::create();
   view->addChild(background);
-
+  view->retain();
 
   cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
   cocos2d::Point origin = Director::getInstance()->getVisibleOrigin();
@@ -64,6 +64,8 @@ Node* EasyMenu::getView(){
 
 void EasyMenu::choiceLevel(Object* obj){
   MenuItemImage* lvlItem = static_cast<MenuItemImage*>(obj);
+  LevelManager::getInstance()->setCurrentStage("easy_arcade");
+  LevelManager::getInstance()->setMaxLevel(30);
   if(!(lvlItem->getTag() & TAG_LEVEL_LOCK)) {
     playArcade(lvlItem->getTag());
   }
@@ -122,7 +124,8 @@ void EasyMenu::playArcade(int lvl){
   const float default_roll_board = 6.0f;
   const int default_time_start = 90;
   auto  arcade = Arcade::create();
-
+  LevelManager::getInstance()->setCurrentStage("easy_arcade");
+  LevelManager::getInstance()->setMaxLevel(30);
   LevelManager::getInstance()->setCurrentLevel(lvl);
   struct{
     int delay_roll_board;
@@ -161,7 +164,8 @@ void EasyMenu::playArcade(int lvl){
     {4,8,1300,1500,1600,2}, //lvl 27
     {4,8,1400,1600,1700,2}, //lvl 28
     {4,8,1500,1700,1800,2}, //lvl 29
-    {4,9,1600,1800,1900,3} //lvl 30
+    {4,9,1600,1800,1900,3}, //lvl 30
+    {4,9,1700,1800,1900,3} //lvl 30
   };
   for(int c=goals[lvl].extra_rows; c > 0; c--)
     arcade->populateRow();

@@ -12,6 +12,7 @@ class LevelManager{
    int getCurrentLevel();
    void setCurrentLevel(int);
    void setCurrentStage(const char*);
+   const char* getCurrentStage();
    void setMaxLevel(int mlvl);
    int getMaxLevel();
    bool getLevelComplete(int lvl);

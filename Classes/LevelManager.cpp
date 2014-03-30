@@ -128,3 +128,7 @@ void LevelManager::setGoalScore(int lvl){
   UserDefault::getInstance()->setBoolForKey(String::createWithFormat("%s_%d_goal_score", stage, lvl)->getCString(), true);
   UserDefault::getInstance()->flush();
 }
+
+const char* LevelManager::getCurrentStage(){
+  return stage;
+}

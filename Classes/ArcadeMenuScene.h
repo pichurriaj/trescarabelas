@@ -26,6 +26,7 @@ class ArcadeMenu : public cocos2d::Layer
    */
   void addLevel(ArcadeMenuLevel*);
  private:
+
   std::vector<ArcadeMenuLevel*> levels;
   int level_selected; 
   ArcadeMenuLevel* level;
@@ -33,6 +34,7 @@ class ArcadeMenu : public cocos2d::Layer
 
   cocos2d::Size visibleSize;
   cocos2d::Point origin;
+ cocos2d::Point tap_begin;
 };
 
 #endif

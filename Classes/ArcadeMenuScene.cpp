@@ -17,8 +17,8 @@ bool ArcadeMenu::init(){
   CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic(true);
   CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("menu/musica.ogg", true);
   this->setKeypadEnabled(true);
-  level_selected = 0;  level = NULL;
-  view_level = Node::create();
+  level_selected = UserDefault::getInstance()->getIntegerForKey("arcade_menu_last_level",0);  level = NULL;
+  view_level = Node::create(); view_level->retain();
   visibleSize = Director::getInstance()->getVisibleSize();
   origin = Director::getInstance()->getVisibleOrigin();
 
@@ -36,15 +36,38 @@ bool ArcadeMenu::init(){
   }
 
   selectLevel(level_selected);
+  auto dispatcher = Director::getInstance()->getEventDispatcher();
+  auto listener = EventListenerTouchOneByOne::create();
+  listener->onTouchBegan = CC_CALLBACK_2(ArcadeMenu::onTouchBegan, this);
+  listener->onTouchEnded = CC_CALLBACK_2(ArcadeMenu::onTouchEnded, this);
 
+  dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
   return true;
 }
 
 bool ArcadeMenu::onTouchBegan(Touch* touch, Event* event){
-  return false;
+  tap_begin = touch->getLocationInView();
+  return true;
 }
 
 void ArcadeMenu::onTouchEnded(Touch* touch, Event* event){
+  Point tap_end = touch->getLocationInView();
+  CCLOG("tap_begin.x:%d, tap_end.x:%d",tap_begin.x, tap_end.x);
+  bool new_level = false;
+  if(tap_begin.x - tap_end.x < 100){
+    level_selected -= 1;
+    new_level = true;
+  }else if(tap_begin.x - tap_end.x > 100){
+    level_selected += 1;
+    new_level = true;
+  }
+
+
+  if(level_selected <= 0) level_selected = 0;
+  if(level_selected >= levels.size()) level_selected = levels.size() - 1;
+  CCLOG("===LEVEL SELECTED:%d", level_selected);
+  if(new_level)
+    selectLevel(level_selected);
 }
 
 void ArcadeMenu::addLevel(ArcadeMenuLevel* _level){
@@ -52,12 +75,16 @@ void ArcadeMenu::addLevel(ArcadeMenuLevel* _level){
 }
 
 void ArcadeMenu::selectLevel(unsigned int pos){
-  if(pos > levels.size()) return;
-  if(level)
+  if(pos > levels.size() - 1) return;
+
+  if(level){
     view_level->removeChild(level->getView());
-  
+    level = NULL;
+  }
   level = levels[pos];
   view_level->addChild(level->getView());
+  UserDefault::getInstance()->setIntegerForKey("arcade_menu_last_level", pos);
+  UserDefault::getInstance()->flush();
 }
 
 void ArcadeMenu::onKeyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event *event){
