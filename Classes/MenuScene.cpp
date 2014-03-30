@@ -17,6 +17,8 @@ bool MenuPrincipal::init() {
   if(!Layer::init()){
     return false;
   }
+  this->setKeypadEnabled(true);
+
   Size visibleSize = Director::getInstance()->getVisibleSize();
   Point origin = Director::getInstance()->getVisibleOrigin();
 

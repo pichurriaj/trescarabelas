@@ -149,16 +149,16 @@ void EasyMenu::playArcade(int lvl){
     {4,3,1333}, //lvl 18
     {4,3,1400}, //lvl 19
     {4,3,1500}, //lvl 20
-    {4,6,700}, //lvl 21
-    {4,6,800}, //lvl 22
-    {4,6,900}, //lvl 23
-    {4,6,1000}, //lvl 24
-    {4,6,1100}, //lvl 25
-    {4,6,1200}, //lvl 26
-    {4,6,1300}, //lvl 27
-    {4,6,1400}, //lvl 28
-    {4,6,1500}, //lvl 29
-    {4,7,1600} //lvl 30
+    {4,8,700}, //lvl 21
+    {4,8,800}, //lvl 22
+    {4,8,900}, //lvl 23
+    {4,8,1000}, //lvl 24
+    {4,8,1100}, //lvl 25
+    {4,8,1200}, //lvl 26
+    {4,8,1300}, //lvl 27
+    {4,8,1400}, //lvl 28
+    {4,8,1500}, //lvl 29
+    {4,9,1600} //lvl 30
   };
   arcade->setDelayRollBoard(goals[lvl].delay_roll_board);
   arcade->setRandomizeBall(goals[lvl].randomize_ball);

@@ -14,7 +14,8 @@ Scene* ArcadeMenu::createScene(){
 bool ArcadeMenu::init(){
   if(!Layer::init()) return false;
   CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic(true);
-
+  CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("menu/musica.ogg", true);
+  this->setKeypadEnabled(true);
   level_selected = 0;  level = NULL;
   view_level = Node::create();
   visibleSize = Director::getInstance()->getVisibleSize();

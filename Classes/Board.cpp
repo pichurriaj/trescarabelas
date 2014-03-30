@@ -7,7 +7,7 @@ USING_NS_CC;
 Board::Board() : _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIGHT/GRID_SIZE)  {
   _node = Sprite::create("objetos/tablero_fondo.png");
   _grid.setCols(_node->getContentSize().width/GRID_SIZE);
-  _grid.setRows(_node->getContentSize().height/GRID_SIZE);
+  _grid.setRows(_node->getContentSize().height/GRID_SIZE + 1);
   _populater = NULL;
   _grid.setEmpty(NULL);
 }
@@ -37,7 +37,7 @@ GroupSphere Board::dropSphere(PointGrid pos){
     last_sphere->retain();
     (*func)(last_sphere);
   }
-last_sphere->getView()->setVisible(true);
+  last_sphere->getView()->setVisible(true);
   last_sphere->viewRemoveFromParent();
   spheres.push_back(last_sphere);
   return spheres;
@@ -201,7 +201,8 @@ void Board::roll(GroupSphere spheres) {
 	sphere_view->setPosition(poss);
 	sphere_view->retain();
 	//std::cout << "Rolling sphere down" << std::endl;
-	if(data->getPosition().y == _grid.getRows()){
+	if(data->getPosition().y == _grid.getRows() - 1 //@patch para permitir colision ultima esfera
+	   ){
 	  data->retain();
 	  spheres_end_board.push_back(data);
 	}
@@ -265,12 +266,13 @@ GroupSphere Board::_match_left(PointGrid start){
   int last_row = start.y;
   spheres.clear();
   if(_grid.Empty(start_sphere)) return spheres;
-  if(start.x - 1 < 0){
+  if(start.x - 1 < 0 || start.x < 0){
     return spheres;
   }
+
   if(last_row < 0) return spheres;
   for(int row=last_row; row >= 0; row--){
-    if(start.x < 0) return spheres;
+
 
     PointGrid pos_left_match(start.x - 1, row);
     Sphere* sphere_to_match_left = _grid.get(pos_left_match);
@@ -307,7 +309,7 @@ GroupSphere Board::_match(PointGrid start) {
     spheres.push_back(start_sphere);
     //vertical
     int last_row = _grid.getLastRow(start.x);
-    if(last_row < 0) return spheres;
+    if(last_row <= 0) return spheres;
     for(int row=last_row; row >= 0; row--){
       PointGrid pos_match(start.x, row);
 

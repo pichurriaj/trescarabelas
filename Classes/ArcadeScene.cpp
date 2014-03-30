@@ -52,6 +52,8 @@ bool Arcade::init(){
   _snd_drop = String("musica y sonidos/sube.ogg");
   _snd_collide = String("musica y sonidos/choca_perla.ogg");
   
+  //set key
+  this->setKeypadEnabled(true);
   //initialize images
   Animation *_anim_exploit_sphere = Animation::create();
   for(int i = 1; i <= 4; i++){
@@ -108,7 +110,7 @@ bool Arcade::init(){
   this->addChild(_clock_label, 999);
   _clock_label->setPosition(Point(visibleSize.width/2 + origin.x,
 				  visibleSize.height + origin.y - _clock_label->getContentSize().height/2));
-  _time_over = true;
+  _time_over = false;
   _score = 0;
   setScoreCombo(DEFAULT_SCORE_COMBO);
   setScoreMatch(DEFAULT_SCORE_MATCH);
@@ -145,17 +147,13 @@ void Arcade::updateBoard(float dt){
       unlockNextLevel();
     }
     break;
-  default:
-    if(_time_over){
-      showLosser();
-    }
   }
 
-  if(!_stop){
-    _time_roll_board.update(dt);
-    _time_combo.update(dt);
-    updateClock(dt);
-  }
+
+  _time_roll_board.update(dt);
+  _time_combo.update(dt);
+  updateClock(dt);
+
 }
 
 
@@ -166,6 +164,7 @@ void Arcade::updateClock(float dt){
   _clock_label->setFontFillColor(Color3B(255,255,0));
 
   if(_time < 0){
+    showLosser();
     _time_over = true;
   }else if(_time < getTimeStart() * 0.20){
     _clock_label->setColor(Color3B::RED);
@@ -423,11 +422,12 @@ void Arcade::onAnimateExploitSphere(Sphere *sphere)
 }
 
 void Arcade::onReachEndBoard(GroupSphere spheres){
-  std::cout << __FUNCTION__ << std::endl;
+  showLosser();
+  /*std::cout << __FUNCTION__ << std::endl;
   stopAllActions();
   unscheduleAllSelectors();
   removeFromParentAndCleanup(true);
-  Director::getInstance()->end();
+  Director::getInstance()->end();*/
 }
 
 /**
@@ -556,6 +556,26 @@ void Arcade::showWinner(){
 }
 
 void Arcade::showLosser(){
+  _stop = true;
+  stopAllActions();
+  unscheduleAllSelectors();
+  CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
+  PLAY_MUSIC("musica y sonidos/pierde.ogg");
+
+  Sprite* win = Sprite::create("efectos/pierde.png");
+  Point pos_win(visibleSize.width/2, visibleSize.height - win->getContentSize().height);
+  win->setPosition(pos_win);
+  this->addChild(win);
+
+  auto a_menu = MenuItemImage::create(
+				      "botones/boton_pierde.png",
+				      "botones/boton_pierde_presionado.png",
+				      CC_CALLBACK_0(Arcade::restartGame, this)
+				      );
+  auto menu = Menu::create(a_menu,NULL);
+  menu->setPosition(Point(visibleSize.width/2,
+			  visibleSize.height/2 + a_menu->getContentSize().height/2));
+  this->addChild(menu);
 }
 
 void Arcade::unlockNextLevel(){
@@ -571,4 +591,9 @@ void Arcade::gotoArcadeMenu(){
 }
 
 void Arcade::restartGame(){
+  stopAllActions();
+  unscheduleAllSelectors();
+  removeFromParentAndCleanup(true);
+  Scene* newScene = TransitionFade::create(0.7, Arcade::createScene()); 
+  Director::sharedDirector()->replaceScene(newScene);
 }
