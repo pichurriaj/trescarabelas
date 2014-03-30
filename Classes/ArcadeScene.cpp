@@ -352,6 +352,7 @@ void Arcade::playSoundCollide() {
 
 //Efecto al caer
 void Arcade::onFallSphere(Sphere* sphere, PointGrid sphere_next_pos){
+  if(!sphere) return;
   std::cout << "New Pos for Sphere: " << sphere->getType() << " From: " << sphere->getPosition().x << "," << sphere->getPosition().y << "To:" << sphere_next_pos.x << "," << sphere_next_pos.y << std::endl;
   Node* view = sphere->getView();
   view->retain();
@@ -366,10 +367,12 @@ void Arcade::onFallSphere(Sphere* sphere, PointGrid sphere_next_pos){
   sphere->setUserData(send_new_pos);
   MessageBoardSphere* send = new MessageBoardSphere(board, sphere);
   view->setUserData(send);
+  view->retain();
   view->runAction(Sequence::create(
 				   Effects::ActionSphereFall(new_pos),
 				   CallFuncN::create(
 						     [](Node* node){
+						       if(!node) return;
 						       MessageBoardSphere* recv = static_cast<MessageBoardSphere*>(node->getUserData());
 						       PointGrid *new_pos = static_cast<PointGrid*>(recv->getSphere()->getUserData());
 						       recv->getSphere()->setPosition(*new_pos);

@@ -14,7 +14,7 @@ class Effects
   }
 
   static cocos2d::ActionInterval* ActionSphereFall(cocos2d::Point pos){
-    return cocos2d::EaseInOut::create(cocos2d::MoveTo::create(0.2f, pos),2);
+    return cocos2d::EaseInOut::create(cocos2d::MoveTo::create(0.1f, pos),1);
   }
 
   static cocos2d::ActionInterval* ActionButtonSelected(){
