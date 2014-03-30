@@ -1,5 +1,6 @@
 #include "ArcadeMenuScene.h"
 #include "ArcadeMenu/EasyMenu.h"
+#include "ArcadeMenu/MediumMenu.h"
 #include "MenuScene.h"
 #include "SimpleAudioEngine.h"
 USING_NS_CC;
@@ -27,8 +28,9 @@ bool ArcadeMenu::init(){
 				visibleSize.height/2 + origin.y
 				));
   auto easy = EasyMenu::create(this);
-  addLevel(EasyMenu::create(this));
-
+  auto medium = MediumMenu::create(this);
+  addLevel(easy);
+  addLevel(medium);
   if(easy->complete()){
     level_selected += 1;
   }

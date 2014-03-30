@@ -1,4 +1,4 @@
-#include "EasyMenu.h"
+#include "MediumMenu.h"
 #include "../ArcadeScene.h"
 #include "../LevelManager.h"
 USING_NS_CC;
@@ -6,13 +6,13 @@ USING_NS_CC;
 #define TAG_LEVEL_LOCK 0x00000100 //10#256
 
 /**
- *easy_menu_complete_%d: se almacena bool si completo ya el nivel.
- *easy_menu_score_%d: se almacena puntaje de nivel.
- *easy_menu_time_%d: se almacena tiempo que termino nivel.
+ *medium_menu_complete_%d: se almacena bool si completo ya el nivel.
+ *medium_menu_score_%d: se almacena puntaje de nivel.
+ *medium_menu_time_%d: se almacena tiempo que termino nivel.
  */
 
 
-EasyMenu::EasyMenu(ArcadeMenu* scene): _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIGHT/GRID_SIZE){
+MediumMenu::MediumMenu(ArcadeMenu* scene): _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIGHT/GRID_SIZE){
   _scene = scene;
   background = Sprite::create("menu arcade/menu_arcade.png");
   view = Node::create();
@@ -25,7 +25,7 @@ EasyMenu::EasyMenu(ArcadeMenu* scene): _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIG
   menu = Menu::create();
   view->addChild(menu);
   menu->setPosition(Point(-background->getContentSize().width/3,-background->getContentSize().height/3));
-  LevelManager::getInstance()->setCurrentStage("easy_arcade");
+  LevelManager::getInstance()->setCurrentStage("medium_arcade");
   LevelManager::getInstance()->setMaxLevel(30);
   LevelManager::getInstance()->setLevelLock(1,false);
   int lvl = 0;
@@ -46,8 +46,8 @@ EasyMenu::EasyMenu(ArcadeMenu* scene): _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIG
   }
 }
 
-EasyMenu* EasyMenu::create(ArcadeMenu* scene){
-  EasyMenu* obj = new EasyMenu(scene);
+MediumMenu* MediumMenu::create(ArcadeMenu* scene){
+  MediumMenu* obj = new MediumMenu(scene);
   if(obj){
     obj->autorelease();
     obj->retain();
@@ -57,12 +57,12 @@ EasyMenu* EasyMenu::create(ArcadeMenu* scene){
   return NULL;
 }
 
-Node* EasyMenu::getView(){
+Node* MediumMenu::getView(){
   view->retain();
   return view;
 }
 
-void EasyMenu::choiceLevel(Object* obj){
+void MediumMenu::choiceLevel(Object* obj){
   MenuItemImage* lvlItem = static_cast<MenuItemImage*>(obj);
   if(!(lvlItem->getTag() & TAG_LEVEL_LOCK)) {
     playArcade(lvlItem->getTag());
@@ -70,7 +70,7 @@ void EasyMenu::choiceLevel(Object* obj){
   std::cout << "Level:" << lvlItem->getTag() << std::endl;
 }
 
-void EasyMenu::touch(Point pos){
+void MediumMenu::touch(Point pos){
 }
 
 
@@ -79,10 +79,10 @@ void EasyMenu::touch(Point pos){
  *se asigna *setTag* el numero del nivel que es el item
  *y en caso de estar bloqueado se pone 1 el 1 bit de lo 2 byte
  */
-cocos2d::MenuItemImage* EasyMenu::createMenuItem(const char* normalimg, const char* selectedimg, int lvl,  bool locked){
+cocos2d::MenuItemImage* MediumMenu::createMenuItem(const char* normalimg, const char* selectedimg, int lvl,  bool locked){
   auto lvlItem = MenuItemImage::create(normalimg,
 				       selectedimg,
-				       CC_CALLBACK_1(EasyMenu::choiceLevel, this)
+				       CC_CALLBACK_1(MediumMenu::choiceLevel, this)
 				       );
   lvlItem->setTag(lvl);
   LabelTTF* num = LabelTTF::create(String::createWithFormat("%d",lvl)->getCString(),
@@ -117,7 +117,7 @@ cocos2d::MenuItemImage* EasyMenu::createMenuItem(const char* normalimg, const ch
  * - tiempo para cumplir escenario
  * - randomizacion de esferas
  */
-void EasyMenu::playArcade(int lvl){
+void MediumMenu::playArcade(int lvl){
   const int max_lvl = 30;
   const float default_roll_board = 6.0f;
   const int default_time_start = 90;
@@ -143,25 +143,25 @@ void EasyMenu::playArcade(int lvl){
     {5,1,1100,1200,1300,0}, //lvl 9
     {5,1,1200,1300,1400,0}, //lvl 10
     {4,3,500,600,700,0}, //lvl 11
-    {4,3,700,900,1000,0}, //lvl 12
-    {4,3,800,1000,1100,1}, //lvl 13
-    {4,3,900,1100,1200,1}, //lvl 14
-    {4,3,1000,1200,1300,1}, //lvl 15
-    {4,3,1100,1300,1400,1}, //lvl 16
-    {4,3,1200,1400,1500,1}, //lvl 17
-    {4,3,1333,1533,1600,1}, //lvl 18
-    {4,3,1400,1700,1800,1}, //lvl 19
-    {4,3,1500,1800,1900,1}, //lvl 20
-    {4,8,700,800,1000,1}, //lvl 21
-    {4,8,800,1000,1100,1}, //lvl 22
-    {4,8,900,1100,1200,1}, //lvl 23
-    {4,8,1000,1200,1300,1}, //lvl 24
-    {4,8,1100,1300,1400,1}, //lvl 25
-    {4,8,1200,1400,1500,2}, //lvl 26
-    {4,8,1300,1500,1600,2}, //lvl 27
-    {4,8,1400,1600,1700,2}, //lvl 28
-    {4,8,1500,1700,1800,2}, //lvl 29
-    {4,9,1600,1800,1900,3} //lvl 30
+    {4,3,700,800,900,0}, //lvl 12
+    {4,3,800,900,1000,1}, //lvl 13
+    {4,3,900,1000,1100,1}, //lvl 14
+    {4,3,1000,1100,1200,1}, //lvl 15
+    {4,3,1100,1200,1300,1}, //lvl 16
+    {4,3,1200,1300,1400,1}, //lvl 17
+    {4,3,1333,1433,1500,1}, //lvl 18
+    {4,3,1400,1500,1600,1}, //lvl 19
+    {4,3,1500,1600,1700,1}, //lvl 20
+    {4,8,700,800,900,1}, //lvl 21
+    {4,8,800,900,1000,1}, //lvl 22
+    {4,8,900,1000,1100,1}, //lvl 23
+    {4,8,1000,1100,1200,1}, //lvl 24
+    {4,8,1100,1200,1300,1}, //lvl 25
+    {4,8,1200,1300,1400,2}, //lvl 26
+    {4,8,1300,1400,1500,2}, //lvl 27
+    {4,8,1400,1500,1600,2}, //lvl 28
+    {4,8,1500,1600,1700,2}, //lvl 29
+    {4,9,1600,1700,1800,2} //lvl 30
   };
   for(int c=goals[lvl].extra_rows; c > 0; c--)
     arcade->populateRow();
@@ -180,7 +180,7 @@ void EasyMenu::playArcade(int lvl){
 }
 
 
-bool EasyMenu::complete(){
+bool MediumMenu::complete(){
    int lvl = 0;
   for(int row = 6; row > 0; row--){
     for(int col = 0; col < 5; col++){

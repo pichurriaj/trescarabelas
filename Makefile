@@ -185,6 +185,30 @@ Classes/ArcadeMenu/EasyMenu.cpp.s:
 	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/ArcadeMenu/EasyMenu.cpp.s
 .PHONY : Classes/ArcadeMenu/EasyMenu.cpp.s
 
+Classes/ArcadeMenu/MediumMenu.o: Classes/ArcadeMenu/MediumMenu.cpp.o
+.PHONY : Classes/ArcadeMenu/MediumMenu.o
+
+# target to build an object file
+Classes/ArcadeMenu/MediumMenu.cpp.o:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/ArcadeMenu/MediumMenu.cpp.o
+.PHONY : Classes/ArcadeMenu/MediumMenu.cpp.o
+
+Classes/ArcadeMenu/MediumMenu.i: Classes/ArcadeMenu/MediumMenu.cpp.i
+.PHONY : Classes/ArcadeMenu/MediumMenu.i
+
+# target to preprocess a source file
+Classes/ArcadeMenu/MediumMenu.cpp.i:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/ArcadeMenu/MediumMenu.cpp.i
+.PHONY : Classes/ArcadeMenu/MediumMenu.cpp.i
+
+Classes/ArcadeMenu/MediumMenu.s: Classes/ArcadeMenu/MediumMenu.cpp.s
+.PHONY : Classes/ArcadeMenu/MediumMenu.s
+
+# target to generate assembly for a file
+Classes/ArcadeMenu/MediumMenu.cpp.s:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/ArcadeMenu/MediumMenu.cpp.s
+.PHONY : Classes/ArcadeMenu/MediumMenu.cpp.s
+
 Classes/ArcadeMenuScene.o: Classes/ArcadeMenuScene.cpp.o
 .PHONY : Classes/ArcadeMenuScene.o
 
@@ -514,6 +538,9 @@ help:
 	@echo "... Classes/ArcadeMenu/EasyMenu.o"
 	@echo "... Classes/ArcadeMenu/EasyMenu.i"
 	@echo "... Classes/ArcadeMenu/EasyMenu.s"
+	@echo "... Classes/ArcadeMenu/MediumMenu.o"
+	@echo "... Classes/ArcadeMenu/MediumMenu.i"
+	@echo "... Classes/ArcadeMenu/MediumMenu.s"
 	@echo "... Classes/ArcadeMenuScene.o"
 	@echo "... Classes/ArcadeMenuScene.i"
 	@echo "... Classes/ArcadeMenuScene.s"

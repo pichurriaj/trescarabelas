@@ -136,22 +136,22 @@ bool Arcade::init(){
 }
 
 void Arcade::updateBoard(float dt){
-  switch(getGoal()){
-  case SCORE_WIN:
-    if(_score > getScoreLowWin()){
-      showWinner();
-      unlockNextLevel();
+  if(!_in_combo){
+    switch(getGoal()){
+    case SCORE_WIN:
+      if(_score > getScoreLowWin()){
+	showWinner();
+	unlockNextLevel();
+      }
+      break;
+    case COMBO_WIN:
+      if(_combo_count > getComboWin()){
+	showWinner();
+	unlockNextLevel();
+      }
+      break;
     }
-    break;
-  case COMBO_WIN:
-    if(_combo_count > getComboWin()){
-      showWinner();
-      unlockNextLevel();
-    }
-    break;
   }
-
-
   _time_roll_board.update(dt);
   _time_combo.update(dt);
   updateClock(dt);
@@ -489,7 +489,7 @@ void Arcade::showWinner(){
 				NULL
 				  ))
 		 );
-  this->addChild(win, 999);
+  this->addChild(win, 777);
   
   Node* particle_win = Node::create();
   const char* effects[] = {
@@ -537,9 +537,9 @@ void Arcade::showWinner(){
   score_label->setPosition(Point(visibleSize.width/2, visibleSize.height/2 - score_label->getContentSize().height));
   this->addChild(score_label);
   
-  auto time_label = LabelTTF::create(String::createWithFormat("Time%d", abs(getTimeStart() - getTime()) )->getCString(), "ThonburiBold", 60);
+  /*auto time_label = LabelTTF::create(String::createWithFormat("Time%d", abs(getTimeStart() - getTime()) )->getCString(), "ThonburiBold", 60);
   time_label->setPosition(Point(visibleSize.width/2, visibleSize.height/2 - score_label->getContentSize().height - time_label->getContentSize().height));
-  this->addChild(time_label);
+  this->addChild(time_label);*/
   //unlock next level
   CCLOG("Winner LVL: %d", LevelManager::getInstance()->getCurrentLevel());
   LevelManager::getInstance()->setLevelComplete(LevelManager::getInstance()->getCurrentLevel(),
