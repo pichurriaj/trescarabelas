@@ -39,6 +39,7 @@ class Arcade : public cocos2d::Layer
   void onFallSphere(Sphere*, PointGrid);
   void onFallSpheres(GroupSphere spheres, std::vector<PointGrid> spheres_old_pos, std::vector<PointGrid> spheres_new_pos);
   void onAnimateExploitSphere(Sphere*);
+  void populateRow();
   void onReachEndBoard(GroupSphere);
   void playSoundTake();
   void playSoundDrop();
@@ -66,7 +67,7 @@ class Arcade : public cocos2d::Layer
   CC_SYNTHESIZE(int, _time_start, TimeStart);
   CC_SYNTHESIZE(int, _score_inc_combo, ScoreCombo);
   CC_SYNTHESIZE(int, _score_match, ScoreMatch);
-
+  CC_SYNTHESIZE(int, _rows_start, RowsStart);
   //objetivos
   CC_SYNTHESIZE(GoalArcade, _goal, Goal);
   CC_SYNTHESIZE(int, _score_win, ScoreWin);

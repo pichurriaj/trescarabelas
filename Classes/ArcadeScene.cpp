@@ -19,6 +19,7 @@ USING_NS_CC;
 #define DEFAULT_SCORE_MATCH 35
 #define DEFAULT_SCORE_COMBO 70
 #define DEFAULT_RANDOMIZE_BALL 2
+#define DEFAULT_ROWS_START 4
 
 Scene* Arcade::createScene(){
   auto scene = Scene::create();
@@ -42,7 +43,7 @@ bool Arcade::init(){
   setDelayBeforeFall(DELAY_BEFORE_FALL);
   setDelayStopCombo(DELAY_STOP_COMBO);
   setRandomizeBall(DEFAULT_RANDOMIZE_BALL);
-
+  setRowsStart(DEFAULT_ROWS_START);
   //objetivos
   setGoal(SCORE_WIN);
   setScoreWin(400);
@@ -87,6 +88,7 @@ bool Arcade::init(){
   board->attachDropSphere(CC_CALLBACK_1(Arcade::onAnimateExploitSphere, this));
   board->attachEndBoard(CC_CALLBACK_1(Arcade::onReachEndBoard,this));
   board_populater = new BoardPopulaterRandom(board);
+  board_populater->setStartRows(getRowsStart());
   board_populater->populate();
   board->setPopulater(board_populater);
 
@@ -596,4 +598,8 @@ void Arcade::restartGame(){
   removeFromParentAndCleanup(true);
   Scene* newScene = TransitionFade::create(0.7, Arcade::createScene()); 
   Director::sharedDirector()->replaceScene(newScene);
+}
+
+void Arcade::populateRow(){
+  board_populater->populate_first_row();
 }

@@ -301,8 +301,10 @@ GroupSphere Board::_match(PointGrid start) {
   Sphere* start_sphere = _grid.getPop(start.x);
   unsigned int start_count_match = 0;
   if(_grid.Empty(start_sphere)) return spheres;
+  if(_grid.getLastRow(start.x) == 0) return spheres;
   std::cout << "Match::PoinTStart:" << start.x << " LastRow:" << _grid.getLastRow(start.x) << std::endl;
   std::cout << "Match::StartSphereType:" << start_sphere->getType() << std::endl;
+
   //start_sphere->retain();
   if(!_grid.Empty(start_sphere)){
     start_count_match += 1;

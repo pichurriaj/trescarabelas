@@ -13,8 +13,7 @@ class BoardPopulaterRandom : public BoardPopulater {
 
   CC_SYNTHESIZE(int, _randomize_ball, RandomizeBall);
 
-  //cantidad de filas llenas al iniciar
-  CC_SYNTHESIZE(int, _start_rows, StartRows);
+
   Sphere* randomSphere();
  private:
   SphereType randomType();
