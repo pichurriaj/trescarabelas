@@ -12,7 +12,7 @@ class ArcadeMenu : public cocos2d::Layer
   virtual bool init();
 
   CREATE_FUNC(ArcadeMenu);
-
+  virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*);
   virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
   virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
   /**

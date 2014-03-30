@@ -9,6 +9,7 @@ class MenuPrincipal : public cocos2d::Layer
   static cocos2d::Scene* createScene();
   virtual bool init();
   CREATE_FUNC(MenuPrincipal);
+  virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*);
   void quit();
   void toPlayMenu();
   void toCredits();

@@ -377,6 +377,30 @@ Classes/Indian.cpp.s:
 	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/Indian.cpp.s
 .PHONY : Classes/Indian.cpp.s
 
+Classes/LevelManager.o: Classes/LevelManager.cpp.o
+.PHONY : Classes/LevelManager.o
+
+# target to build an object file
+Classes/LevelManager.cpp.o:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/LevelManager.cpp.o
+.PHONY : Classes/LevelManager.cpp.o
+
+Classes/LevelManager.i: Classes/LevelManager.cpp.i
+.PHONY : Classes/LevelManager.i
+
+# target to preprocess a source file
+Classes/LevelManager.cpp.i:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/LevelManager.cpp.i
+.PHONY : Classes/LevelManager.cpp.i
+
+Classes/LevelManager.s: Classes/LevelManager.cpp.s
+.PHONY : Classes/LevelManager.s
+
+# target to generate assembly for a file
+Classes/LevelManager.cpp.s:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/LevelManager.cpp.s
+.PHONY : Classes/LevelManager.cpp.s
+
 Classes/MenuScene.o: Classes/MenuScene.cpp.o
 .PHONY : Classes/MenuScene.o
 
@@ -514,6 +538,9 @@ help:
 	@echo "... Classes/Indian.o"
 	@echo "... Classes/Indian.i"
 	@echo "... Classes/Indian.s"
+	@echo "... Classes/LevelManager.o"
+	@echo "... Classes/LevelManager.i"
+	@echo "... Classes/LevelManager.s"
 	@echo "... Classes/MenuScene.o"
 	@echo "... Classes/MenuScene.i"
 	@echo "... Classes/MenuScene.s"

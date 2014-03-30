@@ -27,6 +27,7 @@ bool MenuPrincipal::init() {
   this->addChild(fondo);
   
   //audio
+  CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
   if(!CocosDenshion::SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying())
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("menu/musica.ogg", true);
 
@@ -220,4 +221,15 @@ void MenuPrincipal::toCredits(){
 }
 
 void MenuPrincipal::toTraining(){
+}
+
+
+void MenuPrincipal::onKeyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event *event){
+  if(keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE){
+    std::cout << __FUNCTION__ << std::endl;
+    stopAllActions();
+    unscheduleAllSelectors();
+    removeFromParentAndCleanup(true);
+    Director::getInstance()->end();
+  }
 }

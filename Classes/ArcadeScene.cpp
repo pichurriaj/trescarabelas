@@ -4,6 +4,8 @@
 #include "MessageBoardSphere.h"
 #include "MessageBoard.h"
 #include "SimpleAudioEngine.h"
+#include "LevelManager.h"
+#include "ArcadeMenuScene.h"
 
 #define PLAY_EFFECT(X) CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(X);
 #define PLAY_MUSIC(X) CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(X, true);
@@ -16,6 +18,7 @@ USING_NS_CC;
 #define DEFAULT_TIME_START 60
 #define DEFAULT_SCORE_MATCH 35
 #define DEFAULT_SCORE_COMBO 70
+#define DEFAULT_RANDOMIZE_BALL 2
 
 Scene* Arcade::createScene(){
   auto scene = Scene::create();
@@ -38,6 +41,13 @@ bool Arcade::init(){
   setDelayRollBoard(DELAY_ROLL_BOARD);
   setDelayBeforeFall(DELAY_BEFORE_FALL);
   setDelayStopCombo(DELAY_STOP_COMBO);
+  setRandomizeBall(DEFAULT_RANDOMIZE_BALL);
+
+  //objetivos
+  setGoal(SCORE_WIN);
+  setScoreWin(400);
+  setComboWin(6);
+  _stop = false; _goto_menu = false;
   _snd_take = String("musica y sonidos/baja.ogg");
   _snd_drop = String("musica y sonidos/sube.ogg");
   _snd_collide = String("musica y sonidos/choca_perla.ogg");
@@ -52,17 +62,10 @@ bool Arcade::init(){
     _anim_exploit_sphere->addSpriteFrame(frame);
   }
   _anim_exploit_sphere->setDelayPerUnit(0.03);
-  //_anim_exploit_sphere->setLoops(1);
+
   _anim_exploit_sphere->setRestoreOriginalFrame(false);
   AnimationCache::getInstance()->addAnimation(_anim_exploit_sphere, "exploit_sphere");
-  /*auto cache = SpriteFrameCache::getInstance();
-  auto pjf_espera1 = SpriteFrame::create("personajes/espera1.png",Rect(0,0,85,128));
-  cache->addSpriteFrame(pjf_espera1, "indio_espera_1");
-  auto pjf_espera2 = SpriteFrame::create("personajes/espera2.png",Rect(0,0,87,128));
-  cache->addSpriteFrame(pjf_espera2, "indio_espera_2");
-  auto pjf_espera3 = SpriteFrame::create("personajes/espera3.png",Rect(0,0,87,128));
-  cache->addSpriteFrame(pjf_espera3, "indio_espera_3");
-  */
+
   background = Sprite::create("mapas/mapa_arcade.png");
   background->setPosition(Point(
 			visibleSize.width/2 + origin.x,
@@ -71,7 +74,8 @@ bool Arcade::init(){
 		  );
   this->addChild(background);
 
-
+  //iniciale el tablaro
+  //y el populador del tablero
   board = Board::create();
   Node* board_view = board->getView();
   this->addChild(board_view);
@@ -117,6 +121,7 @@ bool Arcade::init(){
   dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
   this->schedule(schedule_selector(Arcade::updateBoard), 1.0f);
 
+  CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
   PLAY_MUSIC("musica y sonidos/juego.ogg");
   _time_roll_board.initWithTarget(this, schedule_selector(Arcade::updateRollBoard));
   _time_roll_board.setInterval(getDelayRollBoard());
@@ -127,9 +132,30 @@ bool Arcade::init(){
 }
 
 void Arcade::updateBoard(float dt){
-  _time_roll_board.update(dt);
-  _time_combo.update(dt);
-  updateClock(dt);
+  switch(getGoal()){
+  case SCORE_WIN:
+    if(_score > getScoreWin()){
+      showWinner();
+      unlockNextLevel();
+    }
+    break;
+  case COMBO_WIN:
+    if(_combo_count > getComboWin()){
+      showWinner();
+      unlockNextLevel();
+    }
+    break;
+  default:
+    if(_time_over){
+      showLosser();
+    }
+  }
+
+  if(!_stop){
+    _time_roll_board.update(dt);
+    _time_combo.update(dt);
+    updateClock(dt);
+  }
 }
 
 
@@ -206,6 +232,8 @@ void Arcade::updateCombo(float dt){
 }
 
 bool Arcade::onTouchBegan(Touch* touch, Event* event){
+ if(_stop) return false;
+
   tap_begin = touch->getLocationInView();
   tap_begin.x -= board->offset().x;
   gestureUp = false; gestureDown = false;
@@ -402,12 +430,18 @@ void Arcade::onReachEndBoard(GroupSphere spheres){
   Director::getInstance()->end();
 }
 
+/**
+ *Incrementa el score y actualiza label
+ */
 void Arcade::addScore(int p){
   _score += p;
   _score_label->setString(String::createWithFormat("%04i", _score)->getCString());
 }
 
-
+/**
+ *Incrementa el tiempo
+ *cambia de color la letras para advertir
+ */
 void Arcade::addTime(int time){
   _time += time;
   if(_time >= getTimeStart())
@@ -423,9 +457,118 @@ void Arcade::addTime(int time){
 void Arcade::onKeyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event *event){
   if(keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE){
     std::cout << __FUNCTION__ << std::endl;
-    stopAllActions();
-    unscheduleAllSelectors();
-    removeFromParentAndCleanup(true);
-    Director::getInstance()->end();
+    gotoArcadeMenu();
+  
   }
+}
+
+
+void Arcade::showWinner(){
+  _stop = true;
+  stopAllActions();
+  unscheduleAllSelectors();
+  CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
+  PLAY_MUSIC("musica y sonidos/gana.ogg");
+
+  Sprite* win = Sprite::create("efectos/gana.png");
+  Point pos_win(visibleSize.width/2, visibleSize.height - win->getContentSize().height);
+  win->setPosition(pos_win);
+  win->runAction(RepeatForever::create(
+		 Sequence::create(
+				  Spawn::create(EaseInOut::create(RotateTo::create(1.2f, -30), 2),
+						EaseInOut::create(MoveTo::create(1.2f, pos_win), 2),
+						NULL
+						),
+				  Spawn::create(
+					      EaseInOut::create(RotateTo::create(1.2f, 30), 2),
+					      EaseInOut::create(MoveTo::create(1.2f, pos_win), 2),
+
+					      NULL),
+				NULL
+				  ))
+		 );
+  this->addChild(win, 999);
+  
+  Node* particle_win = Node::create();
+  const char* effects[] = {
+    "efectos/azul_lluvia.png",
+    "efectos/verde_lluvia.png",
+    "efectos/morado_lluvia.png",
+    "efectos/rojo_lluvia.png"
+  };
+  int particles = 50;
+  for(int ix = 0; ix < particles; ix++){
+    Sprite* sp = Sprite::create(effects[rand()%4]);
+    sp->retain();
+    particle_win->addChild(sp);
+    sp->setPosition(Point(visibleSize.width/2,
+			  visibleSize.height/2));
+    float dst_time = (float)(rand() % 8 + 3);
+    float dst_x_particle = rand() % (int)visibleSize.width;
+    float dst_y_particle = rand() % (int)visibleSize.height - visibleSize.height;
+    float dst_angle = (float)(rand() % 360);
+    float dst_rotate_time = (float)(rand() % 8 + 3);
+    Point dst(dst_x_particle, dst_y_particle);
+    sp->runAction(
+		  RepeatForever::create(
+					Sequence::create(
+							 FadeIn::create(0.0f),
+							 MoveTo::create(0.0f, Point(visibleSize.width/2,
+										    visibleSize.height/2)),
+							 Spawn::create(
+								       FadeOut::create(dst_time),
+								       EaseSineInOut::create(MoveTo::create(dst_time, dst)),
+								       RepeatForever::create(
+											     RotateTo::create(dst_rotate_time, dst_angle)
+											     ),
+								       NULL),
+
+							 NULL
+							 )
+					)
+		  );
+
+  }
+  this->addChild(particle_win);
+  
+  auto score_label = LabelTTF::create(String::createWithFormat("Score %d", _score)->getCString(),"ThonburiBold", 60);
+  score_label->setPosition(Point(visibleSize.width/2, visibleSize.height/2 - score_label->getContentSize().height));
+  this->addChild(score_label);
+  
+  auto time_label = LabelTTF::create(String::createWithFormat("Time%d", abs(getTimeStart() - getTime()) )->getCString(), "ThonburiBold", 60);
+  time_label->setPosition(Point(visibleSize.width/2, visibleSize.height/2 - score_label->getContentSize().height - time_label->getContentSize().height));
+  this->addChild(time_label);
+  //unlock next level
+  CCLOG("Winner LVL: %d", LevelManager::getInstance()->getCurrentLevel());
+  LevelManager::getInstance()->setLevelComplete(LevelManager::getInstance()->getCurrentLevel(),
+						true);
+  LevelManager::getInstance()->unlockNextLevel(LevelManager::getInstance()->getCurrentLevel());
+  _goto_menu = true;
+  auto a_menu = MenuItemImage::create(
+				      "botones/boton_gana.png",
+				      "botones/boton_gana_presionado.png",
+				      CC_CALLBACK_0(Arcade::gotoArcadeMenu, this)
+				      );
+  auto menu = Menu::create(a_menu,NULL);
+  menu->setPosition(Point(visibleSize.width/2,
+			  visibleSize.height/2 + a_menu->getContentSize().height/2));
+  this->addChild(menu);
+}
+
+void Arcade::showLosser(){
+}
+
+void Arcade::unlockNextLevel(){
+}
+
+
+void Arcade::gotoArcadeMenu(){
+  stopAllActions();
+  unscheduleAllSelectors();
+  removeFromParentAndCleanup(true);
+  Scene* newScene = TransitionFade::create(0.7, ArcadeMenu::createScene()); 
+  Director::sharedDirector()->replaceScene(newScene);
+}
+
+void Arcade::restartGame(){
 }

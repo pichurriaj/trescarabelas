@@ -11,6 +11,7 @@
 class ArcadeMenuLevel
 {
  public:
+  virtual bool complete() = 0;
   virtual cocos2d::Node* getView() = 0;
   virtual void touch(cocos2d::Point) = 0;
 };

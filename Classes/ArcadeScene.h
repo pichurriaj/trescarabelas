@@ -7,6 +7,16 @@
 #include "Board.h"
 #include "BoardPopulater.h"
 
+enum GoalArcade{
+  /**
+   *gana si llega al puntaje
+   */
+  SCORE_WIN,
+  /**
+   *gana si alcanza el combo esperado
+   */
+  COMBO_WIN
+};
 
 class Arcade : public cocos2d::Layer
 {
@@ -46,13 +56,31 @@ class Arcade : public cocos2d::Layer
   //en +segundos+ cuando se detiene el combo si no se han hecho mas
   CC_SYNTHESIZE(float, _delay_stop_combo, DelayStopCombo);
 
+  //indica la cantidad de esferas que se deben aletorizar
+  //el resto se repite la misma
+  CC_SYNTHESIZE(int, _randomize_ball, RandomizeBall);
+
+
   //tiempo de duracion del juego
   CC_SYNTHESIZE(int, _time, Time);
   CC_SYNTHESIZE(int, _time_start, TimeStart);
   CC_SYNTHESIZE(int, _score_inc_combo, ScoreCombo);
   CC_SYNTHESIZE(int, _score_match, ScoreMatch);
 
+  //objetivos
+  CC_SYNTHESIZE(GoalArcade, _goal, Goal);
+  CC_SYNTHESIZE(int, _score_win, ScoreWin);
+  CC_SYNTHESIZE(int, _combo_win, ComboWin);
  private:
+  void unlockNextLevel();
+  void showWinner();
+  void showLosser();
+  void gotoArcadeMenu();
+  void restartGame();
+
+  bool _stop;
+  bool _goto_menu;
+
   cocos2d::Timer _time_roll_board;
   /*@todo Pasar a Objeto??*/
   cocos2d::Timer _time_combo;

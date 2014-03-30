@@ -1,5 +1,7 @@
 #include "ArcadeMenuScene.h"
 #include "ArcadeMenu/EasyMenu.h"
+#include "MenuScene.h"
+#include "SimpleAudioEngine.h"
 USING_NS_CC;
 
 Scene* ArcadeMenu::createScene(){
@@ -11,6 +13,8 @@ Scene* ArcadeMenu::createScene(){
 
 bool ArcadeMenu::init(){
   if(!Layer::init()) return false;
+  CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic(true);
+
   level_selected = 0;  level = NULL;
   view_level = Node::create();
   visibleSize = Director::getInstance()->getVisibleSize();
@@ -21,13 +25,20 @@ bool ArcadeMenu::init(){
 				visibleSize.width/2 + origin.x,
 				visibleSize.height/2 + origin.y
 				));
-  addLevel(EasyMenu::create());
+  auto easy = EasyMenu::create(this);
+  addLevel(EasyMenu::create(this));
+
+  if(easy->complete()){
+    level_selected += 1;
+  }
+
   selectLevel(level_selected);
 
   return true;
 }
 
 bool ArcadeMenu::onTouchBegan(Touch* touch, Event* event){
+  return false;
 }
 
 void ArcadeMenu::onTouchEnded(Touch* touch, Event* event){
@@ -44,4 +55,15 @@ void ArcadeMenu::selectLevel(unsigned int pos){
   
   level = levels[pos];
   view_level->addChild(level->getView());
+}
+
+void ArcadeMenu::onKeyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event *event){
+  if(keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE){
+    std::cout << __FUNCTION__ << std::endl;
+    stopAllActions();
+    unscheduleAllSelectors();
+    removeFromParentAndCleanup(true);
+    Scene* newScene = TransitionFade::create(0.7, MenuPrincipal::createScene()); 
+    Director::getInstance()->replaceScene(newScene);
+  }
 }

@@ -54,6 +54,7 @@ set(GAME_SRC
   Classes/ArcadeMenuScene.cpp
   Classes/ArcadeMenu/EasyMenu.cpp
   Classes/Indian.cpp
+  Classes/LevelManager.cpp
 )
 
 set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/../..)
