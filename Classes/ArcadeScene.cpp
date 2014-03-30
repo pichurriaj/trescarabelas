@@ -138,7 +138,7 @@ bool Arcade::init(){
 void Arcade::updateBoard(float dt){
   switch(getGoal()){
   case SCORE_WIN:
-    if(_score > getScoreWin()){
+    if(_score > getScoreLowWin()){
       showWinner();
       unlockNextLevel();
     }

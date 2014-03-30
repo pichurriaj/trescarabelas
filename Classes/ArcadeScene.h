@@ -68,9 +68,12 @@ class Arcade : public cocos2d::Layer
   CC_SYNTHESIZE(int, _score_inc_combo, ScoreCombo);
   CC_SYNTHESIZE(int, _score_match, ScoreMatch);
   CC_SYNTHESIZE(int, _rows_start, RowsStart);
+  
   //objetivos
   CC_SYNTHESIZE(GoalArcade, _goal, Goal);
   CC_SYNTHESIZE(int, _score_win, ScoreWin);
+  CC_SYNTHESIZE(int, _score_low_win, ScoreLowWin);
+  CC_SYNTHESIZE(int, _score_high_win, ScoreHighWin);
   CC_SYNTHESIZE(int, _combo_win, ComboWin);
  private:
   void unlockNextLevel();
