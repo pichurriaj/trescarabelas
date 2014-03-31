@@ -102,7 +102,7 @@ bool Arcade::init(){
   this->addChild(player_view);
   player->jumpTo(3);
 
-  _score_label = LabelTTF::create("0000","ThonburiBold", 60);
+  _score_label = LabelTTF::create("0000","default", 60);
 
   this->addChild(_score_label, 99999);
   _score_label->setPosition(Point(origin.x + _score_label->getContentSize().width,
@@ -111,7 +111,7 @@ bool Arcade::init(){
   //variables de juego
   setTimeStart(DEFAULT_TIME_START);
   _time = getTimeStart();
-  _clock_label = LabelTTF::create(String::createWithFormat("%02i", _time)->getCString(), "ThonburiBold", 60);
+  _clock_label = LabelTTF::create(String::createWithFormat("%02i", _time)->getCString(), "default", 60);
   this->addChild(_clock_label, 99999);
   _clock_label->setPosition(Point(visibleSize.width/2 + origin.x,
 				  visibleSize.height + origin.y - _clock_label->getContentSize().height/3));
@@ -215,7 +215,7 @@ void Arcade::updateCombo(float dt){
     //_combo_count cantidad de combos hasta ahora
     std::cout << __FUNCTION__ << "combos:" << _combo_count << std::endl;
     LabelTTF* combo_label = LabelTTF::create(String::createWithFormat("%d Combo", _combo_count)->getCString(),
-					     "Serif", 80);
+					     "default", 80);
     combo_label->runAction(Sequence::create(
 					    FadeOut::create(getDelayStopCombo()),
 					    RemoveSelf::create(),
@@ -540,7 +540,7 @@ void Arcade::showWinner(){
   }
   this->addChild(particle_win);
   
-  auto score_label = LabelTTF::create(String::createWithFormat("Score %d", _score)->getCString(),"ThonburiBold", 60);
+  auto score_label = LabelTTF::create(String::createWithFormat("Score %d", _score)->getCString(),"default", 60);
   score_label->setPosition(Point(visibleSize.width/2, visibleSize.height/2 - score_label->getContentSize().height));
   this->addChild(score_label);
   
