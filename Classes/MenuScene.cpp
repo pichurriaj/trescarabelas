@@ -2,6 +2,7 @@
 #include "Effects.h"
 #include "SimpleAudioEngine.h"
 #include "ArcadeScene.h"
+#include "ArcadeMenuScene.h"
 
 USING_NS_CC;
 
@@ -200,7 +201,7 @@ void MenuPrincipal::toPlayMenu(){
   stopAllActions();
   unscheduleAllSelectors();
   removeFromParentAndCleanup(true);
-  Scene* newScene = TransitionFade::create(0.7, Arcade::createScene()); 
+  Scene* newScene = TransitionFade::create(0.7, ArcadeMenu::createScene()); 
   Director::sharedDirector()->replaceScene(newScene);
 }
 

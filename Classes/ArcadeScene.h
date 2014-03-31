@@ -47,6 +47,9 @@ class Arcade : public cocos2d::Layer
 
   void addScore(int);
   void addTime(int);
+
+  void changeBackground(const char*);
+
   //propiedades usadas especialmente para la dificultad
   //en +segundos+ lo que se demora una esfera en caer
   CC_SYNTHESIZE(float, _delay_before_fall, DelayBeforeFall);

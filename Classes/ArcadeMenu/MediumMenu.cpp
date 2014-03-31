@@ -183,6 +183,8 @@ void MediumMenu::playArcade(int lvl){
   arcade->setScoreHighWin(goals[lvl].score_high_win);
   arcade->setDelayStopCombo(1.7f);
 
+  if(getBackground())
+    arcade->changeBackground(getBackground());
   _scene->stopAllActions();
   _scene->unscheduleAllSelectors();
   _scene->removeFromParentAndCleanup(true);
@@ -205,4 +207,8 @@ bool MediumMenu::complete(){
     }
   }
   return true;
+}
+
+const char* MediumMenu::getBackground(){
+  return "mapas/mapa2.png";
 }

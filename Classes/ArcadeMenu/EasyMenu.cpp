@@ -28,6 +28,7 @@ EasyMenu::EasyMenu(ArcadeMenu* scene): _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIG
   LevelManager::getInstance()->setCurrentStage("easy_arcade");
   LevelManager::getInstance()->setMaxLevel(30);
   LevelManager::getInstance()->setLevelLock(1,false);
+  LevelManager::getInstance()->setLevelComplete(30,true);
   int lvl = 0;
   for(int row = 6; row > 0; row--){
     for(int col = 0; col < 5; col++){
@@ -169,6 +170,8 @@ void EasyMenu::playArcade(int lvl){
   };
   for(int c=goals[lvl].extra_rows; c > 0; c--)
     arcade->populateRow();
+  if(getBackground())
+    arcade->changeBackground(getBackground());
   arcade->setDelayRollBoard(goals[lvl].delay_roll_board);
   arcade->setRandomizeBall(goals[lvl].randomize_ball);
   arcade->setScoreWin(goals[lvl].score_win );
@@ -185,6 +188,7 @@ void EasyMenu::playArcade(int lvl){
 
 
 bool EasyMenu::complete(){
+
    int lvl = 0;
   for(int row = 6; row > 0; row--){
     for(int col = 0; col < 5; col++){
@@ -195,4 +199,9 @@ bool EasyMenu::complete(){
     }
   }
   return true;
+}
+
+
+const char* EasyMenu::getBackground(){
+  return NULL;
 }

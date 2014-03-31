@@ -75,8 +75,11 @@ bool Arcade::init(){
 			visibleSize.height/2 + origin.y
 			)
 		  );
-  this->addChild(background);
-
+  this->addChild(background, -10);
+  auto border = Sprite::create("efectos/barraArriba.png");
+  border->setPosition(Point(visibleSize.width/2 + origin.x,
+			    visibleSize.height - border->getContentSize().height/4 + origin.y));
+  this->addChild(border, 9999);
   //iniciale el tablaro
   //y el populador del tablero
   board = Board::create();
@@ -101,7 +104,7 @@ bool Arcade::init(){
 
   _score_label = LabelTTF::create("0000","ThonburiBold", 60);
 
-  this->addChild(_score_label, 999);
+  this->addChild(_score_label, 99999);
   _score_label->setPosition(Point(origin.x + _score_label->getContentSize().width,
 				  origin.y + visibleSize.height - _score_label->getContentSize().height/2));
 
@@ -109,9 +112,9 @@ bool Arcade::init(){
   setTimeStart(DEFAULT_TIME_START);
   _time = getTimeStart();
   _clock_label = LabelTTF::create(String::createWithFormat("%02i", _time)->getCString(), "ThonburiBold", 60);
-  this->addChild(_clock_label, 999);
+  this->addChild(_clock_label, 99999);
   _clock_label->setPosition(Point(visibleSize.width/2 + origin.x,
-				  visibleSize.height + origin.y - _clock_label->getContentSize().height/2));
+				  visibleSize.height + origin.y - _clock_label->getContentSize().height/3));
   _time_over = false;
   _score = 0;
   setScoreCombo(DEFAULT_SCORE_COMBO);
@@ -650,4 +653,11 @@ void Arcade::restartGame(){
 
 void Arcade::populateRow(){
   board_populater->populate_first_row();
+}
+
+void Arcade::changeBackground(const char *path){
+  this->removeChild(background);
+  background = Sprite::create(path);
+  background->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
+  this->addChild(background, -10);
 }

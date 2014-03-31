@@ -30,15 +30,19 @@ bool ArcadeMenu::init(){
 				));
   auto easy = EasyMenu::create(this);
   auto medium = MediumMenu::create(this);
-  auto endgame = EndGameMenu::create(this);
+
   addLevel(easy);
   addLevel(medium);
-  addLevel(endgame);
+
   if(easy->complete()){
     level_selected += 1;
   }
   if(medium->complete()){
     level_selected += 1;
+  }
+  if(easy->complete() && medium->complete()){
+    auto endgame = EndGameMenu::create(this);
+    addLevel(endgame);
   }
   if(level_selected <= 0) level_selected  = 0;
   if(level_selected >= levels.size() - 1) level_selected = levels.size() - 1;

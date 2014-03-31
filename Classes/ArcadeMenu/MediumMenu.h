@@ -15,6 +15,7 @@ class MediumMenu :  public cocos2d::Object, public ArcadeMenuLevel
 
   virtual cocos2d::Node* getView();
   virtual void touch(cocos2d::Point);
+  virtual const char *getBackground();
   void choiceLevel(cocos2d::Object*);
   bool complete();
  private:
