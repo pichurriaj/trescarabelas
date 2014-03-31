@@ -28,7 +28,6 @@ EasyMenu::EasyMenu(ArcadeMenu* scene): _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIG
   LevelManager::getInstance()->setCurrentStage("easy_arcade");
   LevelManager::getInstance()->setMaxLevel(30);
   LevelManager::getInstance()->setLevelLock(1,false);
-  LevelManager::getInstance()->setLevelComplete(30,true);
   int lvl = 0;
   for(int row = 6; row > 0; row--){
     for(int col = 0; col < 5; col++){
