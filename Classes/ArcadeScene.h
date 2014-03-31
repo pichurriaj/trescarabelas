@@ -29,7 +29,8 @@ class Arcade : public cocos2d::Layer
   void updateRollBoard(float);
   void updateCombo(float);
   void updateClock(float);
-
+  void updateTutorial(float);
+  
   virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
   virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
   virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
@@ -113,6 +114,11 @@ class Arcade : public cocos2d::Layer
   cocos2d::String _snd_take;
   cocos2d::String _snd_drop;
   cocos2d::String _snd_collide;
+
+  //tutorial
+  cocos2d::Sprite* help_down;
+  cocos2d::Sprite* help_up;
+  cocos2d::Sprite* help_now;
 };
 
 #endif

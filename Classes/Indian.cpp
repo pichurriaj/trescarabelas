@@ -109,6 +109,10 @@ void Indian::animateTake(){
 		   );
 }
 
+unsigned int Indian::countOnBag(){
+  return _hold_bag.size();
+}
+
 void Indian::animateDrop(){
 
   _view->runAction(Animate::create(_anim_drop));

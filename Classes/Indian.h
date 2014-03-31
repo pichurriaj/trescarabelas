@@ -22,6 +22,7 @@ class Indian :  public cocos2d::Object
    */
   bool takeSphere(Sphere** sphere);
   GroupSphere getBag();
+  unsigned int countOnBag();
   SphereType typeOnBag();
   /*Animaciones*/
   void animateStand();

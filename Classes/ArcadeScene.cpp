@@ -123,6 +123,11 @@ bool Arcade::init(){
   _time_combo.initWithTarget(this, schedule_selector(Arcade::updateCombo));
   _time_combo.setInterval(0.5f);
   _in_combo = false; _time_elapsed_combo = 0;
+
+  //tutorial
+  help_down = Sprite::create("tutorial/1paso.png"); help_down->retain();
+  help_up = Sprite::create("tutorial/2paso.png"); help_up->retain();
+  help_now = NULL;
   return true;
 }
 
@@ -146,9 +151,30 @@ void Arcade::updateBoard(float dt){
   _time_roll_board.update(dt);
   _time_combo.update(dt);
   updateClock(dt);
-
+  updateTutorial(dt);
 }
 
+void Arcade::updateTutorial(float dt){
+  if(LevelManager::getInstance()->getCurrentLevel() != 1) return;
+
+  if(help_now){
+    this->removeChild(help_now);
+    help_now = NULL;
+  }
+
+  if(player->countOnBag() >= 3){
+    help_now = help_up;
+  }else{
+    help_now = help_down;
+  }
+  if(help_now){
+    help_now->retain();
+    this->addChild(help_now,9999);
+    Point pos = player->getView()->getPosition();
+    pos.y += help_now->getContentSize().height;
+    help_now->setPosition(pos);
+  }
+}
 
 void Arcade::updateClock(float dt){
   _time --;
