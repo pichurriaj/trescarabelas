@@ -193,6 +193,7 @@ void MediumMenu::playArcade(int lvl){
 
 
 bool MediumMenu::complete(){
+  return true;
   int lvl = 0;
   LevelManager::getInstance()->setCurrentStage("medium_arcade");
   LevelManager::getInstance()->setMaxLevel(30);

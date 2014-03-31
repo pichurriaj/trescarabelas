@@ -1,6 +1,7 @@
 #include "ArcadeMenuScene.h"
 #include "ArcadeMenu/EasyMenu.h"
 #include "ArcadeMenu/MediumMenu.h"
+#include "ArcadeMenu/EndGameMenu.h"
 #include "MenuScene.h"
 #include "SimpleAudioEngine.h"
 USING_NS_CC;
@@ -29,11 +30,18 @@ bool ArcadeMenu::init(){
 				));
   auto easy = EasyMenu::create(this);
   auto medium = MediumMenu::create(this);
+  auto endgame = EndGameMenu::create(this);
   addLevel(easy);
   addLevel(medium);
+  addLevel(endgame);
   if(easy->complete()){
     level_selected += 1;
   }
+  if(medium->complete()){
+    level_selected += 1;
+  }
+  if(level_selected <= 0) level_selected  = 0;
+  if(level_selected >= levels.size() - 1) level_selected = levels.size() - 1;
 
   selectLevel(level_selected);
   auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -54,18 +62,18 @@ void ArcadeMenu::onTouchEnded(Touch* touch, Event* event){
   Point tap_end = touch->getLocationInView();
   CCLOG("tap_begin.x:%d, tap_end.x:%d",tap_begin.x, tap_end.x);
   bool new_level = false;
-  if(tap_begin.x - tap_end.x < 100){
-    level_selected -= 1;
-    new_level = true;
-  }else if(tap_begin.x - tap_end.x > 100){
-    level_selected += 1;
-    new_level = true;
-  }
+  if (tap_begin.x - tap_end.x < 100 && level_selected >= 0){
+      level_selected -= 1;
+      new_level = true;
+    }else if(tap_begin.x - tap_end.x > 100){
+      level_selected += 1;
+      new_level = true;
+    }
 
 
-  if(level_selected <= 0) level_selected = 0;
-  if(level_selected >= levels.size()) level_selected = levels.size() - 1;
-  CCLOG("===LEVEL SELECTED:%d", level_selected);
+    if(level_selected <= 0) level_selected  = 0;
+    if(level_selected >= levels.size() - 1) level_selected = levels.size() - 1;
+
   if(new_level)
     selectLevel(level_selected);
 }
@@ -75,8 +83,11 @@ void ArcadeMenu::addLevel(ArcadeMenuLevel* _level){
 }
 
 void ArcadeMenu::selectLevel(unsigned int pos){
-  if(pos > levels.size() - 1) return;
-
+ 
+  if(pos <= 0) pos = 0;
+  if(pos >= levels.size() - 1) pos = levels.size() - 1;
+  CCLOG("===SELECTING LEVEL %d", pos);
+  if(level == levels[pos]) return;
   if(level){
     view_level->removeChild(level->getView());
     level = NULL;

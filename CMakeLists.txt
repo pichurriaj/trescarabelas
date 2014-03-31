@@ -54,6 +54,7 @@ set(GAME_SRC
   Classes/ArcadeMenuScene.cpp
   Classes/ArcadeMenu/EasyMenu.cpp
   Classes/ArcadeMenu/MediumMenu.cpp
+  Classes/ArcadeMenu/EndGameMenu.cpp
   Classes/Indian.cpp
   Classes/LevelManager.cpp
 )
