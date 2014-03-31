@@ -497,6 +497,30 @@ Classes/PointGrid.cpp.s:
 	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/PointGrid.cpp.s
 .PHONY : Classes/PointGrid.cpp.s
 
+Classes/PresentationScene.o: Classes/PresentationScene.cpp.o
+.PHONY : Classes/PresentationScene.o
+
+# target to build an object file
+Classes/PresentationScene.cpp.o:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/PresentationScene.cpp.o
+.PHONY : Classes/PresentationScene.cpp.o
+
+Classes/PresentationScene.i: Classes/PresentationScene.cpp.i
+.PHONY : Classes/PresentationScene.i
+
+# target to preprocess a source file
+Classes/PresentationScene.cpp.i:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/PresentationScene.cpp.i
+.PHONY : Classes/PresentationScene.cpp.i
+
+Classes/PresentationScene.s: Classes/PresentationScene.cpp.s
+.PHONY : Classes/PresentationScene.s
+
+# target to generate assembly for a file
+Classes/PresentationScene.cpp.s:
+	$(MAKE) -f CMakeFiles/trescarabelas.dir/build.make CMakeFiles/trescarabelas.dir/Classes/PresentationScene.cpp.s
+.PHONY : Classes/PresentationScene.cpp.s
+
 Classes/Sphere.o: Classes/Sphere.cpp.o
 .PHONY : Classes/Sphere.o
 
@@ -601,6 +625,9 @@ help:
 	@echo "... Classes/PointGrid.o"
 	@echo "... Classes/PointGrid.i"
 	@echo "... Classes/PointGrid.s"
+	@echo "... Classes/PresentationScene.o"
+	@echo "... Classes/PresentationScene.i"
+	@echo "... Classes/PresentationScene.s"
 	@echo "... Classes/Sphere.o"
 	@echo "... Classes/Sphere.i"
 	@echo "... Classes/Sphere.s"
