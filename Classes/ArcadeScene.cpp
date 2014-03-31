@@ -166,6 +166,7 @@ void Arcade::updateClock(float dt){
   _clock_label->setFontFillColor(Color3B(255,255,0));
 
   if(_time < 0 && !_in_combo){
+    _time = 0;
     showLosser();
     _time_over = true;
   }else if(_time < getTimeStart() * 0.20){
