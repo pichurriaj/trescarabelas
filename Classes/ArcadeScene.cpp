@@ -647,7 +647,7 @@ void Arcade::restartGame(){
   stopAllActions();
   unscheduleAllSelectors();
   removeFromParentAndCleanup(true);
-  Scene* newScene = TransitionFade::create(0.7, Arcade::createScene()); 
+  Scene* newScene = TransitionFade::create(0.7, ArcadeMenu::createScene()); 
   Director::sharedDirector()->replaceScene(newScene);
 }
 
