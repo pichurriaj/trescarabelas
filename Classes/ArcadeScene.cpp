@@ -55,21 +55,9 @@ bool Arcade::init(){
   
   //set key
   this->setKeypadEnabled(true);
-  //initialize images
-  Animation *_anim_exploit_sphere = Animation::create();
-  for(int i = 1; i <= 4; i++){
-    String *file = String::createWithFormat("efectos/eliminacion%d.png", i);
-    String *name = String::createWithFormat("eliminacion%d.png", i);
-    SpriteFrame *frame = SpriteFrame::create(file->getCString(), Rect(0, 0, 64, 64));
-    SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFrame(frame, name->getCString());
-    _anim_exploit_sphere->addSpriteFrame(frame);
-  }
-  _anim_exploit_sphere->setDelayPerUnit(0.03);
 
-  _anim_exploit_sphere->setRestoreOriginalFrame(false);
-  AnimationCache::getInstance()->addAnimation(_anim_exploit_sphere, "exploit_sphere");
 
-  background = Sprite::create("mapas/mapa_arcade.png");
+  background = Sprite::create("mapas/mapa1.png");
   background->setPosition(Point(
 			visibleSize.width/2 + origin.x,
 			visibleSize.height/2 + origin.y
