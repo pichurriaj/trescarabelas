@@ -130,7 +130,7 @@ bool Arcade::init(){
   _time_roll_board.initWithTarget(this, schedule_selector(Arcade::updateRollBoard));
   _time_roll_board.setInterval(getDelayRollBoard());
   _time_combo.initWithTarget(this, schedule_selector(Arcade::updateCombo));
-  _time_combo.setInterval(1.0f);
+  _time_combo.setInterval(0.5f);
   _in_combo = false; _time_elapsed_combo = 0;
   return true;
 }
@@ -165,7 +165,7 @@ void Arcade::updateClock(float dt){
   _clock_label->setString(value->getCString());
   _clock_label->setFontFillColor(Color3B(255,255,0));
 
-  if(_time < 0){
+  if(_time < 0 && !_in_combo){
     showLosser();
     _time_over = true;
   }else if(_time < getTimeStart() * 0.20){
