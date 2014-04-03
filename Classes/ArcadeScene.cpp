@@ -133,13 +133,13 @@ bool Arcade::init(){
 
 void Arcade::updateBoard(float dt){
   if(_stop) return;
-  if(!_in_combo){
+  if(!_in_combo && _time > 0){
     switch(getGoal()){
     case SCORE_WIN:
       if(_score > getScoreLowWin()){
 	unlockNextLevel();
 	showWinner();
-
+	return;
       }
       break;
     case COMBO_WIN:
@@ -185,7 +185,6 @@ void Arcade::updateClock(float dt){
   _clock_label->setFontFillColor(Color3B(255,255,0));
 
   if(_time < 0 && !_in_combo){
-    _time = 0;
     showLosser();
     _time_over = true;
   }else if(_time < getTimeStart() * 0.20){
@@ -385,6 +384,8 @@ void Arcade::onFallSphere(Sphere* sphere, PointGrid sphere_next_pos){
   sphere->retain();
   PointGrid* send_new_pos = new PointGrid(sphere_next_pos.x, sphere_next_pos.y);
   sphere->setUserData(send_new_pos);
+  sphere->retain();
+  board->retain();
   MessageBoardSphere* send = new MessageBoardSphere(board, sphere);
   view->setUserData(send);
   view->retain();
