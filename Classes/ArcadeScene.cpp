@@ -132,12 +132,14 @@ bool Arcade::init(){
 }
 
 void Arcade::updateBoard(float dt){
+  if(_stop) return;
   if(!_in_combo){
     switch(getGoal()){
     case SCORE_WIN:
       if(_score > getScoreLowWin()){
-	showWinner();
 	unlockNextLevel();
+	showWinner();
+
       }
       break;
     case COMBO_WIN:
@@ -392,9 +394,12 @@ void Arcade::onFallSphere(Sphere* sphere, PointGrid sphere_next_pos){
 						     [](Node* node){
 						       if(!node) return;
 						       MessageBoardSphere* recv = static_cast<MessageBoardSphere*>(node->getUserData());
+						       if(!recv) return;
 						       PointGrid *new_pos = static_cast<PointGrid*>(recv->getSphere()->getUserData());
+						       if(!new_pos) return;
 						       recv->getSphere()->setPosition(*new_pos);
 						       recv->getBoard()->updateMatch(recv->getSphere()->getPosition());
+						       delete new_pos;
 						       delete recv;
 						     }
 						     ),
@@ -633,7 +638,7 @@ void Arcade::showLosser(){
   Point pos_win(visibleSize.width/2, visibleSize.height - win->getContentSize().height);
   win->setPosition(pos_win);
   this->addChild(win);
-
+  _goto_menu = true;
   auto a_menu = MenuItemImage::create(
 				      "botones/boton_pierde.png",
 				      "botones/boton_pierde_presionado.png",

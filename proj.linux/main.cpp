@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     AppDelegate app;
     EGLView eglView;
     //eglView.init("trescarables", 384,640);
-    eglView.init("trescarables", 420,640);
+    eglView.init("trescarables", 360,640);
     Application::getInstance()->setAnimationInterval(1.0f/60.0f);
     if(argc ==  2) {
       if(!strcmp(argv[1],"-t")){
