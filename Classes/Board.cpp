@@ -1,7 +1,6 @@
 #include "Board.h"
 #include "Game.h"
 #include <algorithm>
-#include <atomic>
 
 USING_NS_CC;
 
@@ -217,7 +216,8 @@ void Board::roll(GroupSphere spheres) {
     }
     col += 1;
   }
-  
+  _match_unlock();
+
   for(auto &func: onAttachRoll) {
     func(spheres);
   }
@@ -230,7 +230,7 @@ void Board::roll(GroupSphere spheres) {
     }
   }
 
-  _match_unlock();
+
 }
 
 
@@ -265,7 +265,8 @@ GroupSphere Board::_match_right(PointGrid start){
     std::cout << "Match::PosMatch:Right " << pos_right_match.x << "," << row  << "Type:" << sphere_to_match_right->getType() << std::endl;
     GroupSphere spheres_right = this->_match_right(pos_right_match);
     for(auto it = spheres_right.begin(); it != spheres_right.end(); it++){
-      spheres.push_back((*it));
+      if((*it))
+	spheres.push_back((*it));
     }
   }
   return spheres;
@@ -298,7 +299,8 @@ GroupSphere Board::_match_left(PointGrid start){
     std::cout << "Match::PosMatch:Left " << pos_left_match.x << "," << row  << "Type:" << sphere_to_match_left->getType() << std::endl;
     GroupSphere spheres_left = this->_match_left(pos_left_match);
     for(auto it = spheres_left.begin(); it != spheres_left.end(); it++){
-      spheres.push_back((*it));
+      if((*it))
+	spheres.push_back((*it));
     }
   }
   return spheres;
@@ -345,12 +347,14 @@ GroupSphere Board::_match(PointGrid start) {
 
       GroupSphere spheres_right = _match_right(PointGrid(start.x, row));
       for(auto it = spheres_right.begin(); it != spheres_right.end(); it++){
-	spheres.push_back((*it));
+	if((*it))
+	  spheres.push_back((*it));
       }
       //por izquierda
       GroupSphere spheres_left = _match_left(PointGrid(start.x, row));
       for(auto it = spheres_left.begin(); it != spheres_left.end(); it++){
-	spheres.push_back((*it));
+	if((*it))
+	  spheres.push_back((*it));
       }
     }
   }
@@ -414,19 +418,19 @@ void Board::fallSpheres(std::function<void(Sphere*,PointGrid)> logic){
 
     }
   }
-  
+  _match_unlock();
+
   for(auto ifunc = onAttachFall.begin(); ifunc != onAttachFall.end(); ifunc++){
     (*ifunc)(spheres_fall, spheres_fall_old_pos, spheres_fall_new_pos);
   }
+  std::cout << "FallingSphere::End" << std::endl;
 
-  _match_unlock();
 }
 
 
 void Board::_match_lock() {
-  long long tick = 0;
-  while(_match_locker == true && tick < 9999999L)
-    tick++; //spin
+  while(_match_locker == true)
+    ; //spin
   _match_locker = true;
 }
 
