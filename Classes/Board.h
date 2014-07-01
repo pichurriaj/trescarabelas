@@ -7,6 +7,8 @@
 #include "Sphere.h"
 #include "BoardPopulater.h"
 #include <vector>
+#include <atomic>
+
 
 /**
  *Estados del tablero, para animacion
@@ -95,7 +97,12 @@ class Board : public cocos2d::Object
     return cocos2d::Point(_node->getPosition().x - _node->getContentSize().width/2, 0);
   }
  private:
-
+  /**
+   *intento de sincronizacion
+   */
+  bool  _match_locker;
+  void _match_lock();
+  void _match_unlock();
 
   /**
    *Retorna grupo de esfera que compaginaron..

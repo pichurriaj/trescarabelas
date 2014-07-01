@@ -1,6 +1,7 @@
 #include "Board.h"
 #include "Game.h"
 #include <algorithm>
+#include <atomic>
 
 USING_NS_CC;
 
@@ -10,6 +11,8 @@ Board::Board() : _grid(SCREEN_WIDTH/GRID_SIZE, SCREEN_HEIGHT/GRID_SIZE)  {
   _grid.setRows(_node->getContentSize().height/GRID_SIZE + 1);
   _populater = NULL;
   _grid.setEmpty(NULL);
+
+  _match_locker = false;
 }
 
 Board* Board::create() {
@@ -109,7 +112,9 @@ GroupSphere Board::dropSphere(int col, SphereType sphere_type) {
 
 void Board::takeSphere(int col, GroupSphere& spheres) {
   populateCol(col, spheres);
+  _match_lock();
   _match(PointGrid(col,_grid.getRows()));
+  _match_unlock();
 }
 
 void Board::populateCol(int col, GroupSphere& spheres) {
@@ -171,6 +176,8 @@ void Board::updateView() {
 void Board::roll(GroupSphere spheres) {
   int col = 0;
   GroupSphere spheres_end_board;
+
+  _match_lock();
   spheres_end_board.clear();
   for(auto &sphere: spheres) {
 
@@ -222,11 +229,15 @@ void Board::roll(GroupSphere spheres) {
       func(spheres_end_board);
     }
   }
+
+  _match_unlock();
 }
 
 
 void Board::updateMatch(PointGrid start){
+  _match_lock();
   _match(start);
+  _match_unlock();
 }
 
 GroupSphere Board::_match_right(PointGrid start){
@@ -296,14 +307,16 @@ GroupSphere Board::_match_left(PointGrid start){
 
 GroupSphere Board::_match(PointGrid start) {
   GroupSphere spheres;
+
+
   spheres.clear();
-  if(start.x < 0) return spheres;
-  if(start.y < 0) return spheres;
+  if(start.x < 0) { return spheres; }
+  if(start.y < 0) { return spheres; }
 
   Sphere* start_sphere = _grid.getPop(start.x);
   unsigned int start_count_match = 0;
-  if(_grid.Empty(start_sphere)) return spheres;
-  if(_grid.getLastRow(start.x) == 0) return spheres;
+  if(_grid.Empty(start_sphere)) { return spheres; }
+  if(_grid.getLastRow(start.x) == 0) { return spheres; }
   std::cout << "Match::PoinTStart:" << start.x << " LastRow:" << _grid.getLastRow(start.x) << std::endl;
   std::cout << "Match::StartSphereType:" << start_sphere->getType() << std::endl;
 
@@ -313,7 +326,7 @@ GroupSphere Board::_match(PointGrid start) {
     spheres.push_back(start_sphere);
     //vertical
     int last_row = _grid.getLastRow(start.x);
-    if(last_row <= 0) return spheres;
+    if(last_row <= 0) { return spheres; }
     for(int row=last_row; row >= 0; row--){
       PointGrid pos_match(start.x, row);
 
@@ -349,6 +362,7 @@ GroupSphere Board::_match(PointGrid start) {
   for(auto it = onAttachMatch.begin(); it != onAttachMatch.end(); it++){
     (*it)(spheres, start_count_match);
   }
+
   return spheres;
 }
 
@@ -358,6 +372,8 @@ void Board::fallSpheres(std::function<void(Sphere*,PointGrid)> logic){
   GroupSphere spheres_fall;
   std::vector<PointGrid> spheres_fall_old_pos;
   std::vector<PointGrid> spheres_fall_new_pos;
+
+  _match_lock();
 
   //esto correge error de mal cambio de columna 0 a 11
   //imprevistamente
@@ -403,5 +419,17 @@ void Board::fallSpheres(std::function<void(Sphere*,PointGrid)> logic){
     (*ifunc)(spheres_fall, spheres_fall_old_pos, spheres_fall_new_pos);
   }
 
+  _match_unlock();
+}
 
+
+void Board::_match_lock() {
+  long long tick = 0;
+  while(_match_locker == true && tick < 9999999L)
+    tick++; //spin
+  _match_locker = true;
+}
+
+void Board::_match_unlock() {
+  _match_locker = false;
 }
