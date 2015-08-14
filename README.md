@@ -62,3 +62,4 @@ Cristal: 64X64
 Pantalla juego (negro, transparente):
  Margen: 32 laterales, 64 arriba, 128
  Padding: 0
+=======
